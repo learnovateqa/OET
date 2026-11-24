@@ -913,6 +913,9 @@ input.gap.no,.mk-sel.no{border-color:var(--bad);background:color-mix(in srgb,var
 .rpanes .mk-left{padding:14px;max-height:74vh;overflow:auto}.rpanes .mk-text{display:flex;flex-direction:column;gap:12px}
 @media (min-width:900px){.rpanes{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}}
 .transcript summary{cursor:pointer}
+.gradechip{display:inline-grid;place-items:center;min-width:34px;height:28px;padding:0 8px;border-radius:8px;font-weight:800;background:var(--surface-2)}
+.gradechip.gA,.gradechip.gB{background:var(--hub-soft);color:var(--hub)}.gradechip.gCp,.gradechip.gC{background:var(--peach);color:var(--warn)}.gradechip.gD,.gradechip.gE{background:var(--live-soft);color:var(--bad)}
+.mk-nav{gap:6px}
 </style>
 </head>
 <body>
@@ -936,6 +939,10 @@ input.gap.no,.mk-sel.no{border-color:var(--bad);background:color-mix(in srgb,var
 <footer><div class="wrap"><p class="foot1">© 2026 Elevate with Ms. Maria · Learnovate Qatar · <a href="#teacher">Teacher portal</a> · <a href="https://learnovateqa.github.io/the-english-academy/dictionary/" target="_blank" rel="noopener">📖 Dictionary & Thesaurus</a> · <a href="https://learnovateqa.github.io/the-english-academy/guide/" target="_blank" rel="noopener">❓ How to use</a></p><p>An independent prep course for the Occupational English Test (OET). Not affiliated with or endorsed by OET or Cambridge Boxhill Language Assessment. All case notes, recordings, texts and role-plays are original practice material. Your practice saves to your class with your personal access code.</p></div></footer>
 
 <script src="professions/nursing.js"></script>
+<script src="mocks/mock1.js"></script>
+<script src="mocks/mock2.js"></script>
+<script src="mocks/mock3.js"></script>
+<script src="mocks/mock4.js"></script>
 <script>
 /* ---------- settings ---------- */
 const CONFIG={
@@ -1141,7 +1148,7 @@ const SESSIONS=[
   ['1:40','2:00','Distractor Clinic','Why the option that repeats the speaker’s words is so often wrong.']],
  liveTools:[['Prediction Poll','Students commit to an option; reveal the class split, then the reason.'],['Attitude Highlighter','Tags opinion, hedge and contrast words in a transcript.'],['Think-Aloud Player','Plays a talk section by section to model note-taking for Part C.']],
  tasks:[['Do both Part B sets','Read each question before you press Play.'],['Do the Part C presentation','Six questions. Listen for opinions.'],['Do the Part C interview','Six questions. Listen for the interviewee’s view.'],['Do the attitude drill','Six phrases: what does the speaker mean?'],['Take the mock Listening test','Your teacher will tell you when.'],['Update your Error Log','Focus on inference misses.']],
- tools:['LB1','LB2','LC1','LC2','D3']},
+ tools:['LB1','LB2','LC1','LC2','D3','MK1L']},
 {n:4,k:'R',title:'Reading Part A: Speed Reading in 15 Minutes',
  obj:'Students scan four short texts quickly to match, complete and answer 20 questions within the time limit.',
  live:[['0:00','0:15','Debrief Listening','Class trends from Parts B and C.'],
@@ -1161,7 +1168,7 @@ const SESSIONS=[
   ['1:45','2:00','Plan the 45 Minutes','About 15 minutes for Part B, 30 for Part C.']],
  liveTools:[['Paragraph Mapper','Students write a summary line for each paragraph, then compare.'],['Attitude Highlighter','Tags the writer’s opinion and hedging words.'],['Projector Timer','A 45-minute countdown for Parts B and C.']],
  tasks:[['Do both Part B sets','One question per text. Read the question first.'],['Do Part C: Nurse-led discharge','Map each paragraph in one line first.'],['Do Part C: Stopping medicines','Watch for the writer’s view.'],['Do the reference drill','What does “this” refer to?'],['Take the mock Reading test','Your teacher will tell you when.'],['Update your Error Log','Focus on inference and distractor misses.']],
- tools:['RB1','RB2','RC1','RC2','D5']},
+ tools:['RB1','RB2','RC1','RC2','D5','MK1R']},
 {n:6,k:'W',title:'Read Case Notes and Choose What Is Relevant',
  obj:'Students identify the reader and purpose and select only the case notes the reader needs.',
  live:[['0:00','0:15','Debrief Reading','Class trends.'],
@@ -1191,7 +1198,7 @@ const SESSIONS=[
   ['1:35','2:00','Write a Discharge Letter Live','Model a discharge letter and a final reader’s check.']],
  liveTools:[['Live Letter Pad','Write a discharge letter live with the checks on.'],['Sample Letters','Discharge and transfer models, colour-coded.'],['Before/After Editor','Rewrite wordy or judgemental sentences together.']],
  tasks:[['Do the conciseness drill','Choose the clearest version.'],['Do the genre and style drill','Formal, polite, factual.'],['Write the discharge letter','5 + 40 minutes.'],['Write the transfer letter','5 + 40 minutes.'],['Take the mock Writing test','Your teacher rates it on the six criteria.']],
- tools:['D8','D8G']},
+ tools:['D8','D8G','MK1W']},
 {n:9,k:'S',title:'Speaking Criteria and Role-Play Structure',
  obj:'Students understand the nine Speaking criteria and plan a role-play in three minutes.',
  live:[['0:00','0:15','Debrief Writing','Class trends.'],
@@ -1221,7 +1228,7 @@ const SESSIONS=[
   ['1:40','2:00','Brief the Full Mock','Test-day conditions for the full mock.']],
  liveTools:[['Role-Play Cards','Three difficult scenarios with interlocutor cards.'],['Phrase Banks','De-escalation and persuasion phrases.'],['Prep Timer','3 + 5 minute timing.']],
  tasks:[['Do the difficult conversations drill','Five situations.'],['Do the angry relative role-play','Stay calm and structured.'],['Do the persuasion role-play','Explore the patient’s reasons first.'],['Take the full mock test','All four sub-tests before Session 12.'],['Score yourself with the checklist','All nine criteria.']],
- tools:['D11']},
+ tools:['D11','MK2']},
 {n:12,k:'T',title:'Test-Day Strategy and Full Mock',
  obj:'Students turn mock results into a personal plan for the final weeks and for test day.',
  live:[['0:00','0:25','Debrief the Full Mock','Compare mock scores to the diagnostic, sub-test by sub-test.'],
@@ -1231,7 +1238,7 @@ const SESSIONS=[
   ['1:50','2:00','Build the Final Study Plan','Each student leaves with a plan for the last weeks.']],
  liveTools:[['Progress Comparison','Diagnostic vs mock by sub-test.'],['Test-Day Checklist','On screen and in the Study Hub.']],
  tasks:[['Review your readiness report','Compare scores to your targets.'],['Do the test-day strategy drill','Six situations, best moves.'],['Clear your top error cause','Redo every logged miss with that tag.'],['Record a final role-play','Compare it to your Session 1 recording.']],
- tools:['D12','READY']}
+ tools:['D12','MK3','READY']}
 ].map(s=>Object.assign({live:[],liveTools:[],tasks:[],tools:[],widgets:[]},s));
 /* ---------- practice content (original) ---------- */
 // QUIZ: listening / reading sets and drills · XTOOL: other Study Hub tools (case-notes selector, phrase drills …)
@@ -2114,10 +2121,18 @@ function buildSteps(s){stepCleanup();
   const k=firstOpen();setOpen(k,false);paintPath()}
 
 
-/* ---------- full mock tests (data in mocks/*.js) ---------- */
+/* ---------- full mock tests (Listening and Reading in mocks/*.js; Writing and Speaking from the profession file) ---------- */
 const MOCKS=window.MOCKS||{};
 const MOCK_SEC={L:['Listening','about 45 min'],R:['Reading','60 min'],W:['Writing','45 min'],S:['Speaking','about 20 min']};
 const MOCK_ORDER=['L','R','W','S'];
+// reading time before each listening extract, and checking time after it (seconds)
+const L_TIMES={A:[30,30],B:[15,10],C:[45,30]};
+Object.entries(MOCKS).forEach(([id,m])=>{
+  ['L','R'].forEach(sec=>(m[sec]||[]).forEach(p=>{if(p.extracts)p.qs=p.extracts.flatMap(e=>e.qs)}));
+  let n=Number(id)*7;['L','R'].forEach(sec=>(m[sec]||[]).forEach(p=>{n=balanceQs(p.qs,n)}));
+  const pm=(PROF.mocks||{})[id]||{};m.W=pm.W||[];m.S=pm.S||[];
+  m.W.forEach((w,i)=>{WRITE[`M${id}W${i+1}`]=Object.assign({title:`${m.title} · Writing`},w)});
+  m.S.forEach((t,i)=>{SPEAK[`M${id}S${i+1}`]=t})});
 const mockKey=(id,sec)=>`mock:M${id}${sec}`;
 const mockSecTitle=t=>{const m=String(t).match(/^M(\d+)([LRWS])$/);return m?`Mock #${m[1]} · ${MOCK_SEC[m[2]][0]}`:null};
 // real (scored) tasks of a mock's Writing / Speaking sub-test: [{no, key, task}]
@@ -2133,12 +2148,185 @@ function mockLevels(id,res,ratings){const out={};
     const at=Math.max(0,...tasks.map(x=>(res['mock:'+x.key]||{}).at||0));out[k]=Object.assign(ratedScore(id,k,ratings),{done,at})});
   return out}
 function mockStepTitle(t){const mm=String(t).match(/^MK(\d+)([LRWS]?)$/);if(!mm)return null;const m=MOCKS[mm[1]];return m?(mm[2]?`${m.title} · ${MOCK_SEC[mm[2]][0]}`:`${m.title} · all four sub-tests`):null}
-function MocksView(){return `<div class="stack"><section class="hero2 slim"><div class="stack" style="gap:10px"><div class="eyebrow">Practise like test day</div><h1>Mock tests</h1>
-  <p class="lead">Full OET-style tests in the real order: Listening, Reading, Writing, Speaking.</p></div></section>
-  <section class="panel"><p class="muted">Mock tests are not available yet.</p></section></div>`}
-function renderMock(){app.innerHTML='<div class="panel"><p>Mock test not found. <a href="#mocks">Back to mock tests</a></p></div>'}
-function MockReport(){return '<div class="panel"><p>Mock test not found. <a href="#mocks">Back to mock tests</a></p></div>'}
-function MockStep(host,t){host.innerHTML=`<div class="tool"><div class="tool-head"><span class="chip hub">Mock test</span><h3>${esc(mockStepTitle(t)||'Mock test')}</h3></div><div class="tool-body"><p class="muted">Coming soon.</p></div></div>`}
+const mockQs=(id,sec)=>(MOCKS[id][sec]||[]).flatMap((p,pi)=>p.qs.map((x,qi)=>({p,pi,x,qi,qid:pi+'-'+qi})));
+
+/* ----- score report ----- */
+function MockReport(id){const m=MOCKS[id];if(!m)return '<div class="panel"><p>Mock test not found. <a href="#mocks">Back to mock tests</a></p></div>';
+  const ratings=(cloud.mockScores||{})[id]||null;const res=results();const lv=mockLevels(id,res,ratings);const st=cloud.student||{};
+  const when=Math.max(0,...MOCK_ORDER.map(k=>lv[k]&&lv[k].at||0));
+  const row=k=>{const v=lv[k];let score=null,detail='',status='';
+    if(k==='L'||k==='R'){if(v){score=v.score;detail=`${v.raw}/${v.total} correct`}else status='Not taken yet'}
+    else{if(v.score!=null){score=v.score;detail=`Rated by your teacher · ${v.total} task${v.total>1?'s':''}`}
+      else if(!v.done)status='Not taken yet';
+      else status=v.rated?`Your teacher has rated ${v.rated} of ${v.total} tasks`:`Waiting for your teacher’s rating (${v.done}/${v.total} done)`}
+    return `<tr><th scope="row"><span class="rep-sk" style="${skv(k)}">${icon(k,16)} ${MOCK_SEC[k][0]}</span></th>
+      <td class="rep-lv">${score!=null?`<b>${score}</b>`:'<span class="muted">–</span>'}</td><td class="rep-gr">${score!=null?`<span class="gradechip g${gradeOf(score).replace('+','p')}">${gradeOf(score)}</span>`:''}</td>
+      <td>${score!=null?`${esc(GRADE_DESC[gradeOf(score)])}<div class="muted rep-sub">${esc(detail)}</div>`:`<span class="muted">${esc(status)}</span>`}</td></tr>`};
+  const crit=k=>{const tasks=mockRealTasks(id,k);const src=(ratings&&ratings[k])||{};if(!tasks.some(x=>src[x.no]&&Object.keys(src[x.no]).length))return '';
+    const C=k==='W'?W_CRIT:S_CRIT;
+    return `<div class="stack" style="gap:8px"><h3>${MOCK_SEC[k][0]}: your teacher’s ratings</h3><div class="tablewrap"><table class="log rep-crit"><thead><tr><th>Criterion</th>${tasks.map(x=>`<th>${esc(String(x.task.short||x.task.task||x.task.title||'Task '+x.no).replace(/^Mock #\d+ · /,''))}</th>`).join('')}</tr></thead><tbody>
+      ${C.map(([c,n,max])=>`<tr><td>${esc(n)}</td>${tasks.map(x=>{const r=src[x.no]||{};return `<td class="mono">${r[c]!=null?r[c]+' / '+max:'–'}</td>`}).join('')}</tr>`).join('')}</tbody></table></div></div>`};
+  return `<div class="stack"><div class="row noprint"><a href="#mocks" class="muted" style="font-size:14px">← Mock tests</a><span class="spacer"></span><button class="btn" id="rep-print">🖨 Print or save as PDF</button></div>
+   <section class="panel stack rep" style="gap:16px">
+    <div class="row" style="align-items:flex-start"><div class="stack" style="gap:4px;flex:1"><div class="eyebrow">Practice score report · estimated</div><h1>${esc(m.title)}</h1>
+      <p class="muted" style="margin:0">${esc(st.name||'')}${st.name?' · ':''}${esc(PROF.name)}${when?` · ${new Date(when).toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'})}`:''}</p></div></div>
+    <div class="tablewrap"><table class="log rep-table"><thead><tr><th>Sub-test</th><th>Score</th><th>Grade</th><th>What it means</th></tr></thead><tbody>${MOCK_ORDER.map(row).join('')}</tbody></table></div>
+    <p class="muted" style="font-size:13px;margin:0">Like the real OET results, each sub-test has its own score from 0 to 500 and a grade; there is no overall score. Most boards ask for grade B (350) in every sub-test.</p>
+    ${crit('W')}${crit('S')}
+    ${ratings&&ratings.note?`<div class="stack" style="gap:6px"><h3>Comments from your teacher</h3><p class="rep-note">${esc(ratings.note)}</p></div>`:''}
+   </section>
+   <section class="panel stack" style="gap:10px"><h2>How this report is worked out</h2>
+    <div class="grid g2 rep-how">
+     <div><h3>${icon('L',16)} Listening and ${icon('R',16)} Reading</h3><p>Each correct answer is 1 mark out of 42, and wrong answers lose nothing. OET does not publish its raw-score conversion, and it can vary between test versions, so this report uses an approximate chart.</p>
+      <div class="tablewrap"><table class="log rep-chart"><thead><tr><th>Raw score /42</th><th>About</th><th>Grade</th></tr></thead><tbody>
+       ${[[42,500],[38,450],[34,400],[30,350],[27,320],[24,300],[17,200],[10,100]].map(([r,s])=>`<tr><td class="mono">${r}</td><td class="mono">${s}</td><td><b>${gradeOf(s)}</b></td></tr>`).join('')}</tbody></table></div></div>
+     <div><h3>${icon('W',16)} Writing and ${icon('S',16)} Speaking</h3><p>Your teacher rates each criterion the way OET assessors do. The OET guides say grade B matches about 2/3 for Purpose and 5/7 for the other Writing criteria, and mostly 5/6 (linguistic) and 2/3 (clinical communication) in Speaking. The ratings are converted to the 0–500 scale from those points.</p>
+      <ul class="rep-list"><li><b>Writing:</b> Purpose (0–3); Content, Conciseness &amp; Clarity, Genre &amp; Style, Organisation &amp; Layout, Language (0–7 each)</li><li><b>Speaking</b> (each role-play): Intelligibility, Fluency, Appropriateness of Language, Resources of Grammar and Expression (0–6); Relationship-building, Patient’s perspective, Providing structure, Information-gathering, Information-giving (0–3)</li></ul></div>
+    </div>
+    <p class="muted" style="font-size:12.5px;margin:0">This report is a practice estimate from an independent course. It is not an official OET result.</p></section></div>`}
+
+function mockSecResult(id,sec){const r=results();
+  if(sec==='L'||sec==='R')return r[mockKey(id,sec)]||null;
+  const keys=mockRealTasks(id,sec).map(x=>'mock:'+x.key);const done=keys.filter(k=>r[k]);
+  return done.length===keys.length&&keys.length?{done:done.length,total:keys.length,at:Math.max(...done.map(k=>r[k].at||0))}:(done.length?{partial:done.length,total:keys.length}:null)}
+function mockSecLabel(id,sec){const v=mockSecResult(id,sec);if(!v)return '';
+  if(v.total&&v.score!=null)return `${scoreTxt(lrScale(v.score,v.total))} · ${v.score}/${v.total}`;if(v.partial)return `${v.partial}/${v.total} tasks`;{const rl=ratedScore(id,sec,(cloud.mockScores||{})[id]);if(rl.score!=null)return scoreTxt(rl.score)}return 'Done · awaiting rating'}
+
+function MocksView(){const ids=Object.keys(MOCKS);
+  return `<div class="stack"><section class="hero2 slim"><div class="stack" style="gap:10px"><div class="eyebrow">Practise like test day</div><h1>Mock tests</h1>
+    <p class="lead">Full OET-style tests in the real order: Listening, Reading, Writing, then Speaking. Recordings play once, Reading Part A is collected after 15 minutes, and you see your answers only at the end of each sub-test. All material is original.</p></div></section>
+   ${ids.length?ids.map(id=>{const m=MOCKS[id];return `<section class="panel stack" style="gap:14px"><div class="row"><div><div class="eyebrow">${esc(m.when||'')}</div><h2>${esc(m.title)}</h2></div></div>
+     <div class="mock-secs">${MOCK_ORDER.map((k,i)=>{const lab=mockSecLabel(id,k);return `<a class="mock-sec" style="${skv(k)}" href="#mock-${id}-${k}"><span class="ic">${icon(k,22)}</span><div><b>${i+1}. ${MOCK_SEC[k][0]}</b><span class="muted">${MOCK_SEC[k][1]}</span></div><span class="spacer"></span>${lab?`<span class="chip good">${CHECK} ${esc(lab)}</span>`:'<span class="chip">Start →</span>'}</a>`}).join('')}</div>
+     <div class="row" style="gap:10px"><button class="btn primary" data-full="${id}">Take the full test →</button><a class="btn" href="#mock-${id}-report">📄 Score report</a><span class="muted" style="font-size:13px">About 3 hours for Listening, Reading and Writing, plus about 20 minutes of Speaking. Or open one sub-test at a time above.</span></div></section>`}).join('')
+    :'<section class="panel"><p class="muted">Mock tests are not available yet.</p></section>'}</div>`}
+
+/* ----- the test runner ----- */
+const fmtLeft=s=>s>60?`${Math.ceil(s/60)} min`:s>0?`${s} s`:'0 s';
+function mockHead(id,sec){return `<div class="row"><a href="#mocks" class="muted" style="font-size:14px">← Mock tests</a><span class="spacer"></span><span class="chip" style="${skv(sec)}">${icon(sec,15)} ${esc(MOCKS[id].title)} · ${MOCK_SEC[sec][0]}</span></div>`}
+function renderMock(id,sec){const m=MOCKS[id];if(!m||!m[sec]||!m[sec].length){app.innerHTML='<div class="panel"><p>This part of the mock test is not available yet. <a href="#mocks">Back to mock tests</a></p></div>';return}
+  if(sec==='W'||sec==='S')return renderMockTasks(id,sec);
+  const SK='mockst:'+id+':'+sec;let st=store.get(SK,null);const head=mockHead(id,sec);const parts=m[sec];const total=parts.reduce((a,p)=>a+p.qs.length,0);
+  if(!st||st.reset){const prior=results()[mockKey(id,sec)];
+    app.innerHTML=`<div class="stack">${head}<section class="panel stack mock-intro" style="${skv(sec)};gap:12px"><div class="eyebrow">${esc(m.title)}</div><h1>${MOCK_SEC[sec][0]}</h1>
+      <ul class="si-list"><li>${total} questions</li><li>${MOCK_SEC[sec][1]}</li>${sec==='L'?'<li>You need: headphones</li>':''}</ul>
+      <ul class="mock-rules">${sec==='L'?`<li>Before each extract you have time to read the questions. Then the recording plays <b>once</b>, by itself.</li><li><b>Part A:</b> complete the notes while you listen. Spelling counts.</li><li><b>Parts B and C:</b> choose one answer for each question.</li><li>After each recording there is a short time to check. Then the test moves on, and you cannot go back.</li>`
+        :`<li><b>Part A</b> has its own <b>15-minute</b> timer. When it reaches 0:00, Part A is collected and you cannot return to it.</li><li><b>Parts B and C</b> share <b>45 minutes</b>. You can move between them until the time ends.</li><li>Answers to Part A come from the texts: copy them exactly and check your spelling.</li>`}
+        <li>There is no penalty for wrong answers. Answer every question.</li></ul>
+      ${prior?`<p class="muted">Your last score: <b>${prior.score}/${prior.total}</b> (${scoreTxt(lrScale(prior.score,prior.total))}). Starting again replaces it.</p>`:''}
+      <div class="row" style="gap:8px"><button class="btn primary" id="mk-start">Start ${MOCK_SEC[sec][0]} →</button>${sec==='L'?'<button class="btn" id="mk-sound">🔊 Sound check</button>':''}${prior?'<button class="btn" id="mk-review">Review last attempt</button>':''}</div></section></div>`;
+    const sb=document.getElementById('mk-sound');if(sb)sb.onclick=()=>TTS.test();
+    const rv=document.getElementById('mk-review');if(rv)rv.onclick=()=>mockReview(id,sec,(prior&&prior.ans)||{},head);
+    document.getElementById('mk-start').onclick=()=>{TTS.stopAll();store.set(SK,{i:0,ans:{},played:{},t0:Date.now()});renderMock(id,sec)};return}
+  if(sec==='L')return mockListen(id,st,head);return mockRead(id,st,head)}
+const saveSt=(id,sec,st)=>store.set('mockst:'+id+':'+sec,st);
+function mockQBlock(p,pi,st,typedNotes){return `<div class="qlist ${typedNotes?'notes':''}">${p.qs.map((x,qi)=>qRow(x,qi,`mk-${pi}-${qi}`,(p.qno||0)+qi+1)).join('')}</div>`}
+function fillAnswers(root,p,pi,st){p.qs.forEach((x,qi)=>{const v=st.ans[pi+'-'+qi];if(v==null)return;const nm=`mk-${pi}-${qi}`;
+  if(!x.o){const el=root.querySelector(`input[name="${CSS.escape(nm)}"]`);if(el)el.value=v}
+  else{const s=root.querySelector(`select[name="${CSS.escape(nm)}"]`);if(s)s.value=String(v);const r=root.querySelector(`input[name="${CSS.escape(nm)}"][value="${v}"]`);if(r)r.checked=true}})}
+function trackAnswers(root,id,sec,st,p,pi){root.addEventListener('input',e=>{const nm=e.target.name;if(!nm||!nm.startsWith('mk-'+pi+'-'))return;const qi=+nm.split('-')[2];const x=p.qs[qi];
+  st.ans[pi+'-'+qi]=x.o?(e.target.value===''?null:+e.target.value):e.target.value;saveSt(id,sec,st)})}
+function mockListen(id,st,head){const parts=MOCKS[id].L;if(st.i>=parts.length)return mockFinish(id,'L',st,head);
+  const p=parts[st.i],pi=st.i,[readT,checkT]=L_TIMES[p.part]||[20,20];
+  // question numbers continue across the test, like the real paper
+  parts.reduce((n,q)=>{q.qno=n;return n+q.qs.length},0);
+  app.innerHTML=`<div class="stack">${head}
+   <div class="mock-bar test" style="${skv('L')}"><div class="mb-t"><b>${esc(p.name)}</b><span>Extract ${pi+1} of ${parts.length}</span></div><span class="spacer"></span><span class="mb-time"><span data-phase>Reading time</span>: <span class="timer" data-clock>${fmt(readT)}</span></span></div>
+   <section class="panel stack" style="gap:12px" id="mk-screen"><p class="mk-info sp-prompt"><span class="i" aria-hidden="true">i</span><span>${esc(p.ctx)}</span></p>
+    <div class="player" data-player><button class="btn" data-skip>I’m ready: play now</button><div class="wave">${'<i></i>'.repeat(14)}</div><span class="muted" data-pstatus style="font-size:13px">The recording starts when the reading time ends.</span></div>
+    ${mockQBlock(p,pi,st,p.part==='A')}
+    <div class="row"><span class="muted" data-hint style="font-size:13px">You can move on after the recording.</span><span class="spacer"></span><button class="btn primary" data-next disabled>${pi<parts.length-1?'Next extract →':'Finish Listening'}</button></div></section></div>`;
+  const scr=document.getElementById('mk-screen');fillAnswers(scr,p,pi,st);trackAnswers(scr,id,'L',st,p,pi);
+  const clock=app.querySelector('[data-clock]'),phase=app.querySelector('[data-phase]'),nx=app.querySelector('[data-next]'),pl=app.querySelector('[data-player]'),ps=app.querySelector('[data-pstatus]'),skip=app.querySelector('[data-skip]');
+  let left=readT,iv=null,stage='read';
+  const go=()=>{clearInterval(iv);st.i=pi+1;saveSt(id,'L',st);TTS.stopAll();mockListen(id,st,head);window.scrollTo(0,0)};
+  const check=()=>{stage='check';pl.classList.remove('playing');ps.textContent='Recording finished. Check your answers.';nx.disabled=false;phase.textContent='Time to check';left=checkT;clock.textContent=fmt(left);
+    iv=every(()=>{left--;clock.textContent=fmt(Math.max(0,left));clock.classList.toggle('low',left<=10);if(left<=0)go()},1000)};
+  const playNow=()=>{if(stage!=='read')return;stage='play';clearInterval(iv);skip.remove();phase.textContent='Recording';clock.textContent='▶';
+    if(st.played[pi]){ps.textContent='This recording has already played. Finish your answers.';return check()}
+    st.played[pi]=1;saveSt(id,'L',st);
+    if(!TTS.OK){ps.textContent='Audio is not available in this browser. Read the transcript once instead.';const d=document.createElement('div');d.className='transcript';d.innerHTML=p.audio.map(([w,t])=>`<p><b>${esc(w)}:</b> ${esc(t)}</p>`).join('');pl.after(d);return check()}
+    pl.classList.add('playing');ps.textContent='Playing… listen carefully.';TTS.play(p.audio,{genders:p.genders,onEnd:()=>{if(document.getElementById('mk-screen')===scr)check()}})};
+  skip.onclick=playNow;nx.onclick=go;
+  iv=every(()=>{left--;clock.textContent=fmt(Math.max(0,left));if(left<=0)playNow()},1000)}
+function mockRead(id,st,head){const parts=MOCKS[id].R;if(st.i>=parts.length)return mockFinish(id,'R',st,head);
+  parts.reduce((n,q)=>{q.qno=n;return n+q.qs.length},0);
+  const p=parts[st.i],pi=st.i,isA=p.part==='A';
+  if(isA&&!st.aEnd){st.aEnd=Date.now()+(p.minutes||15)*60000;saveSt(id,'R',st)}
+  if(!isA&&!st.bcEnd){st.bcEnd=Date.now()+45*60000;saveSt(id,'R',st)}
+  const end=isA?st.aEnd:st.bcEnd;const bc=parts.map((x,i)=>i).filter(i=>parts[i].part!=='A');
+  const body=p.extracts?p.extracts.map((e,ei)=>{const base=p.extracts.slice(0,ei).reduce((a,x)=>a+x.qs.length,0);return `<section class="extract"><div class="eyebrow">Text ${ei+1}</div>${textPane(e)}<div class="qlist">${e.qs.map((x,j)=>qRow(x,base+j,`mk-${pi}-${base+j}`,p.qno+base+j+1)).join('')}</div></section>`}).join('')
+    :`<div class="mk-panes rpanes"><div class="mk-left"><div class="mk-text">${p.texts.map(textPane).join('')}</div></div><div class="mk-right">${p.instr?`<p class="mk-info"><span class="i" aria-hidden="true">i</span><span>${esc(p.instr)}</span></p>`:''}${mockQBlock(p,pi,st)}</div></div>`;
+  app.innerHTML=`<div class="stack">${head}
+   <div class="mock-bar test" style="${skv('R')}"><div class="mb-t"><b>${esc(p.name)}</b><span>${isA?'Part A is collected when the time ends':'Parts B and C · move freely until the time ends'}</span></div><span class="spacer"></span><span class="mb-time">Time remaining: <span class="timer" data-clock></span></span></div>
+   ${isA?'':`<div class="row mk-nav">${bc.map(i=>`<button class="btn sm ${i===pi?'primary':''}" data-goto="${i}">${esc(parts[i].name.replace(/^Part /,''))}</button>`).join('')}</div>`}
+   <section class="panel stack" style="gap:12px" id="mk-screen">${body}
+    <div class="row">${!isA&&pi>bc[0]?'<button class="btn" data-prev>← Back</button>':''}<span class="spacer"></span>${isA?'<button class="btn primary" data-next>Finish Part A →</button>':pi<parts.length-1?'<button class="btn primary" data-next>Next →</button>':'<button class="btn primary" data-finish>Finish Reading</button>'}</div></section></div>`;
+  const scr=document.getElementById('mk-screen');fillAnswers(scr,p,pi,st);trackAnswers(scr,id,'R',st,p,pi);
+  const clock=app.querySelector('[data-clock]');
+  const finishAll=()=>{st.i=parts.length;saveSt(id,'R',st);mockRead(id,st,head)};
+  const to=i=>{st.i=i;saveSt(id,'R',st);mockRead(id,st,head);window.scrollTo(0,0)};
+  const tick=()=>{const left=Math.round((end-Date.now())/1000);clock.textContent=fmt(Math.max(0,left));clock.classList.toggle('low',left<=120);
+    if(left<=0){if(isA)to(pi+1);else finishAll();return true}};
+  if(!tick()){const iv=every(()=>{if(tick())clearInterval(iv)},1000)}
+  const nb=app.querySelector('[data-next]');if(nb)nb.onclick=()=>{if(isA&&!confirm('Finish Part A now? You cannot come back to it.'))return;to(pi+1)};
+  const pb=app.querySelector('[data-prev]');if(pb)pb.onclick=()=>to(pi-1);
+  app.querySelectorAll('[data-goto]').forEach(b=>b.onclick=()=>to(+b.dataset.goto));
+  const fb=app.querySelector('[data-finish]');if(fb)fb.onclick=()=>{if(confirm('Finish the Reading test now?'))finishAll()}}
+function mockFinish(id,sec,st,head){const list=mockQs(id,sec);
+  if(!list.some(o=>st.ans[o.qid]!=null&&st.ans[o.qid]!=='')){
+    store.set('mockst:'+id+':'+sec,null);store.set('mockfull:'+id,false);
+    app.innerHTML=`<div class="stack">${head}<section class="panel stack mock-intro" style="${skv(sec)};gap:12px"><div class="eyebrow">${esc(MOCKS[id].title)}</div><h1>No answers, so nothing was saved</h1>
+     <p class="lead">You did not answer any ${MOCK_SEC[sec][0]} questions, so this try does not count and nothing was added to your Error Log. Start again whenever you are ready.</p>
+     <div class="row"><a class="btn primary" href="#mocks">Back to Mock Tests</a></div></section></div>`;return}
+  let score=0;
+  list.forEach(o=>{const v=st.ans[o.qid];const val=o.x.o?(v==null?-1:v):(v||'');if(isRight(o.x,val))score++;
+    else addLog({session:'Mock '+id,skill:MOCK_SEC[sec][0],item:`${MOCKS[id].title} · ${o.p.name}: ${o.x.q}`,yours:ansShown(o.x,val),correct:ansText(o.x)})});
+  const r=results();r[mockKey(id,sec)]={score,total:list.length,pct:Math.round(score/list.length*100),at:Date.now(),ans:st.ans};store.set('res',r);
+  store.set('mockst:'+id+':'+sec,null);
+  if(store.get('mockfull:'+id,false)){const nx=MOCK_ORDER[MOCK_ORDER.indexOf(sec)+1];
+    app.innerHTML=`<div class="stack">${head}<section class="panel stack mock-intro" style="${skv(nx||sec)};gap:12px"><div class="eyebrow">${esc(MOCKS[id].title)} · full test</div><h1>${MOCK_SEC[sec][0]} complete</h1>
+     <p class="lead">Well done. Like the real test, you will see your results at the end. Take a few slow breaths, then continue.</p>
+     <div class="row"><a class="btn primary" href="#mock-${id}-${nx}">Continue to ${MOCK_SEC[nx][0]} →</a></div></section></div>`;return}
+  mockReview(id,sec,st.ans,head,true)}
+function mockReview(id,sec,ans,head,fresh){const v=results()[mockKey(id,sec)]||{};const parts=MOCKS[id][sec];
+  const byPart={};mockQs(id,sec).forEach(o=>{const k=o.p.part;byPart[k]=byPart[k]||{name:'Part '+k,ok:0,n:0};byPart[k].n++;const a=ans[o.qid];if(isRight(o.x,o.x.o?(a==null?-1:a):(a||'')))byPart[k].ok++});
+  const nextSec=MOCK_ORDER[MOCK_ORDER.indexOf(sec)+1];const sc=lrScale(v.score,v.total);
+  let n=0;
+  app.innerHTML=`<div class="stack">${head}
+   <section class="panel stack" style="${skv(sec)};gap:12px"><div class="eyebrow">${fresh?'Sub-test complete':'Your last attempt'}</div><h1>${MOCK_SEC[sec][0]}: about ${sc} · grade ${gradeOf(sc)}</h1><p class="lead" style="margin:0">${v.score}/${v.total} correct · ${esc(GRADE_DESC[gradeOf(sc)])}</p>
+    <div class="mock-parts">${Object.values(byPart).map(b=>`<div><b>${esc(b.name)}</b><span class="rchip ${b.ok/b.n>=.75?'good':b.ok/b.n>=.5?'mid':'low'}">${b.ok}/${b.n}</span></div>`).join('')}</div>
+    <p class="muted" style="font-size:13.5px">The score uses an approximate conversion, so it is an estimate, not an official OET result. ${fresh?'Every missed question was added to your <a href="#log">Error Log</a> with a cause you can change.':''}</p>
+    <div class="row" style="gap:8px">${nextSec?`<a class="btn primary" href="#mock-${id}-${nextSec}">Next: ${MOCK_SEC[nextSec][0]} →</a>`:''}<a class="btn" href="#mock-${id}-report">Score report</a><a class="btn" href="#mocks">All mock tests</a><button class="btn" id="mk-again">Take it again</button></div></section>
+   <section class="panel stack" style="gap:16px"><h2>Review your answers</h2>
+    ${parts.map((p,pi)=>`<div class="mock-rev"><div class="eyebrow">${esc(p.name)}</div>
+      ${sec==='L'?`<details><summary>Transcript</summary><div class="transcript">${p.audio.map(([w,t])=>`<p><b>${esc(w)}:</b> ${esc(t)}</p>`).join('')}</div></details>`:''}
+      ${p.qs.map((x,qi)=>{const a=ans[pi+'-'+qi];const val=x.o?(a==null?-1:a):(a||'');const ok=isRight(x,val);n++;return `<div class="mock-q ${ok?'ok':'no'}"><b>${ok?'✓':'✗'} ${n}. ${esc(x.q)}</b>
+        <span>Your answer: ${val===-1||val===''?'<i>none</i>':esc(ansShown(x,val))}${ok?'':` · Correct: <b>${esc(x.o?x.o[x.a]:x.a.slice(0,2).join(' / '))}</b>`}</span>${x.why?`<span class="muted">${esc(x.why)}</span>`:''}</div>`}).join('')}</div>`).join('')}</section></div>`;
+  document.getElementById('mk-again').onclick=()=>{store.set('mockst:'+id+':'+sec,{reset:true});renderMock(id,sec);window.scrollTo(0,0)}}
+function renderMockTasks(id,sec){const m=MOCKS[id];const list=m[sec];const SK='mockst:'+id+':'+sec;let i=Math.min(store.get(SK,0)||0,list.length-1);
+  const head=mockHead(id,sec);const key=`M${id}${sec}${i+1}`,done=!!results()['mock:'+key];const real=list.filter(t=>!t.practice).length;
+  const ni=MOCK_ORDER.indexOf(sec)+1;
+  app.innerHTML=`<div class="stack">${head}
+   <div class="mock-bar" style="${skv(sec)}"><b>${MOCK_SEC[sec][0]} · ${list[i].practice?'Warm-up (not assessed)':sec==='S'?`Role-play ${list.slice(0,i+1).filter(t=>!t.practice).length} of ${real}`:'Letter'}</b><span class="muted">${sec==='W'?'5 minutes reading, then 40 minutes writing.':'3 minutes to prepare, then about 5 minutes to speak.'}</span></div>
+   <div id="mk-task"></div>
+   <div class="row"><span class="muted" style="font-size:13px">${done?'Saved. ':''}${sec==='S'?'Each role-play is recorded and sent to your teacher, who rates it on the nine criteria.':'Submit your letter to save it. Your teacher rates it on the six criteria.'}</span><span class="spacer"></span>
+    ${i<list.length-1?`<button class="btn primary" id="mk-tnext">Next →</button>`:`${ni<MOCK_ORDER.length?`<a class="btn primary" href="#mock-${id}-${MOCK_ORDER[ni]}">Next: ${MOCK_SEC[MOCK_ORDER[ni]][0]} →</a>`:`<a class="btn primary" href="#mock-${id}-report" data-finish>Finish and see my score report</a>`}`}</div></div>`;
+  const fb=app.querySelector('[data-finish]');if(fb)fb.onclick=()=>store.set('mockfull:'+id,false);
+  const host=document.getElementById('mk-task');const s={n:'mock'};
+  if(sec==='W')Writer(host,s,key);else Speaker(host,s,key);
+  const nb=document.getElementById('mk-tnext');if(nb)nb.onclick=()=>{if(!list[i].practice&&!results()['mock:'+key]&&!confirm('This task is not saved yet. Move on anyway?'))return;clearAll();store.set(SK,i+1);renderMockTasks(id,sec);window.scrollTo(0,0)}}
+function MockStep(host,t){const mm=t.match(/^MK(\d+)([LRWS]?)$/);const id=mm[1],secs=mm[2]?[mm[2]]:MOCK_ORDER;
+  host.innerHTML=`<div class="tool"><div class="tool-head"><span class="chip hub">Mock test</span><h3>${esc(mockStepTitle(t)||'Mock test')}</h3></div><div class="tool-body">
+   <p class="muted">Real timings, recordings play once, no going back. Answers appear at the end of each sub-test.</p>
+   <div class="mock-secs">${secs.map(k=>{const lab=MOCKS[id]?mockSecLabel(id,k):'';return `<a class="mock-sec" style="${skv(k)}" href="#mock-${id}-${k}"><span class="ic">${icon(k,20)}</span><div><b>${MOCK_SEC[k][0]}</b><span class="muted">${MOCK_SEC[k][1]}</span></div><span class="spacer"></span>${lab?`<span class="chip good">${CHECK} ${esc(lab)}</span>`:'<span class="chip">Start →</span>'}</a>`}).join('')}</div></div></div>`}
+// a session step for a mock is done when every sub-test in it is done
+function mockSync(){if(!Object.keys(MOCKS).length)return;const r=results();let changed=false;
+  SESSIONS.forEach(se=>se.tools.forEach(t=>{const mm=String(t).match(/^MK(\d+)([LRWS]?)$/);if(!mm||!MOCKS[mm[1]])return;const secs=mm[2]?[mm[2]]:MOCK_ORDER;
+    const vs=secs.map(k=>mockSecResult(mm[1],k));if(vs.some(v=>!v||v.partial))return;
+    const at=Math.max(...vs.map(v=>v.at||0));const k=se.n+':'+t;if(r[k]&&r[k].at===at)return;
+    const sc=vs.filter(v=>v.score!=null);r[k]={at,...(secs.length===1&&sc.length?{score:sc[0].score,total:sc[0].total,pct:sc[0].pct}:{})};changed=true}));
+  if(changed)store.set('res',r)}
+addEventListener('oet-res',()=>mockSync());
 /* ---------- downloadable templates ---------- */
 const TEMPLATES=[];
 function TemplatesView(){return `<div class="stack">
