@@ -916,6 +916,39 @@ input.gap.no,.mk-sel.no{border-color:var(--bad);background:color-mix(in srgb,var
 .gradechip{display:inline-grid;place-items:center;min-width:34px;height:28px;padding:0 8px;border-radius:8px;font-weight:800;background:var(--surface-2)}
 .gradechip.gA,.gradechip.gB{background:var(--hub-soft);color:var(--hub)}.gradechip.gCp,.gradechip.gC{background:var(--peach);color:var(--warn)}.gradechip.gD,.gradechip.gE{background:var(--live-soft);color:var(--bad)}
 .mk-nav{gap:6px}
+.wr-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:16px;align-items:start}
+@media(max-width:860px){.wr-split{grid-template-columns:minmax(0,1fr)}}
+.wr-notes{background:var(--surface-2);border-radius:12px;padding:12px 14px;max-height:78vh;overflow:auto}
+.wr-letter{display:flex;flex-direction:column;gap:8px;position:sticky;top:90px}
+.wr-letter textarea.write{min-height:420px;font-size:15px}
+.wr-check{margin-top:4px}
+.cn-group{margin-bottom:10px}.cn-h{font-weight:700;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--skWi);margin-bottom:4px}
+.cn-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.cn-item{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;padding:6px 8px;border-radius:8px;background:var(--surface);border:1px solid var(--line);font-size:14px}
+.cn-t{flex:1 1 200px;min-width:0}
+.cn-btns{display:flex;gap:4px}.cn-btns button{width:30px;height:30px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-weight:700}
+.cn-btns button[aria-pressed="true"][data-mk="y"]{background:var(--hub);border-color:var(--hub);color:#fff}
+.cn-btns button[aria-pressed="true"][data-mk="x"]{background:var(--bad);border-color:var(--bad);color:#fff}
+.cn-item.is-x .cn-t{text-decoration:line-through;color:var(--muted)}
+.cn-item.is-y{border-color:var(--hub)}
+.cn-item.right{box-shadow:inset 4px 0 0 var(--good)}.cn-item.wrong{box-shadow:inset 4px 0 0 var(--bad)}
+.cn-key{flex-basis:100%;font-size:12.5px;padding:3px 8px;border-radius:6px}.cn-key.k1{background:var(--hub-soft);color:var(--hub)}.cn-key.k0{background:var(--live-soft);color:var(--bad)}.cn-key.ks{background:var(--peach);color:var(--warn)}
+.model-letter{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;font-size:14.5px;margin-top:10px}
+.ml-head{line-height:1.5}
+.model-letter .se-part{border-left:4px solid var(--line);padding:4px 10px;border-radius:0 8px 8px 0}
+.model-letter .se-part p{margin:0}.model-letter .se-lab{display:block;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.se-part.kp{border-color:var(--skSi);background:var(--skS)}.se-part.kb{border-color:var(--skLi);background:var(--skL)}.se-part.kc{border-color:var(--skRi);background:var(--skR)}.se-part.kr{border-color:var(--skWi);background:var(--skW)}.se-part.kx{border-color:var(--skOi);background:var(--skO)}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px}
+.why-grid>div{background:var(--surface-2);border-radius:10px;padding:10px 12px;font-size:13.5px}.why-grid p{margin:4px 0 0}
+.rp-card{background:var(--surface);border:2px solid var(--skSi);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+.rp-card.inter{border-color:var(--skLi)}.rp-card ul{margin:0;padding-left:20px}.rp-card p{margin:0}
+.rp-top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:4px}
+.rp-top span{color:var(--muted);font-size:13px}
+.sp-line{padding:10px 14px;border-radius:10px;background:var(--skL);font-size:15px}
+.phr-tabs{display:flex;gap:6px;flex-wrap:wrap}.phr-list{margin:10px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.sample-l summary{cursor:pointer}
+label.field{max-width:100%;min-width:0}.panel select,.tool-body select{max-width:100%}
+[data-widget] .row>label.field{flex:1 1 220px}
 </style>
 </head>
 <body>
@@ -1128,7 +1161,7 @@ const SESSIONS=[
   ['1:40','2:00','Set Targets and Preview the Hub','Each student sets a target grade per sub-test and starts the diagnostic.']],
  liveTools:[['Test Map','Click a sub-test to see every part, question count and time.'],['Score Ladder','The 0–500 scale and grades, with what grade B means.'],['Criteria Cards','The six Writing and nine Speaking criteria, one card each.']],
  tasks:[['Set your target grades','On your dashboard, choose the grade your board asks for in each sub-test.'],['Do the format drill','Eight questions on the test format.'],['Do the Listening and Reading checks','Audio plays once. The reading check is timed.'],['Write the diagnostic letter','5 minutes reading, 40 minutes writing.'],['Record the diagnostic role-play','3 minutes to prepare, 5 minutes to speak. Keep the recording.'],['Save your starting point','Save your diagnostic summary and check your Error Log.']],
- tools:['D1','DL','DR','DIAG'],widgets:['TESTMAP']},
+ tools:['D1','DL','DR','DW','DS','DIAG'],widgets:['TESTMAP']},
 {n:2,k:'L',title:'Listening Part A: Note-Taking in Consultations',
  obj:'Students predict, hear and accurately write the key details a health professional needs from a consultation.',
  live:[['0:00','0:15','Debrief the Diagnostic','Class patterns in Listening: which gaps were missed, and why.'],
@@ -1178,7 +1211,7 @@ const SESSIONS=[
   ['1:40','2:00','Represent Notes Accurately','Same meaning, right tense: the mistakes that cost Content marks.']],
  liveTools:[['Case-Notes Selector','Tick relevant notes and cross out irrelevant ones, then compare with the model selection.'],['Reader Lens','Change the reader and see which notes become relevant.'],['Accuracy Check','Note vs letter sentence: is the meaning still the same?']],
  tasks:[['Do the “relevant or not” drill','Eight case notes, one reader.'],['Use the case-notes selector','Tick and cross out, then compare with the model.'],['Write one summary sentence','Turn three visits into one sentence.'],['Update your Error Log','Note any content you included by mistake.']],
- tools:['D6']},
+ tools:['D6','CN1','CN2'],widgets:['CNSEL']},
 {n:7,k:'W',title:'Letter Layout and the Referral Letter',
  obj:'Students lay out an OET letter correctly and write a referral letter with a clear purpose.',
  live:[['0:00','0:15','Review Selection Work','Common inclusion and omission errors.'],
@@ -1188,7 +1221,7 @@ const SESSIONS=[
   ['1:40','2:00','Analyse a Model','Colour-code a sample letter against the six criteria.']],
  liveTools:[['Live Letter Pad','Write in front of the class; layout, purpose and style are checked as you type.'],['Sample Letters','Colour-coded model letters with “Why it scores well”.'],['Layout Builder','Put the parts of a letter in the right order.']],
  tasks:[['Do the layout drill','Six layout choices.'],['Do the purpose drill','Choose the clearest opening.'],['Write the referral letter','5 + 40 minutes, about 180–200 words in the body.'],['Check it with the letter checklist','Before you submit.'],['Compare with the model letter','Colour-code your own letter the same way.']],
- tools:['D7','D7P']},
+ tools:['D7','D7P','W7'],widgets:['LPAD']},
 {n:8,k:'W',title:'Discharge, Transfer and Advice Letters, Written Concisely',
  obj:'Students adapt structure to discharge, transfer and advice letters and write clearly and concisely.',
  live:[['0:00','0:15','Review Referral Letters','Top issues from Hub submissions.'],
@@ -1198,7 +1231,7 @@ const SESSIONS=[
   ['1:35','2:00','Write a Discharge Letter Live','Model a discharge letter and a final reader’s check.']],
  liveTools:[['Live Letter Pad','Write a discharge letter live with the checks on.'],['Sample Letters','Discharge and transfer models, colour-coded.'],['Before/After Editor','Rewrite wordy or judgemental sentences together.']],
  tasks:[['Do the conciseness drill','Choose the clearest version.'],['Do the genre and style drill','Formal, polite, factual.'],['Write the discharge letter','5 + 40 minutes.'],['Write the transfer letter','5 + 40 minutes.'],['Take the mock Writing test','Your teacher rates it on the six criteria.']],
- tools:['D8','D8G','MK1W']},
+ tools:['D8','D8G','W8D','W8T','W8A','MK1W'],widgets:['LPAD']},
 {n:9,k:'S',title:'Speaking Criteria and Role-Play Structure',
  obj:'Students understand the nine Speaking criteria and plan a role-play in three minutes.',
  live:[['0:00','0:15','Debrief Writing','Class trends.'],
@@ -1208,7 +1241,7 @@ const SESSIONS=[
   ['1:35','2:00','Practise Questions','Open first, then closed. No compound or leading questions.']],
  liveTools:[['Role-Play Cards','Candidate and interlocutor cards on screen.'],['Prep Timer','3-minute preparation, then a 5-minute role-play clock.'],['Phrase Banks','Opening, empathy, explaining, checking and closing phrases.']],
  tasks:[['Do the criteria drill','Which criterion does each example show?'],['Do the questions drill','Open, closed and leading questions.'],['Do role-play 1','3 minutes to prepare, 5 to speak. Listen back.'],['Score yourself with the checklist','All nine criteria.'],['Learn ten phrases','Two from each phrase bank.']],
- tools:['D9','D9S']},
+ tools:['D9','D9S','S9A'],widgets:['RPCARDS','PHRASES']},
 {n:10,k:'S',title:'Clinical Communication: Empathy, Explaining and Checking',
  obj:'Students show empathy, explain in lay language and check understanding in a patient-centred way.',
  live:[['0:00','0:15','Review Recordings','Patterns from Hub role-plays.'],
@@ -1218,7 +1251,7 @@ const SESSIONS=[
   ['1:35','2:00','Pick Up Cues','Hear “Oh!”, “Mmm…” and “But…”, and respond.']],
  liveTools:[['Jargon Buster','Turn medical terms into lay explanations together.'],['Cue Spotter','Play patient lines; students name the cue and respond.'],['Phrase Banks','Empathy, explaining and checking phrases.']],
  tasks:[['Do the empathy and lay language drill','Six situations.'],['Do role-play 2','Explain a treatment in lay language.'],['Do role-play 3','Pick up the patient’s cues.'],['Score yourself with the checklist','Focus on the clinical criteria.'],['Re-record your weakest role-play','Compare it to the first try.']],
- tools:['D10']},
+ tools:['D10','S10A','S10B'],widgets:['PHRASES','RPCARDS']},
 {n:11,k:'S',title:'Difficult Role-Plays: Anger, Bad News and Persuasion',
  obj:'Students stay calm and structured with an angry patient, a worried carer and a reluctant patient.',
  live:[['0:00','0:15','Review Recordings','Pacing and empathy trends.'],
@@ -1228,7 +1261,7 @@ const SESSIONS=[
   ['1:40','2:00','Brief the Full Mock','Test-day conditions for the full mock.']],
  liveTools:[['Role-Play Cards','Three difficult scenarios with interlocutor cards.'],['Phrase Banks','De-escalation and persuasion phrases.'],['Prep Timer','3 + 5 minute timing.']],
  tasks:[['Do the difficult conversations drill','Five situations.'],['Do the angry relative role-play','Stay calm and structured.'],['Do the persuasion role-play','Explore the patient’s reasons first.'],['Take the full mock test','All four sub-tests before Session 12.'],['Score yourself with the checklist','All nine criteria.']],
- tools:['D11','MK2']},
+ tools:['D11','S11A','S11B','MK2'],widgets:['RPCARDS','PHRASES']},
 {n:12,k:'T',title:'Test-Day Strategy and Full Mock',
  obj:'Students turn mock results into a personal plan for the final weeks and for test day.',
  live:[['0:00','0:25','Debrief the Full Mock','Compare mock scores to the diagnostic, sub-test by sub-test.'],
@@ -1238,7 +1271,7 @@ const SESSIONS=[
   ['1:50','2:00','Build the Final Study Plan','Each student leaves with a plan for the last weeks.']],
  liveTools:[['Progress Comparison','Diagnostic vs mock by sub-test.'],['Test-Day Checklist','On screen and in the Study Hub.']],
  tasks:[['Review your readiness report','Compare scores to your targets.'],['Do the test-day strategy drill','Six situations, best moves.'],['Clear your top error cause','Redo every logged miss with that tag.'],['Record a final role-play','Compare it to your Session 1 recording.']],
- tools:['D12','MK3','READY']}
+ tools:['D12','S12F','MK3','READY']}
 ].map(s=>Object.assign({live:[],liveTools:[],tasks:[],tools:[],widgets:[]},s));
 /* ---------- practice content (original) ---------- */
 // QUIZ: listening / reading sets and drills · XTOOL: other Study Hub tools (case-notes selector, phrase drills …)
@@ -1686,10 +1719,13 @@ D12:{kind:'mc',k:'O',title:'Drill · Test-day strategy',context:'Choose the best
   {q:'The night before the test',o:['Check your ID, venue or computer set-up, and sleep.','Do a full mock test until midnight.','Learn 100 new words.'],a:0,why:'Arrive rested and prepared.'}]}
 });
 QUIZ.D8G.qs.forEach(x=>{if(!x.q)x.q='Which sentence is best?'});
-const XTOOL={};
+const XTOOL={
+ CN1:{k:'W',type:'Case notes',title:'Case-notes selector · Mrs Lane (referral)',letter:'W7',what:'Tick the notes the reader needs and cross out the rest, then compare with the model selection and the reason for each note.',info:['No timer','Model selection'],render:(h,s,k)=>CaseNotes(h,s,k)},
+ CN2:{k:'W',type:'Case notes',title:'Case-notes selector · Mr Fenn (discharge)',letter:'W8D',what:'Tick the notes the reader needs and cross out the rest, then compare with the model selection and the reason for each note.',info:['No timer','Model selection'],render:(h,s,k)=>CaseNotes(h,s,k)}};
 // Writing letters and Speaking role-plays come from the profession file
 const WRITE=Object.assign({},PROF.letters);
 const SPEAK=Object.assign({},PROF.roleplays);
+Object.entries(WRITE).forEach(([k,w])=>{if(!w.title)w.title=k});
 /* ---------- OET scoring scale ----------
    Every sub-test is reported on a 0–500 scale in steps of 10, with grades A–E.
    Listening and Reading: 1 mark per question (42 each). The raw-to-scale conversion below is an approximation
@@ -2328,14 +2364,16 @@ function mockSync(){if(!Object.keys(MOCKS).length)return;const r=results();let c
   if(changed)store.set('res',r)}
 addEventListener('oet-res',()=>mockSync());
 /* ---------- downloadable templates ---------- */
-const TEMPLATES=[];
+const TEMPLATES=[
+ {k:'W',title:'The OET letter: layout and paragraph plan',file:'downloads/letter-template.pdf',html:'downloads/letter-template.html',pages:'PDF · 1 page',what:'A labelled letter layout (recipient, date, Re: line, greeting, five colour-coded paragraphs, closing), purpose verbs, style swaps and a final check.',tips:['Purpose in the first sentence','Requests near the end','About 180–200 words in the body']},
+ {k:'S',title:'Role-play phrases for nurses',file:'downloads/roleplay-phrases.pdf',html:'downloads/roleplay-phrases.html',pages:'PDF · 1 page',what:'A 3-minute planning routine and phrases for opening, gathering information, empathy, explaining, checking, signposting, difficult moments and closing.',tips:['Open questions first','Empathy in words','Check understanding: “tell me back”']}];
 function TemplatesView(){return `<div class="stack">
   <section class="hero2 slim"><div class="stack" style="gap:10px"><div class="eyebrow">Study tools</div><h1>Test guide &amp; templates</h1>
    <p class="lead">How the OET works, what the assessors look for, and templates you can print. Use the templates to plan faster, but always write for the patient and the reader in front of you. Assessors reward letters and role-plays that fit the task, not memorised scripts.</p>
 </div></section>
   ${TEMPLATES.length?`<div class="tpl-grid" id="tpl">${TEMPLATES.map(t=>`<article class="panel stack tpl-card" style="${skv(t.k)};gap:10px"><div class="row" style="gap:10px;flex-wrap:nowrap"><span class="ic">${icon(t.k,22)}</span><div style="min-width:0"><h3>${esc(t.title)}</h3><span class="muted" style="font-size:12.5px">${esc(t.pages)}</span></div></div>
     <p style="font-size:14px">${esc(t.what)}</p><ul class="tpl-tips">${t.tips.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
-    <div class="row" style="gap:8px;margin-top:auto"><a class="btn primary sm" href="${t.file}" target="_blank" rel="noopener">Open and print</a></div></article>`).join('')}</div>`:''}
+    <div class="row" style="gap:8px;margin-top:auto"><a class="btn primary sm" href="${t.file}" download>⬇ Download PDF</a><a class="btn sm" href="${t.html}" target="_blank" rel="noopener">Open and print</a></div></article>`).join('')}</div>`:''}
   ${TestGuide()}</div>`}
 // test guide: the format, scoring and criteria, in our own words, from the official OET study guides
 function TestGuide(){const sec=(k,h,body)=>`<section class="panel stack gd" style="${skv(k)};gap:12px"><h2 class="gd-h"><span class="ic">${icon(k,20)}</span>${h}</h2>${body}</section>`;
@@ -2386,8 +2424,6 @@ function TestGuide(){const sec=(k,h,body)=>`<section class="panel stack gd" styl
     ul(['Grade B usually means mostly <b>5/6 on the linguistic criteria and 2/3 on the clinical communication criteria</b>.','Only the audio is assessed. Show empathy and listening in words: “I can see why that worries you.”','You are not assessed on medical knowledge, but what you say must be safe and sensible.','Use the two role-plays to show range: open and check understanding in different words each time.']))}
   ${sec('T','About this guide',`<p>We wrote this guide in our own words from the official OET study guides (the OET Ready Study Guide, the Writing guide and the two Speaking guides). Format details can change, so check the official OET website before you book your test.</p><p class="muted" style="font-size:12.5px;margin:0">This course is independent and is not affiliated with or endorsed by OET or Cambridge Boxhill Language Assessment.</p>`)}`}
 /* ---------- Study Hub tools (filled in the next stages) ---------- */
-function Writer(host){host.innerHTML='<div class="tool"><div class="tool-head"><h3>Letter</h3></div><div class="tool-body"><p class="muted">Coming soon.</p></div></div>'}
-function Speaker(host){Writer(host)}
 /* ---------- Quiz tool (OET listening / reading sets and drills) ----------
    A set has kind 'listen' | 'read' | 'mc' and a list of questions (qs). A question is either
    multiple choice {q, o:[…], a:index, why} or typed {q, a:['accepted', …], why} (note completion, short answer).
@@ -2466,9 +2502,6 @@ function Quiz(host,s,key){
   host.querySelector('[data-retake]').addEventListener('click',()=>{host.dataset.retake='1';Quiz(host,s,key)});
 }
 
-function AIFeedback(){return ''}
-function bindAIFeedback(){}
-function SampleLetters(){return ''}
 
 /* ---------- Readiness report ---------- */
 function Ready(host){const sc=skillScores();const tg=store.get('targets',{L:350,R:350,W:350,S:350});const log=store.get('log',[]);
@@ -2644,6 +2677,261 @@ function bindWidgets(root){Object.values(LIVE_WIDGETS).forEach(w=>w[3]&&w[3](roo
 // slides shown on the site (key = session number) and teacher guides (key = session number)
 const SLIDESETS={};
 const GUIDES={};
+/* ---------- Writing: letter checks (shared by the Writer, the Live Letter Pad and the self-check) ---------- */
+const NOTE_ABBR=['pt','pts','hx','c/o','yo','y/o','yrs','bd','tds','qds','prn','mane','nocte','w/','w/o','b/c','approx','re:','dx','tx','rx','sx','abx','obs','meds','info','appt','wk','wks','pmh','sob','nkda','h/o'];
+const CASUAL_W=['a lot of','lots of','kids','guy','okay','ok','stuff','things like that','pretty','really bad','super','gonna','wanna','basically','anyway','sort of','kind of','got','get better'];
+const JUDGE_W=['heavy smoker','alcoholic','non-compliant','refuses to','obese','lazy','naughty','difficult patient','drug addict','junkie','poor old','bless'];
+function letterCheck(text,L){const t=String(text||''),lines=t.split('\n'),low=t.toLowerCase();
+  const greetI=lines.findIndex(l=>/^\s*dear\b.+,?\s*$/i.test(l));
+  const closeI=lines.findIndex((l,i)=>i>greetI&&/^\s*yours (sincerely|faithfully),?\s*$/i.test(l));
+  const head=lines.slice(0,greetI<0?0:greetI).join('\n');
+  const date=/\b\d{1,2}(st|nd|rd|th)?\s+(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+\d{4}\b|\b\d{1,2}[\/.-]\d{1,2}[\/.-]\d{2,4}\b/i.test(head);
+  const recipient=head.split('\n').filter(l=>l.trim()&&!/^\s*re\s*:/i.test(l)).length>=3;
+  const re=/^\s*re\s*:.+/im.test(head);
+  const body=lines.slice(greetI+1,closeI<0?lines.length:closeI).join('\n');
+  const paras=body.split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
+  const first=paras[0]||'';
+  const purpose=/\b(i am writing|i write|thank you for (seeing|accepting|agreeing|reviewing)|i would like to (refer|request|inform|update)|to (refer|request|inform you|update you|transfer|discharge|advise))\b/i.test(first)&&first.split(/\s+/).length<=60;
+  const request=/\b(i would be grateful if|could you|please (could|can|arrange|monitor|review|continue|contact)|i would appreciate|i would like to request|kindly)\b/i.test(paras.slice(-2).join(' '));
+  const words=bodyWords(t);
+  const sign=closeI>=0&&lines.slice(closeI+1).some(l=>l.trim());
+  const faith=closeI>=0&&/faithfully/i.test(lines[closeI]),named=greetI>=0&&/dear\s+(dr|mr|mrs|ms|miss|professor|prof)\b/i.test(lines[greetI]);
+  const warn=[];
+  const con=[...new Set((t.match(/\b[A-Za-z]+['’](t|m|re|ll|ve|d)\b|\b(it|that|there|what|he|she|let|here|who)['’]s\b/gi)||[]).map(x=>x.toLowerCase()))];
+  if(con.length)warn.push(['Contractions',`${con.slice(0,5).map(x=>'“'+x+'”').join(', ')}: write the full form (he is, did not).`]);
+  const abbr=NOTE_ABBR.filter(a=>new RegExp('(^|[\\s(,;])'+a.replace(/[\/.:]/g,m=>'\\'+m)+'(?=$|[\\s),.;])','i').test(body));
+  if(abbr.length)warn.push(['Note-form abbreviations',abbr.slice(0,6).map(x=>'“'+x+'”').join(', ')+': write them in full. Common ones such as ECG, MRI or BMI are fine.']);
+  const cas=CASUAL_W.filter(c=>new RegExp('\\b'+c+'\\b','i').test(body));if(cas.length)warn.push(['Informal words',cas.slice(0,5).map(x=>'“'+x+'”').join(', ')+': choose a more formal word.']);
+  const jud=JUDGE_W.filter(c=>new RegExp('\\b'+c+'\\b','i').test(body));if(jud.length)warn.push(['Judgemental words',jud.map(x=>'“'+x+'”').join(', ')+': describe the facts instead (e.g. “smokes 20 cigarettes a day”).']);
+  if(greetI>=0&&closeI>=0&&named&&faith)warn.push(['Closing','With a named reader (“Dear Dr …”), close with “Yours sincerely”.']);
+  if(greetI>=0&&closeI>=0&&!named&&/^\s*dear (sir|madam|colleague|charge|manager|team|nurse)/i.test(lines[greetI])&&!faith)warn.push(['Closing','With no name (“Dear Sir/Madam”, “Dear Charge Nurse”), “Yours faithfully” is usual.']);
+  if(/^\s*([-*•]|\d+[.)])\s+/m.test(body))warn.push(['Note form','Write full paragraphs, not bullet points.']);
+  if(/\b(he|she) is (a )?(very )?(nice|lovely|pleasant)\b/i.test(body))warn.push(['Opinion','Leave out personal opinions about the patient.']);
+  const longP=paras.find(p=>p.split(/\s+/).length>110);if(longP)warn.push(['Long paragraph','One paragraph is over 110 words. Does it cover one topic? Consider splitting it.']);
+  if(L&&L.short&&words>40){const nm=L.short.replace(/^(Mr|Mrs|Ms|Miss)\s+/,'');if(!new RegExp(nm,'i').test(t))warn.push(['Patient name',`The patient (${L.short}) is not named. Put the name and date of birth in the Re: line.`])}
+  return {words,date,recipient,re,greet:greetI>=0,purpose,request,close:closeI>=0,sign,paraN:paras.length,warn}}
+function letterChecklistHTML(r){const ok=(b,t)=>`<li class="${b?'ok':''}"><span aria-hidden="true">${b?'✓':'○'}</span>${t}</li>`;
+  return `<div class="wp-count ${r.words>=170&&r.words<=220?'good':r.words?'bad':''}"><b>${r.words}</b> words in the body<span>${r.words<170?(r.words?`${170-r.words} more to reach about 180`:'aim for about 180–200'):r.words>220?`${r.words-200} over 200: cut what the reader does not need`:'about right'}</span></div>
+    <div class="wp-meter"><i style="width:${Math.min(100,r.words/240*100)}%"></i><em style="left:${180/240*100}%">180</em><em style="left:${200/240*100}%">200</em></div>
+    <div class="eyebrow" style="margin-top:12px">Layout</div><ul class="wp-list">${ok(r.recipient,'Recipient’s name and address')+ok(r.date,'Date')+ok(r.re,'Re: line with the patient’s name')+ok(r.greet,'Greeting “Dear …,”')+ok(r.close,'“Yours sincerely,” or “Yours faithfully,”')+ok(r.sign,'Your role under the closing')}</ul>
+    <div class="eyebrow" style="margin-top:12px">Purpose and structure</div><ul class="wp-list">${ok(r.purpose,'Purpose clear in the first paragraph')+ok(r.paraN>=3,`Paragraphs: ${Math.min(r.paraN,9)} (usually 4–5)`)+ok(r.request,'A specific request near the end (“I would be grateful if you could …”)')}</ul>
+    <div class="eyebrow" style="margin-top:12px">Style check</div>${r.warn.length?`<ul class="wp-warn">${r.warn.map(([a,b])=>`<li><b>${esc(a)}:</b> ${esc(b)}</li>`).join('')}</ul>`:`<p class="muted" style="margin:4px 0 0;font-size:13px">${r.words?'No problems found.':'Start typing: checks appear here.'}</p>`}`}
+// case notes, with the selector marks (tick = include, cross = leave out)
+const REL_TXT={1:'Include',0:'Leave out',s:'Summarise'};
+function notesHTML(L,marks,reveal){return (L.notes||[]).map((g,gi)=>`<div class="cn-group"><div class="cn-h">${esc(g.h)}</div><ul class="cn-list">${g.items.map(([t,rel,why],ii)=>{const k=gi+'.'+ii,m=marks&&marks[k];
+  const right=reveal&&m!=null?((rel===0)===(m==='x')):null;
+  return `<li class="cn-item ${m==='y'?'is-y':m==='x'?'is-x':''} ${right===true?'right':right===false?'wrong':''}" data-cn="${k}"><span class="cn-t">${esc(t)}</span>${marks?`<span class="cn-btns"><button type="button" data-mk="y" aria-label="Include" aria-pressed="${m==='y'}">✓</button><button type="button" data-mk="x" aria-label="Leave out" aria-pressed="${m==='x'}">✕</button></span>`:''}${reveal?`<span class="cn-key ${rel===0?'k0':rel==='s'?'ks':'k1'}">${REL_TXT[rel]}${why?': '+esc(why):''}</span>`:''}</li>`}).join('')}</ul></div>`).join('')}
+function bindNotes(root,onMark){root.querySelectorAll('[data-cn]').forEach(li=>li.querySelectorAll('[data-mk]').forEach(b=>b.addEventListener('click',()=>{const was=b.getAttribute('aria-pressed')==='true';
+  li.querySelectorAll('[data-mk]').forEach(x=>x.setAttribute('aria-pressed','false'));li.classList.remove('is-y','is-x');
+  if(!was){b.setAttribute('aria-pressed','true');li.classList.add(b.dataset.mk==='y'?'is-y':'is-x')}onMark(li.dataset.cn,was?null:b.dataset.mk)})))}
+function modelLetterHTML(M,showWhy){if(!M)return '';const K={p:'Purpose',b:'Background',c:'Current situation',r:'Requests',x:'Closing'};
+  return `<div class="model-letter"><div class="ml-head">${M.head.map(esc).join('<br>')}<br><br>${esc(M.date)}<br><br><b>${esc(M.re)}</b><br><br>${esc(M.greet)}</div>
+    ${M.parts.map(([k,txt])=>`<div class="se-part k${k}"><span class="se-lab">${K[k]||''}</span><p>${esc(txt)}</p></div>`).join('')}
+    <div class="ml-head">${esc(M.close)}<br><br>${M.sign.map(esc).join('<br>')}</div></div>
+    ${showWhy&&M.why?`<div class="why-grid">${W_CRIT.map(([c,n])=>M.why[c]?`<div><b>${esc(n)}</b><p>${esc(M.why[c])}</p></div>`:'').join('')}</div>`:''}`}
+const modelWords=M=>M?M.parts.map(p=>p[1]).join(' ').split(/\s+/).filter(Boolean).length:0;
+
+/* ---------- Writing tool: case notes on the left, the letter on the right ---------- */
+function Writer(host,s,key){
+  const L=WRITE[key];const dk='w:'+s.n+':'+key;const rk=s.n+':'+key;const resKey=s.n==='mock'?'mock:'+key:rk;
+  let phase='ready',left=5*60,tid=null,started=0;const prev=results()[resKey]||{};
+  host.innerHTML=`<div class="tool sp-tool"><div class="mock-bar test"><div class="mb-t"><b>${esc(L.title)}</b><span>${esc(L.type||'Letter')} · ${esc(PROF.name)}</span></div><span class="spacer"></span><span class="mb-time"><span data-phase>Reading time</span>: <span class="timer" data-timer>5:00</span></span><button class="btn mb-next" data-go>START</button></div>
+   <div class="tool-body">
+    <div class="prompt"><b>Task.</b> ${esc(L.task)}<br><span class="muted" style="font-size:13px">In your answer: expand the relevant notes into complete sentences · do not use note form · use letter format · the body of the letter should be about 180–200 words.</span></div>
+    <div class="wr-split">
+     <div class="wr-notes"><div class="eyebrow">Case notes</div><p class="muted" style="font-size:12.5px;margin:2px 0 8px">Tick (✓) what the reader needs and cross out (✕) what they do not. Your marks are saved.</p><div data-notes>${notesHTML(L,store.get(dk+':marks',{}),false)}</div></div>
+     <div class="wr-letter"><div class="row"><label for="ta-${rk}" class="eyebrow">Your letter</label><span class="spacer"></span><span class="wc" data-wc>0 words in the body</span></div>
+      <textarea class="write" id="ta-${rk}" spellcheck="false" readonly placeholder="Press START. You can type after the 5 minutes of reading time."></textarea>
+      <details class="selfbox wr-check" data-check><summary>Letter checker (layout, purpose, style)</summary><div data-out-check></div></details></div></div>
+    <div class="row"><button class="btn primary" data-submit>${aiOn()?'Submit and get my score':'Submit my letter'}</button><span class="muted" data-msg style="font-size:13px"></span></div>
+    <div data-ai-out>${prev.ai?`<div class="eyebrow" style="margin-bottom:8px">Your last score</div>${AIFeedback(prev.ai,L)}`:''}</div>
+    <details class="selfbox" data-self ${prev.text?'':'hidden'}><summary>Score yourself on the six criteria</summary>
+     <p class="muted" style="font-size:13px;margin:8px 0">Grade B is about 2 for Purpose and 5 for each other criterion.</p>
+     <div class="rubric">${W_CRIT.map(([c,n,max])=>`<label>${n}<select data-rub="${c}"><option value="">–</option>${Array.from({length:max+1},(_,i)=>`<option value="${i}" ${(prev.crit||{})[c]==i?'selected':''}>${i} / ${max}</option>`).join('')}</select></label>`).join('')}</div>
+     <div class="row" style="margin-top:8px"><button class="btn" data-saverub>Save my self-check</button><span class="muted" data-rubmsg style="font-size:13px">${prev.est!=null?'Saved: ≈ '+scoreTxt(prev.est):''}</span></div></details>
+    ${L.model&&s.n!=='mock'?`<details class="selfbox" data-model ${prev.text?'':'hidden'}><summary>Compare with the model letter (${modelWords(L.model)} words in the body)</summary>${modelLetterHTML(L.model,true)}<div class="eyebrow" style="margin-top:12px">The model selection</div><div class="cn-reveal">${notesHTML(L,store.get(dk+':marks',{}),true)}</div></details>`:''}
+   </div></div>`;
+  const $=q=>host.querySelector(q);const ta=$('textarea'),wc=$('[data-wc]'),timer=$('[data-timer]'),ph=$('[data-phase]'),msg=$('[data-msg]'),out=$('[data-ai-out]');
+  ta.value=store.get(dk,'');const upd=()=>{const n=bodyWords(ta.value);wc.textContent=n+' words in the body';wc.className='wc '+bodyTone(n);$('[data-out-check]').innerHTML=letterChecklistHTML(letterCheck(ta.value,L));return n};upd();
+  bindNotes($('[data-notes]'),(k,v)=>{const m=store.get(dk+':marks',{});if(v)m[k]=v;else delete m[k];store.set(dk+':marks',m)});
+  ta.addEventListener('input',()=>{store.set(dk,ta.value);upd()});
+  ta.addEventListener('paste',e=>{e.preventDefault();msg.textContent='Pasting text from outside is turned off. Type your letter.'});
+  const write=()=>{phase='write';ta.readOnly=false;ta.placeholder='Recipient\nAddress\n\nDate\n\nRe: patient’s name, date of birth\n\nDear …,';ph.textContent='Writing time';left=40*60;timer.textContent=fmt(left);beep(880);ta.focus()};
+  const tick=()=>{left--;timer.textContent=fmt(Math.max(0,left));timer.classList.toggle('low',phase==='write'&&left<=300);
+    if(phase==='read'&&left<=0)write();else if(phase==='write'){if(left===300)msg.textContent='5 minutes left. Read your letter as the reader would.';if(left<=0){clearInterval(tid);ta.readOnly=true;submit(true)}}};
+  $('[data-go]').addEventListener('click',e=>{e.currentTarget.hidden=true;phase='read';started=Date.now();tid=every(tick,1000);
+    const sk=document.createElement('button');sk.className='btn sm';sk.textContent='Skip to writing';sk.onclick=()=>{sk.remove();if(phase==='read')write()};ph.parentElement.after(sk)});
+  async function submit(auto){const n=upd();if(n<40&&!auto){msg.textContent='Write your letter first (at least a few sentences).';return}
+    if(tid)clearInterval(tid);ta.readOnly=true;const seconds=started?Math.round((Date.now()-started)/1000):0;
+    const r=results();r[resKey]=Object.assign(r[resKey]||{},{words:n,at:Date.now(),text:ta.value,seconds});store.set('res',r);
+    msg.textContent=(auto?'Time is up. ':'')+`Submitted · ${n} words in the body.`;$('[data-self]').hidden=false;$('[data-self]').open=true;const md=$('[data-model]');if(md)md.hidden=false;
+    if(s.n==='mock')msg.textContent+=' Your teacher will rate it.';
+    if(!cloud.code||!aiOn()||s.n==='mock')return;
+    const btn=$('[data-submit]');btn.disabled=true;out.innerHTML=`<div class="aiwait"><span class="spin"></span><div><b>Scoring your letter…</b><span class="muted">This takes about 30–60 seconds. Keep this page open.</span></div></div>`;
+    try{const notes=L.notes.map(g=>g.h+':\n'+g.items.map(i=>'- '+i[0]).join('\n')).join('\n');
+      const j=await api('student.score',{code:cloud.code,text:ta.value,seconds,task:{type:L.type,task:L.task,notes}});
+      const rr=results();rr[resKey]=Object.assign(rr[resKey]||{},{ai:j.result});store.set('res',rr);
+      out.innerHTML=AIFeedback(j.result,L)+(j.remaining!=null?`<p class="muted" style="font-size:12.5px;margin-top:8px">${j.remaining} AI scoring${j.remaining===1?'':'s'} left today.</p>`:'');bindAIFeedback(out)}
+    catch(e){const M={ai_off:'Your letter is saved for your teacher. AI scoring is not turned on, so check your letter with the model and score yourself below.',ai_limit:'You have used today’s AI scorings. Try again tomorrow, or score yourself below.',ai_short:'Write a little more before scoring.',ai_busy:'The scorer is busy. Wait a minute and submit again.',ai_key:'AI scoring is not working right now. Please tell your teacher.'};
+      if(e.code==='ai_off')store.set('aiOff',true);out.innerHTML=`<div class="notice">${esc(M[e.code]||errMsg(e))}</div>`}
+    btn.disabled=false}
+  $('[data-submit]').addEventListener('click',()=>submit(false));
+  $('[data-saverub]').addEventListener('click',()=>{const c={};host.querySelectorAll('[data-rub]').forEach(x=>{if(x.value!=='')c[x.dataset.rub]=+x.value});const est=wScale(c);
+    if(est==null){$('[data-rubmsg]').textContent='Score all six criteria.';return}
+    const r=results();r[resKey]=Object.assign(r[resKey]||{},{crit:c,est,at:(r[resKey]||{}).at||Date.now()});store.set('res',r);$('[data-rubmsg]').textContent=`Saved: ≈ ${scoreTxt(est)}.`});
+  bindAIFeedback(out)}
+const aiOn=()=>!!cloud.code&&!store.get('aiOff',false);
+
+/* ---------- AI feedback panel ---------- */
+const AI_CRIT=[['purpose','Purpose',3],['content','Content',7],['conciseness_clarity','Conciseness & Clarity',7],['genre_style','Genre & Style',7],['organisation_layout','Organisation & Layout',7],['language','Language',7]];
+function AIFeedback(a,L){if(!a||a.score==null)return '';const sc=Math.max(0,Math.min(500,Math.round(a.score/10)*10));const cov=a.coverage||[];
+  const ST={included:['Included','good','✓'],partial:['Partly','mid','–'],missing:['Missing','low','✕'],irrelevant:['Not needed','low','!']};
+  return `<section class="aifb"><div class="aifb-top"><div class="lvlcard"><div><b>${sc}</b><span>/ 500</span></div><small>Estimated · grade ${gradeOf(sc)}</small></div>
+     <div class="aisum"><p>${esc(a.summary||'')}</p><div class="row" style="gap:16px"><span><b>${a.words||0}</b> words</span></div></div></div>
+   <div class="crit4">${AI_CRIT.map(([k,n,max])=>{const c=(a.criteria||{})[k]||{};const b=Math.max(0,Math.min(max,Math.round(+c.band||0)));return `<div><div class="row"><span class="eyebrow" style="color:var(--fg)">${n}</span><span class="spacer"></span><b class="clv">${b}/${max}</b></div><div class="segs">${Array.from({length:max},(_,i)=>`<i class="${i<b?'on':''}" style="${i<b?'background:var(--skWi)':''}"></i>`).join('')}</div><p>${esc(c.comment||'')}</p></div>`}).join('')}</div>
+   ${cov.length?`<div class="aisec"><h3>Case-note coverage</h3><ol class="covl">${cov.map(c=>{const [t,cl,ic]=ST[c.status]||ST.missing;return `<li><span class="covic ${cl}">${ic}</span><div><b>${esc(c.point)}</b><span class="muted">${esc(c.note||'')}</span></div><span class="rchip ${cl}">${t}</span></li>`}).join('')}</ol></div>`:''}
+   ${(a.fixes||[]).length?`<div class="aisec"><h3>Fix these sentences</h3>${a.fixes.map(f=>`<div class="fixrow"><div class="fx-old">${esc(f.original)}</div><div class="fx-new">${esc(f.improved)}</div><p class="muted">${esc(f.why)}</p></div>`).join('')}</div>`:''}
+   ${a.cleaned_version?`<div class="aisec"><div class="row"><h3>Your letter, improved</h3><span class="spacer"></span><button class="btn sm" data-copyclean>Copy</button></div><pre class="clean">${esc(a.cleaned_version)}</pre></div>`:''}
+   <div class="aisec ai-grid"><div><h3>How to score higher</h3><ul>${(a.score_higher||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+     <div><h3>Next time</h3><p class="habit">🔁 ${esc(a.next_time_habit||'')}</p><h3 style="margin-top:12px">Study next</h3><div class="stack" style="gap:6px">${(a.study_next||[]).map(x=>`<div class="studyn">${x.session>=1&&x.session<=12?`<a class="chip" href="#session-${x.session}">Session ${x.session}</a>`:''}<b>${esc(x.topic)}</b><span class="muted">${esc(x.why)}</span></div>`).join('')}</div></div></div>
+   <p class="muted" style="font-size:12px">AI estimate to guide your practice. It is not an official OET score.</p></section>`}
+function bindAIFeedback(root){root.querySelectorAll('[data-copyclean]').forEach(b=>b.addEventListener('click',async()=>{const t=b.closest('.aisec').querySelector('pre').textContent;
+  try{await navigator.clipboard.writeText(t);b.textContent='Copied'}catch(e){b.textContent='Select and copy'}setTimeout(()=>b.textContent='Copy',1600)}))}
+
+/* ---------- Case-notes selector (Study Hub step) ---------- */
+function CaseNotes(host,s,key){const L=WRITE[XTOOL[key].letter];const dk='cn:'+key;const rk=s.n+':'+key;let marks=store.get(dk,{});
+  const items=L.notes.flatMap((g,gi)=>g.items.map((it,ii)=>({k:gi+'.'+ii,rel:it[1],t:it[0]})));
+  host.innerHTML=`<div class="tool"><div class="tool-head"><span class="chip hub">Case-notes selector</span><h3>${esc(XTOOL[key].title)}</h3></div><div class="tool-body">
+    <div class="prompt"><b>Task.</b> ${esc(L.task)}</div>
+    <p class="muted" style="font-size:13.5px">Ask yourself: Does the reader already know this patient? What will the reader do for them? Tick (✓) each note the reader needs and cross out (✕) each note they do not. Then check.</p>
+    <div data-notes>${notesHTML(L,marks,false)}</div>
+    <div class="row"><button class="btn primary" data-check>Check my selection</button><span class="muted" data-msg style="font-size:13px"></span></div><div data-out></div></div></div>`;
+  bindNotes(host.querySelector('[data-notes]'),(k,v)=>{if(v)marks[k]=v;else delete marks[k];store.set(dk,marks)});
+  host.querySelector('[data-check]').addEventListener('click',()=>{const done=items.filter(x=>marks[x.k]).length;if(done<items.length){host.querySelector('[data-msg]').textContent=`Mark every note first (${done}/${items.length}).`;return}
+    let score=0;items.forEach(x=>{const right=(x.rel===0)===(marks[x.k]==='x');if(right)score++});
+    const r=results();r[rk]={score,total:items.length,pct:Math.round(score/items.length*100),at:Date.now()};store.set('res',r);
+    host.querySelector('[data-notes]').innerHTML=notesHTML(L,marks,true);
+    host.querySelector('[data-out]').innerHTML=`<div class="result"><span class="big mono">${score}/${items.length}</span><div>Notes marked “Summarise” should be included, but briefly. Green = your choice matches the model selection; red = look again at the reason.</div></div>`})}
+
+/* ---------- Sample letters on the session page (colour-coded) ---------- */
+const SAMPLE_FOR={7:['W7'],8:['W8D','W8T','W8A']};
+function SampleLetters(s){const keys=(SAMPLE_FOR[s.n]||[]).filter(k=>WRITE[k]&&WRITE[k].model);if(!keys.length)return '';
+  return `<section class="panel stack" style="gap:12px"><div><div class="eyebrow">Model letters · ${esc(PROF.name)}</div><h3>Sample letters, colour-coded</h3><p class="muted" style="font-size:14px">Purpose (pink), background (blue), current situation (purple), requests (orange). Open “Why it scores well” to see each of the six criteria.</p></div>
+   ${keys.map(k=>{const L=WRITE[k];return `<details class="selfbox sample-l"><summary><b>${esc(L.type)}</b> · ${esc(L.reader)} <span class="muted">(${modelWords(L.model)} words in the body)</span></summary>
+     <div class="prompt" style="margin-top:10px"><b>Task.</b> ${esc(L.task)}</div>${modelLetterHTML(L.model,true)}</details>`}).join('')}</section>`}
+
+/* ---------- Speaking tool: role-play card, 3 minutes preparation, 5 minutes recording ---------- */
+let micRec=null;
+function stopMic(){try{if(micRec&&micRec.rec&&micRec.rec.state!=='inactive')micRec.rec.stop()}catch(e){}try{micRec&&micRec.stream&&micRec.stream.getTracks().forEach(x=>x.stop())}catch(e){}micRec=null}
+const MIC_OK=!!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&window.MediaRecorder);
+function rpCard(t,which){if(which==='inter'){const I=t.inter||{};return `<div class="rp-card inter"><div class="rp-top"><b>Interlocutor card</b><span>${esc(I.who||'')}</span></div><p><b>Setting:</b> ${esc(I.setting||'')}</p><p><b>Background:</b> ${esc(I.background||'')}</p><p><b>What to do:</b></p><ul>${(I.behave||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`}
+  const C=t.cand||{};return `<div class="rp-card"><div class="rp-top"><b>Candidate card · ${esc(PROF.role)}</b><span>${esc(C.setting||'')}</span></div><p><b>Patient:</b> ${esc(C.patient||'')}</p><p><b>Task:</b></p><ul>${(C.tasks||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`}
+function Speaker(host,s,key){
+  stopMic();const t=SPEAK[key];const rk=s.n+':'+key;const resKey=s.n==='mock'?'mock:'+key:rk;const prev=results()[resKey]||{};
+  const phases=[];if(t.prep)phases.push(['prep','Preparation time',t.prep]);phases.push(['speak','Role-play · recording',t.speak]);
+  const MIC='<svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>';
+  const CLOCK='<svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 6.5V12l3.5 2.5"/></svg>';
+  host.innerHTML=`<div class="tool sp-tool"><div class="mock-bar test"><div class="mb-t"><b>${esc(t.task)}</b><span>${t.warm?'Not assessed':'Speaking · '+esc(PROF.name)}</span></div><span class="spacer"></span><span class="mb-time">${t.prep?`Preparation <b>${fmt(t.prep)}</b> · `:''}Speaking <b>${fmt(t.speak)}</b></span><button class="btn mb-next" data-go>START</button></div>
+   <div class="tool-body">
+    ${rpCard(t)}
+    ${t.inter?`<details class="selfbox"><summary>Practising with a partner? Show the interlocutor card</summary>${rpCard(t,'inter')}</details>`:''}
+    <label class="chk"><input type="checkbox" data-solo ${TTS.OK&&(t.cues||[]).length?'checked':''} ${TTS.OK&&(t.cues||[]).length?'':'disabled'}> Solo practice: the computer plays the ${t.warm?'interlocutor’s questions':'patient’s lines'} during the role-play${TTS.OK?'':' (not available in this browser)'}</label>
+    <div class="sp-box" data-stage><div class="sp-ic" data-ic>${CLOCK}</div><div class="sp-txt"><div class="sp-label" data-phase>Ready</div><div class="sp-num" data-clock>${fmt(phases[0][2])}</div><div class="sp-bar" data-barwrap hidden><i data-bar></i></div></div></div>
+    <p class="muted sp-note" data-hint>${MIC_OK?'Press <b>START</b> and allow the microphone. Use the preparation time to plan; recording starts by itself.':'This browser cannot record. Use your phone’s voice recorder during the role-play, then upload it below.'}</p>
+    <div class="sp-line" data-line hidden></div>
+    <div data-after hidden class="stack">
+     <div class="sp-play stack" data-playwrap hidden><h3 style="margin:0">Listen to your role-play</h3><audio controls data-audio style="width:100%"></audio>
+      <div class="row" style="gap:8px"><a class="btn" data-dl download>⬇ Download</a>${cloud.code?'<button class="btn" data-send>📤 Send to my teacher</button>':''}<span class="muted" data-sendmsg style="font-size:13px">${cloud.code?(s.n==='mock'?'Mock role-plays go to your teacher automatically.':'Send it so your teacher can listen.'):'Your recording stays on this device.'}</span></div></div>
+     <div class="row" data-upwrap><label class="btn" for="up-${rk}">Upload a phone recording</label><input type="file" id="up-${rk}" accept="audio/*" hidden><span class="muted" data-upmsg style="font-size:13px">Audio stays on this device unless you send it.</span></div>
+     ${t.warm?'':`<div><h3 style="margin-bottom:6px">Check yourself as you listen back</h3><p class="muted" style="font-size:13px;margin:0 0 8px">Grade B is mostly 5 on the linguistic criteria and 2 on the clinical communication criteria.</p>
+      <div class="eyebrow">Linguistic criteria</div><div class="rubric">${S_LING.map(([c,n,max])=>`<label>${n}<select data-rub="${c}"><option value="">–</option>${Array.from({length:max+1},(_,i)=>`<option value="${i}" ${(prev.crit||{})[c]==i?'selected':''}>${i} / ${max}</option>`).join('')}</select></label>`).join('')}</div>
+      <div class="eyebrow" style="margin-top:10px">Clinical communication criteria</div><div class="rubric">${S_CLIN.map(([c,n,max])=>`<label>${n}<select data-rub="${c}"><option value="">–</option>${Array.from({length:max+1},(_,i)=>`<option value="${i}" ${(prev.crit||{})[c]==i?'selected':''}>${i} / ${max}</option>`).join('')}</select></label>`).join('')}</div>
+      <details class="selfbox" style="margin-top:10px"><summary>Clinical communication checklist</summary><ul class="gd-list">${CLIN_CHECK.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details></div>`}
+     <div class="row"><button class="btn primary" data-save>${t.warm?'Mark as done':'Save my self-check'}</button><button class="btn" data-reset>Try again</button><span class="muted" data-msg style="font-size:13px">${prev.est!=null?'Saved: ≈ '+scoreTxt(prev.est):''}</span></div>
+    </div></div></div>`;
+  const $=q=>host.querySelector(q);const clock=$('[data-clock]'),ph=$('[data-phase]'),hint=$('[data-hint]'),stage=$('[data-stage]'),bar=$('[data-bar]'),line=$('[data-line]');
+  let lastBlob=null;
+  const send=async()=>{const b=$('[data-send]'),m=$('[data-sendmsg]');if(!lastBlob||!cloud.code||!b)return;b.disabled=true;m.innerHTML=wait('Sending to your teacher');
+    try{const data=await new Promise((ok,no)=>{const fr=new FileReader();fr.onload=()=>ok(String(fr.result).split(',')[1]||'');fr.onerror=no;fr.readAsDataURL(lastBlob)});
+      const j=await api('student.audio',{code:cloud.code,key:String(resKey).replace(/^mock:/,'mock-'),mime:lastBlob.type||'audio/webm',data});
+      const r=results();r[resKey]=Object.assign(r[resKey]||{},{audio:j.url,sentAt:Date.now(),at:(r[resKey]&&r[resKey].at)||Date.now()});store.set('res',r);b.textContent='✓ Sent';m.textContent='Your teacher has your recording.'}
+    catch(e){b.disabled=false;m.textContent=errMsg(e)}};
+  const showAudio=(url,ext)=>{const a=$('[data-audio]');a.src=url;$('[data-playwrap]').hidden=false;const d=$('[data-dl]');d.href=url;d.download=`${String(t.task).replace(/[^\w]+/g,'-').replace(/^-|-$/g,'')}.${ext}`};
+  const markDone=()=>{const r=results();r[resKey]=Object.assign(r[resKey]||{},{at:Date.now()});store.set('res',r)};
+  const finish=()=>{TTS.stopAll();stage.classList.remove('rec');ph.textContent='Time is up';clock.textContent='0:00';$('[data-barwrap]').hidden=true;line.hidden=true;beep(520);$('[data-after]').hidden=false;if(s.n==='mock'||t.warm)markDone();
+    if(micRec&&micRec.rec){const r=micRec;r.rec.onstop=()=>{const type=r.rec.mimeType||'audio/webm';const blob=new Blob(r.chunks,{type});r.stream.getTracks().forEach(x=>x.stop());
+        if(blob.size){lastBlob=blob;if(s.n==='mock'&&!t.warm)setTimeout(send,0);showAudio(URL.createObjectURL(blob),/mp4|aac/.test(type)?'m4a':/ogg/.test(type)?'ogg':'webm');$('[data-upwrap]').hidden=true;hint.textContent='Your role-play was recorded. Listen back, then check yourself.'}
+        else hint.textContent='Nothing was recorded. Check your microphone, or upload a phone recording.'};try{r.rec.stop()}catch(e){}micRec=null}
+    else hint.textContent='Stop your phone recording, then upload it below to listen back.'};
+  const run=i=>{if(i>=phases.length)return finish();const [id,label,sec]=phases[i];let left=sec,el=0;ph.textContent=label;clock.textContent=fmt(left);
+    const rec=id==='speak';stage.classList.toggle('rec',rec);$('[data-ic]').innerHTML=rec?MIC:CLOCK;$('[data-barwrap]').hidden=!rec;bar.style.width='0%';
+    hint.innerHTML=rec?(micRec?'Speak now. You are the '+esc(PROF.role.toLowerCase())+'. Your microphone is recording.':'Speak now. Record on your phone.'):'Plan: how will you start? Which questions will you ask? How will you explain the key points?';
+    const solo=rec&&$('[data-solo]').checked;const cues=solo?(t.cues||[]).slice():[];
+    if(rec){beep(880);if(micRec){try{micRec.rec.start()}catch(e){}}}
+    const say=c=>{line.hidden=false;line.innerHTML=`<b>${t.warm?'Interlocutor':'Patient'}:</b> ${esc(c[1])}`;TTS.play([[t.warm?'Interlocutor':'Patient',c[1]]],{genders:{Patient:t.gender||'f',Interlocutor:'f'}})};
+    const iv=every(()=>{left--;el++;clock.textContent=fmt(Math.max(0,left));if(rec)bar.style.width=Math.min(100,el/sec*100)+'%';
+      while(cues.length&&cues[0][0]<=el)say(cues.shift());if(left<=0){clearInterval(iv);run(i+1)}},1000);
+    if(cues.length&&cues[0][0]<=1)setTimeout(()=>{if(cues.length&&cues[0][0]<=1)say(cues.shift())},600);
+    if(!rec){const sk=document.createElement('button');sk.className='btn sm';sk.textContent='Start the role-play now';sk.onclick=()=>{sk.remove();clearInterval(iv);run(i+1)};hint.after(sk);host.addEventListener('rp-next',()=>sk.remove(),{once:true})}
+    else host.dispatchEvent(new Event('rp-next'))};
+  $('[data-go]').addEventListener('click',async e=>{const btn=e.currentTarget;btn.disabled=true;
+    if(MIC_OK){hint.textContent='Waiting for microphone permission…';
+      try{const stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
+        const type=['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg'].find(x=>MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(x));
+        const rec=type?new MediaRecorder(stream,{mimeType:type}):new MediaRecorder(stream);micRec={rec,stream,chunks:[]};const mine=micRec;rec.ondataavailable=ev=>{if(ev.data&&ev.data.size)mine.chunks.push(ev.data)}}
+      catch(err){micRec=null;hint.innerHTML='The microphone is blocked, so this attempt will not be recorded. Use your phone’s voice recorder, or allow the microphone and press <b>Try again</b>.'}}
+    if(!host.isConnected){stopMic();return}btn.hidden=true;run(0)});
+  $('[data-reset]').addEventListener('click',()=>{clearAll();Speaker(host,s,key)});
+  {const sb=$('[data-send]');if(sb)sb.addEventListener('click',send)}
+  $('input[type=file]').addEventListener('change',ev=>{const f=ev.target.files[0];if(!f)return;lastBlob=f;if(s.n==='mock'&&!t.warm)setTimeout(send,0);showAudio(URL.createObjectURL(f),(f.name.split('.').pop()||'m4a'));$('[data-upmsg]').textContent=f.name});
+  $('[data-save]').addEventListener('click',()=>{if(t.warm){markDone();$('[data-msg]').textContent='Done.';return}
+    const c={};host.querySelectorAll('[data-rub]').forEach(x=>{if(x.value!=='')c[x.dataset.rub]=+x.value});const est=sScale(c);
+    if(est==null){$('[data-msg]').textContent='Score all nine criteria.';return}
+    const r=results();r[resKey]=Object.assign(r[resKey]||{},{crit:c,est,at:Date.now()});store.set('res',r);$('[data-msg]').textContent=`Saved: ≈ ${scoreTxt(est)}. It counts toward your Speaking estimate on the Dashboard.`})}
+const CLIN_CHECK=['I started appropriately: greeting, name, purpose of the conversation.','I asked open questions first, then closed questions; no leading or compound questions.','I found out what the patient already knew before explaining.','I showed empathy in words when the patient expressed a feeling.','I picked up the patient’s cues (“Oh!”, “But…”, “Mmm…”) and responded.','I signposted each new topic (“Now, I’d like to talk about …”).','I explained in lay language, in small chunks, and paused.','I checked understanding (asked the patient to tell me back).','I asked what else the patient wanted to know, and closed politely.'];
+
+/* ---------- phrase banks (live tool and Study Hub) ---------- */
+function PhraseBanks(){const P=PROF.phrases||{};const T={opening:'Opening',empathy:'Empathy',explaining:'Explaining',checking:'Checking understanding',closing:'Closing'};
+  return `<div class="phr" data-widget="phrases"><div class="phr-tabs">${Object.keys(T).map((k,i)=>`<button type="button" class="tm-tab" data-ph="${k}" aria-pressed="${i===0}"><span><b>${T[k]}</b><small>${(P[k]||[]).length} phrases</small></span></button>`).join('')}</div><div class="phr-body"></div>
+   <p class="muted" style="font-size:12.5px;margin-top:6px">Use a different phrase in each role-play to show range. Change the words to fit the patient.</p></div>`}
+function bindPhrases(root){root.querySelectorAll('[data-widget="phrases"]:not([data-bound])').forEach(w=>{w.dataset.bound='1';const P=PROF.phrases||{};const body=w.querySelector('.phr-body');
+  const show=k=>{w.querySelectorAll('[data-ph]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.ph===k));body.innerHTML=`<ul class="phr-list">${(P[k]||[]).map(x=>`<li>“${esc(x)}”${TTS.OK?` <button type="button" class="btn sm" data-say="${esc(x)}" aria-label="Listen">🔊</button>`:''}</li>`).join('')}</ul>`;
+    body.querySelectorAll('[data-say]').forEach(b=>b.addEventListener('click',()=>TTS.play([['Nurse',b.dataset.say]],{genders:{Nurse:'f'}})))};
+  w.querySelectorAll('[data-ph]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.ph)));show('opening')})}
+// role-play cards on the projector: choose a card, show the candidate card, reveal the interlocutor card, run the 3 + 5 minute clock
+function RPCards(){const keys=Object.keys(PROF.roleplays||{});return `<div class="rpc" data-widget="rpcards"><div class="row"><label class="field" style="flex-direction:row;align-items:center;gap:8px">Role-play<select data-rpk>${keys.map(k=>`<option value="${k}">${esc(PROF.roleplays[k].task.replace(/^.*?· /,''))}</option>`).join('')}</select></label><span class="spacer"></span><span class="timer" data-rpt>3:00</span><button class="btn sm" type="button" data-rpgo>Start 3 + 5 min</button></div><div class="rpc-body"></div></div>`}
+function bindRPCards(root){root.querySelectorAll('[data-widget="rpcards"]:not([data-bound])').forEach(w=>{w.dataset.bound='1';const sel=w.querySelector('[data-rpk]'),body=w.querySelector('.rpc-body'),tm=w.querySelector('[data-rpt]'),go=w.querySelector('[data-rpgo]');let iv=null;
+  const draw=()=>{const t=PROF.roleplays[sel.value];body.innerHTML=`<div class="grid g2" style="margin-top:10px">${rpCard(t)}<details class="selfbox"><summary>Show the interlocutor card</summary>${rpCard(t,'inter')}</details></div>`};
+  sel.addEventListener('change',draw);draw();
+  go.addEventListener('click',()=>{if(iv){clearInterval(iv);iv=null;tm.textContent='3:00';tm.classList.remove('low');go.textContent='Start 3 + 5 min';return}let left=180,ph=0;go.textContent='Reset';
+    iv=setInterval(()=>{if(!document.body.contains(w)){clearInterval(iv);return}left--;tm.textContent=(ph?'▶ ':'')+fmt(Math.max(0,left));tm.classList.toggle('low',left<=30);if(left<=0){if(!ph){ph=1;left=300;beep(880)}else{clearInterval(iv);iv=null;beep(520);tm.textContent='Time';go.textContent='Start 3 + 5 min'}}},1000)})})}
+// Live Letter Pad: pick a case, write in front of the class with the checks on, show the model
+function LetterPad(px=''){const keys=Object.keys(PROF.letters||{});return `<div class="wpad" data-widget="lpad" data-px="${px}"><div class="wp-bar"><label class="field" for="${px}lp-sel">Case<select id="${px}lp-sel" data-lp-sel>${keys.map(k=>`<option value="${k}">${esc(PROF.letters[k].title)}</option>`).join('')}</select></label><span class="spacer"></span><span class="timer" data-lp-time>40:00</span><button class="btn sm" type="button" data-lp-timer>Start 40 min</button><button class="btn sm" type="button" data-lp-big>Big text</button></div>
+  <details class="selfbox"><summary>Case notes and task</summary><div data-lp-notes></div></details>
+  <div class="wp-main"><textarea data-lp-text class="wp-text" spellcheck="false" placeholder="Recipient&#10;Address&#10;&#10;Date&#10;&#10;Re: …&#10;&#10;Dear …,"></textarea><aside class="wp-side" aria-live="polite"><div data-lp-out></div></aside></div>
+  <div class="row"><button class="btn sm" type="button" data-lp-model>Show the model letter</button><button class="btn sm" type="button" data-lp-clear>Clear</button></div><div data-lp-modelbox hidden></div></div>`}
+function bindLetterPad(root){root.querySelectorAll('[data-widget="lpad"]:not([data-bound])').forEach(w=>{w.dataset.bound='1';const px=w.dataset.px||'';const sel=w.querySelector('[data-lp-sel]'),ta=w.querySelector('[data-lp-text]'),out=w.querySelector('[data-lp-out]'),mb=w.querySelector('[data-lp-modelbox]');let tid=null,left=2400;
+  const K=()=>'lpad:'+px+sel.value;const L=()=>PROF.letters[sel.value];
+  const upd=()=>{out.innerHTML=letterChecklistHTML(letterCheck(ta.value,L()));try{_set(K(),ta.value)}catch(e){}};
+  const load=()=>{ta.value=store.get(K(),'');w.querySelector('[data-lp-notes]').innerHTML=`<div class="prompt" style="margin:8px 0"><b>Task.</b> ${esc(L().task)}</div>${notesHTML(L(),null,false)}`;mb.hidden=true;w.querySelector('[data-lp-model]').hidden=!L().model;w.querySelector('[data-lp-model]').textContent='Show the model letter';upd()};
+  sel.addEventListener('change',load);ta.addEventListener('input',upd);
+  w.querySelector('[data-lp-model]').addEventListener('click',e=>{mb.hidden=!mb.hidden;mb.innerHTML=mb.hidden?'':modelLetterHTML(L().model,true);e.currentTarget.textContent=mb.hidden?'Show the model letter':'Hide the model letter'});
+  w.querySelector('[data-lp-clear]').addEventListener('click',()=>{ta.value='';upd()});
+  w.querySelector('[data-lp-big]').addEventListener('click',e=>{w.classList.toggle('big');e.currentTarget.textContent=w.classList.contains('big')?'Normal text':'Big text'});
+  const tEl=w.querySelector('[data-lp-time]'),tB=w.querySelector('[data-lp-timer]');
+  tB.addEventListener('click',()=>{if(tid){clearInterval(tid);tid=null;left=2400;tEl.textContent='40:00';tB.textContent='Start 40 min';return}tB.textContent='Reset';tid=setInterval(()=>{if(!document.body.contains(w)){clearInterval(tid);return}left--;tEl.textContent=fmt(Math.max(0,left));tEl.classList.toggle('low',left<=300);if(left<=0){clearInterval(tid);tid=null}},1000)});
+  load()})}
+// Case-notes selector on the projector (same data as the Study Hub step)
+function NotesSelector(){const keys=Object.keys(PROF.letters||{});return `<div data-widget="cnsel"><div class="row"><label class="field" style="flex-direction:row;align-items:center;gap:8px">Case<select data-cns>${keys.map(k=>`<option value="${k}">${esc(PROF.letters[k].title)}</option>`).join('')}</select></label><span class="spacer"></span><button class="btn sm" type="button" data-cnr>Reveal the model selection</button></div><div class="cns-body" style="margin-top:10px"></div></div>`}
+function bindNotesSelector(root){root.querySelectorAll('[data-widget="cnsel"]:not([data-bound])').forEach(w=>{w.dataset.bound='1';const sel=w.querySelector('[data-cns]'),body=w.querySelector('.cns-body');let marks={},rev=false;
+  const draw=()=>{const L=PROF.letters[sel.value];body.innerHTML=`<div class="prompt" style="margin-bottom:8px"><b>Task.</b> ${esc(L.task)}</div>${notesHTML(L,marks,rev)}`;if(!rev)bindNotes(body,(k,v)=>{if(v)marks[k]=v;else delete marks[k]})};
+  sel.addEventListener('change',()=>{marks={};rev=false;draw()});w.querySelector('[data-cnr]').addEventListener('click',e=>{rev=!rev;e.currentTarget.textContent=rev?'Hide the model selection':'Reveal the model selection';draw()});draw()})}
+Object.assign(LIVE_WIDGETS,{
+ CNSEL:['Case-Notes Selector','Tick what the reader needs and cross out what they do not, then reveal the model selection with the reason for each note.',NotesSelector,bindNotesSelector],
+ LPAD:['Live Letter Pad','Write a letter in front of the class. Layout, purpose, word count, contractions, abbreviations and informal words are checked as you type.',LetterPad,bindLetterPad],
+ PHRASES:['Phrase Banks','Opening, empathy, explaining, checking understanding and closing phrases.',PhraseBanks,bindPhrases],
+ RPCARDS:['Role-Play Cards','Show a candidate card, reveal the interlocutor card, and run the 3-minute preparation and 5-minute role-play clock.',RPCards,bindRPCards]});
+Object.assign(HUB_WIDGETS,{LPAD:'Draft here first: the checks update as you type. Then do the timed letters below.',PHRASES:'Learn two phrases from each bank before your role-plays.'});
 /* ---------- diagnostic summary ---------- */
 function band(v,k){if(v==null)return ['Not done yet',''];if(k==='L'||k==='R')return v>=75?['Strong','good']:v>=55?['Developing','mid']:['Building','low'];return v>=350?['Strong','good']:v>=300?['Developing','mid']:['Building','low']}
 function Diag(host){const r=results();const g=k=>r['1:'+k];

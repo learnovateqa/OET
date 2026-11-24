@@ -29,6 +29,7 @@ async function newCtx(browser, gas) {
 async function openStep(page, base, n, tool) {
   await page.goto(base + '#session-' + n); await page.click('[data-tab="hub"]');
   await page.evaluate(() => { const g = document.getElementById('gate-open'); if (g) g.click() });
+  if (await page.$(`#tool-${tool} .tool.closed`)) await page.click(`#tool-${tool} .step-head`);
   await page.click(`#tool-${tool} [data-si-start]`);
 }
 async function main() {
@@ -76,8 +77,42 @@ async function main() {
   const pos = await page.evaluate(() => { const c = [0, 0, 0]; Object.values(QUIZ).forEach(q => q.qs.forEach(x => { if (x.o && x.o.length === 3 && !x.o.every(o => /^[A-H]$/.test(o))) c[x.a]++ })); return c });
   ok(`3-option answers balanced across positions (${pos.join(' / ')})`, Math.max(...pos) - Math.min(...pos) <= 3);
 
-  // Mock 1 Listening: answer the first Part A screen correctly, skip through the rest
+  // Writing: case notes + letter, the checker, the self-check
   page.on('dialog', d => d.accept());
+  await openStep(page, base, 7, 'W7'); await page.click('#tool-W7 [data-go]');
+  ok('letter is locked during the 5 minutes of reading time', await page.$eval('#tool-W7 textarea', e => e.readOnly));
+  await page.click('#tool-W7 .mb-time + button, #tool-W7 button:has-text("Skip to writing")');
+  const letter = await page.evaluate(() => { const M = WRITE.W7.model; return M.head.join('\n') + '\n\n' + M.date + '\n\n' + M.re + '\n\n' + M.greet + '\n\n' + M.parts.map(p => p[1]).join('\n\n') + '\n\n' + M.close + '\n\n' + M.sign.join('\n') });
+  await page.fill('#tool-W7 textarea', letter);
+  const chk = await page.evaluate(t => letterCheck(t, WRITE.W7), letter);
+  ok(`letter checker passes the model letter (${chk.words} words, ${chk.warn.length} warnings)`, chk.date && chk.recipient && chk.re && chk.greet && chk.close && chk.purpose && chk.request && chk.words >= 170 && chk.words <= 220 && !chk.warn.length);
+  const bad = await page.evaluate(() => letterCheck('Dear Dr Khan,\n\nPt c/o SOB. He’s a heavy smoker and gonna need lots of help.\n\nYours faithfully,\nNurse', WRITE.W7));
+  ok('letter checker flags contractions, note form, judgement, informal words and the wrong closing', bad.warn.map(w => w[0]).join('|').match(/Contractions/) && /Note-form/.test(bad.warn.map(w => w[0]).join()) && /Judgemental/.test(bad.warn.map(w => w[0]).join()) && /Informal/.test(bad.warn.map(w => w[0]).join()) && /Closing/.test(bad.warn.map(w => w[0]).join()));
+  await page.click('#tool-W7 [data-submit]'); await page.waitForTimeout(400);
+  await page.evaluate(() => { document.querySelectorAll('#tool-W7 [data-rub]').forEach(s => { s.value = s.dataset.rub === 'purpose' ? '2' : '5' }) });
+  await page.click('#tool-W7 [data-saverub]');
+  const w7 = await page.evaluate(() => results()['7:W7']); ok(`letter saved with a self-check of ${w7 && w7.est} (2 + five 5s = grade B)`, w7 && w7.text && w7.est === 350);
+  ok('model letter and model selection appear after submitting', await page.isVisible('#tool-W7 [data-model] summary'));
+  if (SHOTS) await page.locator('#tool-W7').screenshot({ path: SHOTS + '/W7.png' });
+
+  // Case-notes selector: mark every note like the model selection
+  await openStep(page, base, 6, 'CN1');
+  await page.evaluate(() => { const L = WRITE.W7; document.querySelectorAll('#tool-CN1 [data-cn]').forEach(li => { const [g, i] = li.dataset.cn.split('.').map(Number); li.querySelector(`[data-mk="${L.notes[g].items[i][1] === 0 ? 'x' : 'y'}"]`).click() }) });
+  await page.click('#tool-CN1 [data-check]');
+  const cn = await page.evaluate(() => results()['6:CN1']); ok(`case-notes selector scored ${cn && cn.score}/${cn && cn.total}`, cn && cn.score === cn.total);
+  if (SHOTS) await page.locator('#tool-CN1').screenshot({ path: SHOTS + '/CN1.png' });
+
+  // Speaking: preparation, a short recording (no microphone in the test browser), the nine-criteria self-check
+  await page.evaluate(() => { SPEAK.S9A.speak = 2; SPEAK.S9A.cues = [] });
+  await openStep(page, base, 9, 'S9A'); await page.click('#tool-S9A [data-go]'); await page.waitForTimeout(500);
+  await page.click('#tool-S9A button:has-text("Start the role-play now")'); await page.waitForTimeout(3500);
+  ok('role-play finishes and shows the self-check', await page.isVisible('#tool-S9A [data-after]'));
+  await page.evaluate(() => document.querySelectorAll('#tool-S9A [data-rub]').forEach(s => { s.value = s.dataset.rub.length && ['intel', 'flu', 'approp', 'gram'].includes(s.dataset.rub) ? '5' : '2' }));
+  await page.click('#tool-S9A [data-save]');
+  const s9 = await page.evaluate(() => results()['9:S9A']); ok(`role-play self-check saved: ${s9 && s9.est} (5s and 2s = grade B)`, s9 && s9.est === 350);
+  if (SHOTS) await page.locator('#tool-S9A').screenshot({ path: SHOTS + '/S9A.png' });
+
+  // Mock 1 Listening: answer the first Part A screen correctly, skip through the rest
   await page.goto(base + '#mock-1-L'); await page.click('#mk-start');
   const mk1 = await page.evaluate(() => MOCKS[1].L[0].qs.map(x => x.a[0]));
   for (let i = 0; i < mk1.length; i++) await page.fill(`input[name="mk-0-${i}"]`, mk1[i]);
