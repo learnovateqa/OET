@@ -76,6 +76,28 @@ async function main() {
   const pos = await page.evaluate(() => { const c = [0, 0, 0]; Object.values(QUIZ).forEach(q => q.qs.forEach(x => { if (x.o && x.o.length === 3 && !x.o.every(o => /^[A-H]$/.test(o))) c[x.a]++ })); return c });
   ok(`3-option answers balanced across positions (${pos.join(' / ')})`, Math.max(...pos) - Math.min(...pos) <= 3);
 
+  // Mock 1 Listening: answer the first Part A screen correctly, skip through the rest
+  page.on('dialog', d => d.accept());
+  await page.goto(base + '#mock-1-L'); await page.click('#mk-start');
+  const mk1 = await page.evaluate(() => MOCKS[1].L[0].qs.map(x => x.a[0]));
+  for (let i = 0; i < mk1.length; i++) await page.fill(`input[name="mk-0-${i}"]`, mk1[i]);
+  for (let s = 0; s < 10; s++) { await page.click('[data-skip]'); await page.click('[data-next]') }
+  const ml = await page.evaluate(() => results()['mock:M1L']);
+  ok(`mock Listening saved (${ml && ml.score}/${ml && ml.total})`, ml && ml.total === 42 && ml.score >= 12);
+  ok('mock review shows an estimated score and grade', /about \d+ · grade/.test(await page.textContent('#app')));
+  // Mock 1 Reading: Part A, then Parts B and C, then finish
+  await page.goto(base + '#mock-1-R'); await page.click('#mk-start');
+  await page.evaluate(() => { const p = MOCKS[1].R[0]; p.qs.forEach((x, i) => { const n = 'mk-0-' + i; const el = document.querySelector(`[name="${n}"]`);
+    if (x.o) { el.value = String(x.a); el.dispatchEvent(new Event('input', { bubbles: true })) } else { el.value = x.a[0]; el.dispatchEvent(new Event('input', { bubbles: true })) } }) });
+  await page.click('[data-next]');
+  ok('Parts B and C share one timer with navigation', (await page.$$('.mk-nav [data-goto]')).length === 3);
+  await page.click('[data-goto="3"]'); await page.click('[data-finish]');
+  const mr = await page.evaluate(() => results()['mock:M1R']); ok(`mock Reading saved, Part A counted (${mr && mr.score}/42)`, mr && mr.total === 42 && mr.score >= 20);
+  await page.goto(base + '#mock-1-report'); const rep = await page.textContent('#app');
+  ok('score report lists Listening and Reading scores with grades', /Listening[\s\S]*\d{2,3}[\s\S]*Reading/.test(rep) && /not an official OET result/.test(rep));
+  const mpos = await page.evaluate(() => { const c = [0, 0, 0]; Object.values(MOCKS).forEach(m => ['L', 'R'].forEach(k => m[k].forEach(p => p.qs.forEach(x => { if (x.o && x.o.length === 3 && !x.o.every(o => /^[A-D]$/.test(o))) c[x.a]++ })))); return c });
+  ok(`mock 3-option answers balanced (${mpos.join(' / ')})`, Math.max(...mpos) - Math.min(...mpos) <= 3);
+
   await page.waitForTimeout(2600); // the sync waits 2 s after the last change
   const row = gas.sheets.Progress.find(r => r[0] === 'OET-TEST1'); const saved = row ? JSON.parse(row.slice(2).join('')) : {};
   ok('progress synced to the Sheet', !!(saved.res && saved.res['2:LA1'] && saved.res['4:RA1'] && saved.log.length >= 2));
@@ -87,6 +109,16 @@ async function main() {
   const txt = await tp.textContent('#t-detail');
   ok('teacher sees the Error Log with a spelling entry and a coaching focus', /spelling/i.test(txt) && /Coaching focus/.test(txt));
   if (SHOTS) await tp.screenshot({ path: SHOTS + '/teacher-detail.png', fullPage: true });
+  // Teacher removes the mock attempt; it stays removed on the student's device and in the Sheet
+  tp.on('dialog', d => d.accept());
+  await tp.evaluate(() => document.querySelectorAll('details').forEach(d => d.open = true));
+  await tp.click('[data-mr="1"]'); await tp.click('[data-mr-yes="1"]'); await tp.waitForTimeout(500);
+  await page.goto(base + '#home'); await page.reload(); await page.waitForTimeout(1200);
+  const gone = await page.evaluate(() => !results()['mock:M1L'] && !results()['mock:M1R'] && !store.get('log', []).some(e => e.session === 'Mock 1'));
+  ok('removed mock attempt disappears from the student’s device', gone);
+  await page.waitForTimeout(2600);
+  const row2 = gas.sheets.Progress.find(r => r[0] === 'OET-TEST1'); const saved2 = JSON.parse(row2.slice(2).join(''));
+  ok('removed mock attempt stays removed after the student syncs again', !saved2.res['mock:M1L'] && saved2.res['2:LA1']);
   ok('no page errors', !errs.length); if (errs.length) console.log(errs.join('\n'));
   await browser.close(); srv.close(); console.log(steps.join('\n'));
 }
