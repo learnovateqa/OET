@@ -47,7 +47,7 @@ The web app URL isn't secret (students' browsers need it), but the password is, 
 
 ## 3. Publish on GitHub Pages
 
-1. Make sure `index.html`, `.nojekyll` and the `professions/` and `mocks/` folders (and later `decks/` and `downloads/`) are in the `main` branch.
+1. Make sure `index.html`, `.nojekyll` and the `professions/` and `mocks/` `decks/` and `downloads/` folders are in the `main` branch.
 2. In the repository, go to **Settings → Pages**. Under **Build and deployment**, choose **Deploy from a branch**, then **main** and **/ (root)**, and click **Save**.
 3. After a minute, the site is live at `https://learnovateqa.github.io/OET/`.
 
@@ -69,6 +69,22 @@ The web app URL isn't secret (students' browsers need it), but the password is, 
   - **Student detail** shows scores, the Error Log with a coaching focus, letters, recordings, messages and feedback.
 - **Mock test ratings**: rate Writing on the six OET criteria (Purpose 0–3; Content, Conciseness & Clarity, Genre & Style, Organisation & Layout, and Language 0–7). Rate each Speaking role-play on the four linguistic criteria (0–6) and the five clinical communication criteria (0–3). The site converts your ratings to an estimated score on the 0–500 scale and a grade.
 - **Remove this attempt** deletes a mock attempt (answers, scores, Error Log entries and your ratings). It stays removed, even if the student's device has an older copy.
+
+## Session decks (PowerPoint) and Canva
+
+`decks/session-01.pptx` … `decks/session-12.pptx` are ready to teach: 2 hours each, the same five-block plan as the *In class* tab, speaker notes on every slide (what to say, a checking question and timing), and an answer slide after every "your turn" slide. The teacher guide for each session is in the site's *In class* tab (teacher only).
+
+To use them in Canva:
+
+1. In Canva, click **Create a design → Import file** and choose a deck from `decks/`.
+2. Check the fonts (the decks use Poppins), then click **Share → More → Embed** and copy the link.
+3. In the Teacher portal, open **Students & Batches → Slide decks**, paste the link next to the session and click **Save**. **Course readiness** then shows the Canva deck as ready, and **▶ Present slides** appears for that session.
+
+To change a deck, edit `tools/decks/sNN.js` and rebuild it (you need Node, plus `pptxgenjs`, `react`, `react-dom`, `react-icons` and `sharp`):
+
+```bash
+NODE_PATH=/path/to/node_modules node tools/session-deck.js 3 decks/session-03.pptx
+```
 
 ## Scoring (practice estimates)
 
@@ -103,6 +119,7 @@ When it's turned on, a submitted letter gets an estimated score and grade, a ban
 
 ```bash
 node tests/crawl.js
+node tests/flows.js
 ```
 
 ## Good to know

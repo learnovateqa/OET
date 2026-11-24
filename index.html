@@ -949,6 +949,8 @@ input.gap.no,.mk-sel.no{border-color:var(--bad);background:color-mix(in srgb,var
 .sample-l summary{cursor:pointer}
 label.field{max-width:100%;min-width:0}.panel select,.tool-body select{max-width:100%}
 [data-widget] .row>label.field{flex:1 1 220px}
+.ptimer{display:grid;gap:12px;justify-items:center;padding:8px 0}.pt-big{font-size:clamp(48px,14vw,112px);font-weight:700;line-height:1;font-variant-numeric:tabular-nums;color:var(--fg)}.pt-big.pt-end{color:#B42318}
+.cpoll{display:grid;gap:10px}.cp-bars{display:grid;gap:8px}.cp-row{display:grid;grid-template-columns:28px 1fr 36px;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--fg);font:inherit;cursor:pointer;text-align:left}.cp-bar{height:12px;border-radius:99px;background:var(--line);overflow:hidden}.cp-bar i{display:block;height:100%;background:var(--accent,#1A5FCC);transition:width .3s}
 </style>
 </head>
 <body>
@@ -1159,9 +1161,9 @@ const SESSIONS=[
   ['0:45','1:15','Tour the Criteria','The six Writing criteria and the nine Speaking criteria, with one example of each.'],
   ['1:15','1:40','Teach the Error Causes','The five causes students log all course: distractor, vocabulary, timing, inference and spelling.'],
   ['1:40','2:00','Set Targets and Preview the Hub','Each student sets a target grade per sub-test and starts the diagnostic.']],
- liveTools:[['Test Map','Click a sub-test to see every part, question count and time.'],['Score Ladder','The 0–500 scale and grades, with what grade B means.'],['Criteria Cards','The six Writing and nine Speaking criteria, one card each.']],
+ liveTools:[['Test Map','Click a sub-test to see every part, question count and time.'],['Class Poll','Students vote before each answer slide in the deck.'],['Session deck','Score scale, criteria and error-cause slides, each with an answer slide.']],
  tasks:[['Set your target grades','On your dashboard, choose the grade your board asks for in each sub-test.'],['Do the format drill','Eight questions on the test format.'],['Do the Listening and Reading checks','Audio plays once. The reading check is timed.'],['Write the diagnostic letter','5 minutes reading, 40 minutes writing.'],['Record the diagnostic role-play','3 minutes to prepare, 5 minutes to speak. Keep the recording.'],['Save your starting point','Save your diagnostic summary and check your Error Log.']],
- tools:['D1','DL','DR','DW','DS','DIAG'],widgets:['TESTMAP']},
+ tools:['D1','DL','DR','DW','DS','DIAG'],widgets:['TESTMAP','POLL']},
 {n:2,k:'L',title:'Listening Part A: Note-Taking in Consultations',
  obj:'Students predict, hear and accurately write the key details a health professional needs from a consultation.',
  live:[['0:00','0:15','Debrief the Diagnostic','Class patterns in Listening: which gaps were missed, and why.'],
@@ -1169,9 +1171,9 @@ const SESSIONS=[
   ['0:40','1:10','Model Note-Taking Live','Think aloud through a consultation: hear it, write 1–3 words, keep up with the next gap.'],
   ['1:10','1:35','Catch the Corrections','Patients change their answer: “once a month… no, twice a week”. Train students to wait for the final version.'],
   ['1:35','2:00','Spelling and Medical Words','Patient words vs medical words; the spellings that cost marks.']],
- liveTools:[['Gap Predictor','Shows a set of notes; students predict the type of word for each gap before listening.'],['Think-Aloud Player','Plays a consultation line by line so you can model note-taking.'],['Spelling Check','A quick spelling round with the words that cost marks.']],
+ liveTools:[['Think-aloud transcripts','In the deck: read each consultation once, then reveal the colour-coded answer key.'],['Class Poll','Students vote on the word type or the final answer before you reveal it.'],['Projector Timer','Short timed rounds for prediction and spelling.']],
  tasks:[['Do Consultation 1','Read the notes first. Complete them while you listen.'],['Do Consultation 2','Listen for the patient’s final answer, not the first one.'],['Do Consultation 3','A carer gives the information this time.'],['Read every transcript','Find the words that prove each answer.'],['Do the two drills','Patient words and medical words, then spelling.'],['Check your Error Log','Look at the spelling and distractor misses first.']],
- tools:['LA1','LA2','LA3','D2','D2S']},
+ tools:['LA1','LA2','LA3','D2','D2S'],widgets:['POLL','TIMER']},
 {n:3,k:'L',title:'Listening Parts B and C: Gist, Opinion and Purpose',
  obj:'Students identify the main point, purpose and opinions in short workplace extracts and longer talks.',
  live:[['0:00','0:15','Review Part A Results','The class’s most-missed gaps and the fixes.'],
@@ -1179,9 +1181,9 @@ const SESSIONS=[
   ['0:45','1:15','Model Part C: Following a Talk','Signposts in presentations: “The first point…”, “What surprised us…”, “If you remember one thing…”.'],
   ['1:15','1:40','Decode Attitude and Opinion','Hedges and attitude words: “I’m not convinced”, “to be fair”, “frankly”.'],
   ['1:40','2:00','Distractor Clinic','Why the option that repeats the speaker’s words is so often wrong.']],
- liveTools:[['Prediction Poll','Students commit to an option; reveal the class split, then the reason.'],['Attitude Highlighter','Tags opinion, hedge and contrast words in a transcript.'],['Think-Aloud Player','Plays a talk section by section to model note-taking for Part C.']],
+ liveTools:[['Class Poll','Students commit to an option; reveal the class split, then the answer slide.'],['Attitude transcripts','In the deck: opinion, hedge and contrast words colour-coded on the answer key.'],['Projector Timer','Time the Part B extracts and the distractor clinic.']],
  tasks:[['Do both Part B sets','Read each question before you press Play.'],['Do the Part C presentation','Six questions. Listen for opinions.'],['Do the Part C interview','Six questions. Listen for the interviewee’s view.'],['Do the attitude drill','Six phrases: what does the speaker mean?'],['Take the mock Listening test','Your teacher will tell you when.'],['Update your Error Log','Focus on inference misses.']],
- tools:['LB1','LB2','LC1','LC2','D3','MK1L']},
+ tools:['LB1','LB2','LC1','LC2','D3','MK1L'],widgets:['POLL','TIMER']},
 {n:4,k:'R',title:'Reading Part A: Speed Reading in 15 Minutes',
  obj:'Students scan four short texts quickly to match, complete and answer 20 questions within the time limit.',
  live:[['0:00','0:15','Debrief Listening','Class trends from Parts B and C.'],
@@ -1189,9 +1191,9 @@ const SESSIONS=[
   ['0:40','1:10','Model Scanning','Scan for numbers, units, drug names and key nouns. Never read every word.'],
   ['1:10','1:40','Run a Timed Race','Teams race through Part A questions on the projector.'],
   ['1:40','2:00','Spelling and Copying','Answers come from the texts. Copy them exactly.']],
- liveTools:[['Text Type Sorter','Match a short text to its type and purpose.'],['Scan Race','A timed team race on Part A questions.'],['Projector Timer','A 15-minute countdown for class practice.']],
+ liveTools:[['Projector Timer','A 15-minute countdown for the Part A race.'],['Scanning passages','In the deck: Part A texts with questions, then an answer key with the proof lines.'],['Class Poll','Vote on the text type before the answer slide.']],
  tasks:[['Do Part A: Pressure injuries','15 minutes. The timer stops you at 0:00.'],['Do Part A: Iron deficiency anaemia','15 minutes. Use your scanning plan.'],['Do the scanning drill','Decide what you are scanning for.'],['Find your slowest question','Write one sentence about why it took long.'],['Update your Error Log','Look for spelling and timing misses.']],
- tools:['RA1','RA2','D4']},
+ tools:['RA1','RA2','D4'],widgets:['TIMER','POLL']},
 {n:5,k:'R',title:'Reading Parts B and C: Workplace Texts and Long Articles',
  obj:'Students read for the gist of workplace notices and follow the argument, attitude and references in long articles.',
  live:[['0:00','0:15','Review Part A Results','Timing and spelling trends.'],
@@ -1199,9 +1201,9 @@ const SESSIONS=[
   ['0:45','1:20','Map a Part C Article','One line per paragraph: the main point and the writer’s view.'],
   ['1:20','1:45','Reference and Attitude','What do “this”, “it” and “such” refer to? Where does the writer stand?'],
   ['1:45','2:00','Plan the 45 Minutes','About 15 minutes for Part B, 30 for Part C.']],
- liveTools:[['Paragraph Mapper','Students write a summary line for each paragraph, then compare.'],['Attitude Highlighter','Tags the writer’s opinion and hedging words.'],['Projector Timer','A 45-minute countdown for Parts B and C.']],
+ liveTools:[['Projector Timer','A 45-minute countdown for Parts B and C.'],['Article map','In the deck: map a Part C article paragraph by paragraph, with an answer key.'],['Class Poll','Vote on the writer’s view before the answer slide.']],
  tasks:[['Do both Part B sets','One question per text. Read the question first.'],['Do Part C: Nurse-led discharge','Map each paragraph in one line first.'],['Do Part C: Stopping medicines','Watch for the writer’s view.'],['Do the reference drill','What does “this” refer to?'],['Take the mock Reading test','Your teacher will tell you when.'],['Update your Error Log','Focus on inference and distractor misses.']],
- tools:['RB1','RB2','RC1','RC2','D5','MK1R']},
+ tools:['RB1','RB2','RC1','RC2','D5','MK1R'],widgets:['TIMER','POLL']},
 {n:6,k:'W',title:'Read Case Notes and Choose What Is Relevant',
  obj:'Students identify the reader and purpose and select only the case notes the reader needs.',
  live:[['0:00','0:15','Debrief Reading','Class trends.'],
@@ -1209,9 +1211,9 @@ const SESSIONS=[
   ['0:40','1:10','Two Questions for the Notes','Does the reader already know the patient? What will the reader do for the patient?'],
   ['1:10','1:40','Select Notes Live','Tick what the reader needs, cross out what they do not, and summarise long histories.'],
   ['1:40','2:00','Represent Notes Accurately','Same meaning, right tense: the mistakes that cost Content marks.']],
- liveTools:[['Case-Notes Selector','Tick relevant notes and cross out irrelevant ones, then compare with the model selection.'],['Reader Lens','Change the reader and see which notes become relevant.'],['Accuracy Check','Note vs letter sentence: is the meaning still the same?']],
+ liveTools:[['Case-Notes Selector','Tick relevant notes and cross out irrelevant ones, then compare with the model selection.'],['Same notes, different reader','In the deck: a table showing how the reader changes what is relevant.'],['Class Poll','Vote on the least relevant note before the answer slide.']],
  tasks:[['Do the “relevant or not” drill','Eight case notes, one reader.'],['Use the case-notes selector','Tick and cross out, then compare with the model.'],['Write one summary sentence','Turn three visits into one sentence.'],['Update your Error Log','Note any content you included by mistake.']],
- tools:['D6','CN1','CN2'],widgets:['CNSEL']},
+ tools:['D6','CN1','CN2'],widgets:['CNSEL','POLL']},
 {n:7,k:'W',title:'Letter Layout and the Referral Letter',
  obj:'Students lay out an OET letter correctly and write a referral letter with a clear purpose.',
  live:[['0:00','0:15','Review Selection Work','Common inclusion and omission errors.'],
@@ -1219,9 +1221,9 @@ const SESSIONS=[
   ['0:40','1:05','Teach Purpose','An immediately clear opening and a specific request at the end.'],
   ['1:05','1:40','Write a Referral Live','From case notes to a finished letter, thinking aloud.'],
   ['1:40','2:00','Analyse a Model','Colour-code a sample letter against the six criteria.']],
- liveTools:[['Live Letter Pad','Write in front of the class; layout, purpose and style are checked as you type.'],['Sample Letters','Colour-coded model letters with “Why it scores well”.'],['Layout Builder','Put the parts of a letter in the right order.']],
+ liveTools:[['Live Letter Pad','Write in front of the class; layout, purpose and style are checked as you type.'],['Sample Letters','Colour-coded model letters with “Why it scores well”.'],['Class Poll','Vote on the best opening and sign-off before the answer slides.']],
  tasks:[['Do the layout drill','Six layout choices.'],['Do the purpose drill','Choose the clearest opening.'],['Write the referral letter','5 + 40 minutes, about 180–200 words in the body.'],['Check it with the letter checklist','Before you submit.'],['Compare with the model letter','Colour-code your own letter the same way.']],
- tools:['D7','D7P','W7'],widgets:['LPAD']},
+ tools:['D7','D7P','W7'],widgets:['LPAD','POLL']},
 {n:8,k:'W',title:'Discharge, Transfer and Advice Letters, Written Concisely',
  obj:'Students adapt structure to discharge, transfer and advice letters and write clearly and concisely.',
  live:[['0:00','0:15','Review Referral Letters','Top issues from Hub submissions.'],
@@ -1229,9 +1231,9 @@ const SESSIONS=[
   ['0:40','1:05','Teach Conciseness','Summarise, group and cut. Chronological or by theme?'],
   ['1:05','1:35','Teach Genre and Style','Facts, not judgements; no contractions; careful abbreviations.'],
   ['1:35','2:00','Write a Discharge Letter Live','Model a discharge letter and a final reader’s check.']],
- liveTools:[['Live Letter Pad','Write a discharge letter live with the checks on.'],['Sample Letters','Discharge and transfer models, colour-coded.'],['Before/After Editor','Rewrite wordy or judgemental sentences together.']],
+ liveTools:[['Live Letter Pad','Write a discharge letter live with the checks on.'],['Sample Letters','Discharge, transfer and advice models, colour-coded.'],['Projector Timer','5 + 40 minutes for a timed letter.']],
  tasks:[['Do the conciseness drill','Choose the clearest version.'],['Do the genre and style drill','Formal, polite, factual.'],['Write the discharge letter','5 + 40 minutes.'],['Write the transfer letter','5 + 40 minutes.'],['Take the mock Writing test','Your teacher rates it on the six criteria.']],
- tools:['D8','D8G','W8D','W8T','W8A','MK1W'],widgets:['LPAD']},
+ tools:['D8','D8G','W8D','W8T','W8A','MK1W'],widgets:['LPAD','TIMER']},
 {n:9,k:'S',title:'Speaking Criteria and Role-Play Structure',
  obj:'Students understand the nine Speaking criteria and plan a role-play in three minutes.',
  live:[['0:00','0:15','Debrief Writing','Class trends.'],
@@ -1239,9 +1241,9 @@ const SESSIONS=[
   ['0:40','1:05','Read a Role-Play Card','Setting, patient, tasks. Plan the five minutes in three.'],
   ['1:05','1:35','Model a Role-Play','Open, gather, explain, check, close, with signposts between tasks.'],
   ['1:35','2:00','Practise Questions','Open first, then closed. No compound or leading questions.']],
- liveTools:[['Role-Play Cards','Candidate and interlocutor cards on screen.'],['Prep Timer','3-minute preparation, then a 5-minute role-play clock.'],['Phrase Banks','Opening, empathy, explaining, checking and closing phrases.']],
+ liveTools:[['Role-Play Cards','Candidate and interlocutor cards, with the 3-minute preparation and 5-minute role-play clock.'],['Phrase Banks','Opening, empathy, explaining, checking and closing phrases.'],['Class Poll','Vote on the best question or signpost before the answer slide.']],
  tasks:[['Do the criteria drill','Which criterion does each example show?'],['Do the questions drill','Open, closed and leading questions.'],['Do role-play 1','3 minutes to prepare, 5 to speak. Listen back.'],['Score yourself with the checklist','All nine criteria.'],['Learn ten phrases','Two from each phrase bank.']],
- tools:['D9','D9S','S9A'],widgets:['RPCARDS','PHRASES']},
+ tools:['D9','D9S','S9A'],widgets:['RPCARDS','PHRASES','POLL']},
 {n:10,k:'S',title:'Clinical Communication: Empathy, Explaining and Checking',
  obj:'Students show empathy, explain in lay language and check understanding in a patient-centred way.',
  live:[['0:00','0:15','Review Recordings','Patterns from Hub role-plays.'],
@@ -1249,9 +1251,9 @@ const SESSIONS=[
   ['0:40','1:05','Explain in Lay Language','Chunk, pause, check. Replace jargon with everyday words.'],
   ['1:05','1:35','Find Out What the Patient Knows','Ask first, then explain; link explanations to the patient’s views.'],
   ['1:35','2:00','Pick Up Cues','Hear “Oh!”, “Mmm…” and “But…”, and respond.']],
- liveTools:[['Jargon Buster','Turn medical terms into lay explanations together.'],['Cue Spotter','Play patient lines; students name the cue and respond.'],['Phrase Banks','Empathy, explaining and checking phrases.']],
+ liveTools:[['Phrase Banks','Empathy, explaining and checking phrases.'],['Role-Play Cards','Run role-plays 2 and 3 with the preparation and role-play clock.'],['Class Poll','Vote on the best response to a cue before the answer slide.']],
  tasks:[['Do the empathy and lay language drill','Six situations.'],['Do role-play 2','Explain a treatment in lay language.'],['Do role-play 3','Pick up the patient’s cues.'],['Score yourself with the checklist','Focus on the clinical criteria.'],['Re-record your weakest role-play','Compare it to the first try.']],
- tools:['D10','S10A','S10B'],widgets:['PHRASES','RPCARDS']},
+ tools:['D10','S10A','S10B'],widgets:['PHRASES','RPCARDS','POLL']},
 {n:11,k:'S',title:'Difficult Role-Plays: Anger, Bad News and Persuasion',
  obj:'Students stay calm and structured with an angry patient, a worried carer and a reluctant patient.',
  live:[['0:00','0:15','Review Recordings','Pacing and empathy trends.'],
@@ -1259,9 +1261,9 @@ const SESSIONS=[
   ['0:45','1:10','Giving Difficult News','A warning shot, permission, small chunks, silence, support.'],
   ['1:10','1:40','Persuading Without Pressure','Explore the reason, respect the view, link benefits to the patient’s own goals.'],
   ['1:40','2:00','Brief the Full Mock','Test-day conditions for the full mock.']],
- liveTools:[['Role-Play Cards','Three difficult scenarios with interlocutor cards.'],['Phrase Banks','De-escalation and persuasion phrases.'],['Prep Timer','3 + 5 minute timing.']],
+ liveTools:[['Role-Play Cards','Difficult scenarios with interlocutor cards and the 3 + 5 minute clock.'],['Phrase Banks','Difficult-moment and closing phrases.'],['Class Poll','Vote on the best first response before the answer slide.']],
  tasks:[['Do the difficult conversations drill','Five situations.'],['Do the angry relative role-play','Stay calm and structured.'],['Do the persuasion role-play','Explore the patient’s reasons first.'],['Take the full mock test','All four sub-tests before Session 12.'],['Score yourself with the checklist','All nine criteria.']],
- tools:['D11','S11A','S11B','MK2'],widgets:['RPCARDS','PHRASES']},
+ tools:['D11','S11A','S11B','MK2'],widgets:['RPCARDS','PHRASES','POLL']},
 {n:12,k:'T',title:'Test-Day Strategy and Full Mock',
  obj:'Students turn mock results into a personal plan for the final weeks and for test day.',
  live:[['0:00','0:25','Debrief the Full Mock','Compare mock scores to the diagnostic, sub-test by sub-test.'],
@@ -1269,9 +1271,9 @@ const SESSIONS=[
   ['1:00','1:30','Teach Pacing and Recovery','What to do after a missed gap, a hard text or a role-play that goes wrong.'],
   ['1:30','1:50','Test-Day Logistics','Paper, computer and OET@Home; ID; the order of sub-tests; breaks.'],
   ['1:50','2:00','Build the Final Study Plan','Each student leaves with a plan for the last weeks.']],
- liveTools:[['Progress Comparison','Diagnostic vs mock by sub-test.'],['Test-Day Checklist','On screen and in the Study Hub.']],
+ liveTools:[['Student scores','Teacher portal · Students & Batches: each student’s diagnostic and mock results.'],['Projector Timer','Time the re-teach tasks and the final planning.'],['Class Poll','Vote on the re-teach questions before the answer slides.']],
  tasks:[['Review your readiness report','Compare scores to your targets.'],['Do the test-day strategy drill','Six situations, best moves.'],['Clear your top error cause','Redo every logged miss with that tag.'],['Record a final role-play','Compare it to your Session 1 recording.']],
- tools:['D12','S12F','MK3','READY']}
+ tools:['D12','S12F','MK3','READY'],widgets:['TIMER','POLL']}
 ].map(s=>Object.assign({live:[],liveTools:[],tasks:[],tools:[],widgets:[]},s));
 /* ---------- practice content (original) ---------- */
 // QUIZ: listening / reading sets and drills · XTOOL: other Study Hub tools (case-notes selector, phrase drills …)
@@ -2676,7 +2678,69 @@ const HUB_WIDGETS={};
 function bindWidgets(root){Object.values(LIVE_WIDGETS).forEach(w=>w[3]&&w[3](root))}
 // slides shown on the site (key = session number) and teacher guides (key = session number)
 const SLIDESETS={};
-const GUIDES={};
+/* teacher guides: one block per agenda block (Say / Ask / Watch for / timing tip) */
+const GB=(t,say,ask,watch,tip)=>({t,say,ask,watch,tip});
+const GUIDES={
+1:[GB('0:00–0:20 · Map the test',['"The OET has four sub-tests. Listening and Reading are the same for every profession; Writing and Speaking are for nurses."','"On test day the order is Listening, Reading, Writing, then Speaking."'],['How many times do you hear each recording?','What happens to Reading Part A after 15 minutes?'],['Students who think there is one overall score.','Confusion between Part B and Part C in Listening.'],'Use the Test Map tool; click each sub-test as you talk. Keep this block to 20 minutes.'),
+GB('0:20–0:45 · Scores and grades',['"Each sub-test is scored from 0 to 500. Most boards ask for grade B, which starts at 350, in every sub-test."','"Always check your own board’s current rules."'],['Is there an overall OET score?','Does a wrong answer lose a mark?'],['Students quoting old or second-hand board rules: send them to the board’s website.','Anxiety about the raw-to-scale conversion: explain it is not published and our mock scores are estimates.'],'Run the true/false check with fingers (1 = true, 2 = false) so everyone answers.'),
+GB('0:45–1:15 · Tour the criteria',['"Language is only one of six Writing criteria."','"In Speaking, only the audio is assessed, so empathy must be in your words."'],['Which Writing criterion is scored out of 3?','Name one clinical communication criterion.'],['Students who think accent is the main Speaking criterion.','Students ignoring Purpose and Conciseness.'],'Give one quick spoken example for each Speaking criterion; do not read every card aloud.'),
+GB('1:15–1:40 · The five error causes',['"Every mistake has a cause: distractor, vocabulary, timing, inference or spelling."','"The Error Log tags a cause for you. Change it if you disagree."'],['Which cause only applies to typed answers?','What caused the "once a month" mistake?'],['Students who label every mistake "vocabulary".'],'Show the Error Log on the projector with a sample mistake.'),
+GB('1:40–2:00 · Targets and the diagnostic',['"Set a target grade for each sub-test now, on your phone."','"The diagnostic shows your starting point; it is not a test you pass or fail."'],['Which board are you registering with?','When will you do the diagnostic letter?'],['Students skipping the role-play recording: it is needed for Session 9.'],'Walk round while students set targets; leave 3 minutes for the exit ticket.')],
+2:[GB('0:00–0:15 · Debrief the diagnostic',['"Most Listening marks went on spelling, corrections and losing our place."'],['Which cause is biggest in your Error Log?'],['Students who did not finish the diagnostic: give them a deadline.'],'Show class totals only; never name individual scores.'),
+GB('0:15–0:40 · Predict from headings',['"Before the recording, read every heading and predict the type of word for each gap."','"The words before and after a gap limit the answer."'],['What type of word goes after "takes"?','Does this gap need a plural?'],['Students reading the notes passively instead of marking word types.'],'Cover the right column of the table and reveal one row at a time.'),
+GB('0:40–1:10 · Model note-taking live',['"Watch me: I hear it, I write one to three words, and I move on."','"Write what you hear, not a synonym."'],['What did I do when I missed a gap?','Why did I cross out "two months"?'],['Students trying to write full sentences.','Students stopping after one missed gap.'],'Read each consultation once, at natural speed. Do not repeat it before students commit.'),
+GB('1:10–1:35 · Catch the corrections',['"After words like actually, sorry or used to, stop writing and wait."'],['Which word warned you the answer would change?','What do you write in the notes?'],['Students writing both answers.'],'Act out the corrections with a clear change of voice.'),
+GB('1:35–2:00 · Spelling and medical words',['"Right word, wrong spelling = no mark."','"British or American spelling is fine. Be accurate."'],['Spell "oedema". Spell "diarrhoea".'],['Students relying on spellcheck: the computer test has none.'],'Run a 2-minute spelling round with mini whiteboards before the exit ticket.')],
+3:[GB('0:00–0:15 · Review Part A results',['"Fix one cause a week."'],['Which fix is yours this week?'],['Students who have not checked their Error Log.'],'Keep it short; the mock Listening test is set for homework.'),
+GB('0:15–0:45 · Part B: the point of the extract',['"Read the stem first: is it asking for the point, an action or a purpose?"','"The reason is often a distractor; the request is the answer."'],['What does "the manager wants staff to" ask for?','Which words told you?'],['Students choosing the option with the most repeated words.'],'Use the Prediction Poll: commit, show the split, then reveal.'),
+GB('0:45–1:15 · Part C: following a talk',['"Signposts tell you an answer is coming: What surprised us, If you remember one thing."'],['What came straight after the signpost?','When did most falls happen?'],['Students losing the thread after one missed question.'],'Pause after each signpost when thinking aloud; then read the second clip without pauses.'),
+GB('1:15–1:40 · Attitude and opinion',['"Hedges mean the speaker is not sure. Options with always or proved are often wrong."'],['Is "it’s too early to say" positive or negative?','What is the manager’s overall view?'],['Students treating "to be fair" as negative.'],'Use the Attitude Highlighter on the projector and colour together.'),
+GB('1:40–2:00 · Distractor clinic',['"Choose the option that matches the meaning, not the words."'],['What is a word-match trap?'],['Students who still pick the repeated word.'],'Show the mock Listening test in the Hub before they leave.')],
+4:[GB('0:00–0:15 · Debrief Listening',['"The mock showed word-match traps in Part B."'],['Which trap caught you most?'],['Low mock scores causing panic: point to progress since the diagnostic.'],'Keep scores private; talk about patterns.'),
+GB('0:15–0:40 · Text types',['"Tables give numbers, guidelines give rules for staff, leaflets advise patients, procedures give steps."'],['Where would you find a child’s dose?','Which text speaks to patients?'],['Students reading whole texts to decide the type.'],'Give 30 seconds for headings only, then ask for the types.'),
+GB('0:40–1:10 · Model scanning',['"Find it, don’t read it."','"Numbers, units, drug names and capitals jump out."'],['What was the key word?','Which sentence did you read?'],['Students reading line by line.','Copying answers with missing units.'],'Use a visible countdown for each scanning task.'),
+GB('1:10–1:40 · Timed race',['"Matching first. Copy exactly. Pens down at zero."'],['Which question took your team the longest?'],['Teams that skip matching and get lost later.'],'Run the Projector Timer for exactly 15 minutes and mark spelling strictly.'),
+GB('1:40–2:00 · Spelling and copying',['"The answer is in the text. Copy it exactly."'],['What was wrong with "18 and under"?'],['Missing plurals and changed words.'],'Show the two timed Part A sets in the Hub before the exit ticket.')],
+5:[GB('0:00–0:15 · Review Part A results',['"Do matching first so you learn where everything is."'],['What was your slowest question type?'],['Students still running out of time.'],'Ask each student to say one timing change they will make.'),
+GB('0:15–0:45 · Part B: workplace texts',['"Purpose is usually in the first or last line. Actions follow must, should or please."'],['What does the memo tell nurses to do?','Where is the proof?'],['Choosing a detail instead of the main point.'],'Make students point to the proof line before you reveal.'),
+GB('0:45–1:20 · Map a Part C article',['"Write three to five words beside each paragraph. The map tells you where to look."'],['What is paragraph 2 about?','Where is the writer’s view?'],['Students who answer from memory instead of the text.'],'Write the class map on the board while you think aloud.'),
+GB('1:20–1:45 · Reference and attitude',['"This and it often point back to a whole idea, not one word."','"Admittedly introduces a concession, not the main claim."'],['What does "This" refer to?','Where does the writer stand?'],['Choosing the nearest noun for reference questions.'],'Read hedges aloud in an unsure voice.'),
+GB('1:45–2:00 · Plan the 45 minutes',['"About 15 minutes for Part B, 30 for Part C. Never leave a blank."'],['What do you do if you are stuck?'],['Students spending 10 minutes on one question.'],'Show the mock Reading test in the Hub: Part A locks at 15 minutes.')],
+6:[GB('0:00–0:15 · Debrief Reading',['"Part C: look for the writer’s view after admittedly or while."'],['What is your Reading cause to fix this week?'],['Students skipping the Error Log update.'],'Keep it brief; Writing starts today.'),
+GB('0:15–0:40 · The six Writing criteria',['"Choosing the right notes affects Content and Conciseness and Clarity."'],['Which criterion is scored out of 3?','Which criterion loses most when you copy every note?'],['Students who think a longer letter scores higher.'],'Link each criterion to one concrete example.'),
+GB('0:40–1:10 · Two questions for the notes',['"Does the reader know the patient? What will the reader do?"'],['What does a district nurse need to know?','Why does the dietitian not need the dressing details?'],['Students selecting notes before naming the reader.'],'Change the reader on the board and ask what changes.'),
+GB('1:10–1:40 · Select notes live',['"Tick what the reader needs, cross out what they do not, summarise long histories."'],['Will the reader do something different because of this note?'],['Students omitting the patient’s worry or practical needs.'],'Accept borderline answers if students give a reason linked to the reader.'),
+GB('1:40–2:00 · Represent notes accurately',['"Same meaning, right tense. A question mark means not confirmed."'],['Why "has been stable" and not "was stable"?'],['Suspected diagnoses written as facts.'],'Write tense corrections in two colours.')],
+7:[GB('0:00–0:15 · Review selection work',['"Before you tick a note, say who the reader is."'],['Which of these mistakes did you make?'],['Students repeating old history in letters.'],'Show one anonymised selection from the Hub.'),
+GB('0:15–0:40 · Teach layout',['"Recipient, date, Re: line, salutation, body, sign-off, role."','"No name in the greeting means Yours faithfully."'],['Which sign-off goes with Dear Charge Nurse?','Where does the Re: line go?'],['First-name greetings ("Dear Laura").','Invented names in the signature.'],'Open the letter template download and show it on screen.'),
+GB('0:40–1:05 · Teach purpose',['"Purpose verb + patient + condition + what you want."','"Expand the purpose with specific requests at the end."'],['What is missing from the weak opening?','If the reader stopped after one sentence, would they know what to do?'],['Openings like "I am writing about my patient".'],'Collect three openings from students and improve one together.'),
+GB('1:05–1:40 · Write a referral live',['"I am crossing out bingo and the wrist: the dietitian will not act on them."'],['Why is the home visit request included?','What would you change in my letter?'],['Students copying the model word for word in homework: the Hub case is different.'],'Write in the Live Letter Pad so the checks show as you type.'),
+GB('1:40–2:00 · Analyse a model',['"Green for strong, red for fix, yellow for tone."'],['What is the greeting fix?','What should be cut?'],['Students marking only grammar errors.'],'Show the Writer tool in the Hub before the exit ticket.')],
+8:[GB('0:00–0:15 · Review referral letters',['"Use the Live Writing Pad checks before you submit."'],['Which issue was in your letter?'],['Letters over 230 words.'],'Praise one strong opening from the Hub submissions.'),
+GB('0:15–0:40 · Compare letter types',['"Who reads it, and what will they do tomorrow?"'],['What is the difference between discharge and transfer?'],['Confusing transfer with referral.'],'Ask students to say an opening for each type aloud.'),
+GB('0:40–1:05 · Teach conciseness',['"Summarise, group, cut."','"Chronological when the story matters; by theme when one issue matters most."'],['How many words did we save?'],['Cutting key information, e.g. doses a GP needs.'],'Count words on the board after each rewrite.'),
+GB('1:05–1:35 · Teach genre and style',['"Facts, not judgements: has not been taking, not refuses."','"No contractions, no note form."'],['Which rule does "she won’t stop drinking" break?'],['Judgemental words: non-compliant, lazy, heavy drinker.'],'Read the judgemental sentences aloud so students hear the tone.'),
+GB('1:35–2:00 · Write a discharge letter live',['"The opening says discharged today and what I want the practice nurse to do."'],['What should the practice nurse check?'],['Students listing every medicine with every dose when the reader does not need it.'],'Show the mock Writing test: 5 minutes reading, then 40 writing.')],
+9:[GB('0:00–0:15 · Debrief Writing',['"Requests at the end are still too general."'],['What is your one Writing fix?'],['Students who have not done the mock Writing test.'],'Keep it to patterns; Speaking starts today.'),
+GB('0:15–0:40 · The nine criteria',['"Four linguistic criteria (0–6) and five clinical communication criteria (0–3)."','"You do not need a native accent; you need to be easy to understand."'],['Which criterion includes signposting?','Is body language assessed?'],['Students focusing only on grammar.'],'Use the Criteria Cards; give a spoken example of each.'),
+GB('0:40–1:05 · Read a role-play card',['"Underline the verbs: find out, explain, reassure, persuade."','"Plan two lay words for every medical term."'],['How will you open?','What lay words will you use?'],['Students writing a full script.'],'Run the Prep Timer for 3 minutes.'),
+GB('1:05–1:35 · Model a role-play',['"Open, gather, explain, check, close, with a signpost between each task."'],['Which move was that?','How did I check understanding?'],['Students jumping straight into explanation without gathering.'],'Play the interlocutor yourself; change voice and posture.'),
+GB('1:35–2:00 · Practise questions',['"Open first, then closed. One question at a time."'],['Can you make that question open?'],['Leading and compound questions.'],'Ask a student to fix each "avoid" question aloud.')],
+10:[GB('0:00–0:15 · Review recordings',['"Count your signposts and checks."'],['How many times did you check understanding?'],['"Do you understand?" used as the only check.'],'Play 30 seconds of an anonymised recording (with permission).'),
+GB('0:15–0:40 · Empathy in words',['"Notice, name, normalise, support."','"Pause after an empathy phrase."'],['Which response shows empathy best?'],['"Don’t worry" as the only reassurance.'],'Say empathy phrases slowly, with a warm, lower voice.'),
+GB('0:40–1:05 · Explain in lay language',['"Use the medical word if you want, then explain it in everyday words."','"Chunk, pause, check."'],['How would you explain anticoagulant?'],['Long explanations without pauses.'],'Hold up an "In everyday words?" card when you hear jargon.'),
+GB('1:05–1:35 · Find out what the patient knows',['"Ask, tell, ask."','"Link to what the patient said: You mentioned…"'],['What did the nurse do before explaining?'],['Students explaining before asking.'],'Mark the transcript together with the four colours.'),
+GB('1:35–2:00 · Pick up cues',['"But…, Mmm…, Oh! and a sigh are cues. Respond to them."'],['What might "Mmm, I suppose" mean?'],['Students ignoring cues to finish their plan.'],'Play the patient with clear cues; praise any student who picks one up.')],
+11:[GB('0:00–0:15 · Review recordings',['"Leave space after empathy. Let the patient answer."'],['Did you leave space after empathy?'],['Fast speech under pressure.'],'Praise improved teach-back checks.'),
+GB('0:15–0:45 · The angry patient',['"Apologise for the experience, acknowledge, explain, offer a next step."','"Never argue or blame a colleague."'],['What is the best first response?','Why does "calm down" not work?'],['Defensive answers.','Blaming the night staff.'],'Play the angry relative with energy, then calm down when the student acknowledges you.'),
+GB('0:45–1:10 · Giving difficult news',['"Warning shot, permission, small chunks, silence, support."','"Stay within the nurse’s role."'],['How would you start?','When should you be silent?'],['Delivering everything at once.'],'In your own model, count three seconds of silence after the news.'),
+GB('1:10–1:40 · Persuading without pressure',['"Explore, respect, link to the patient’s goals, offer help."','"It is the patient’s decision."'],['What does the patient care about most?','How can you link the benefit to it?'],['Lecturing with facts and statistics.'],'Run the persuasion role-play in pairs with the Prep Timer.'),
+GB('1:40–2:00 · Brief the full mock',['"Do it in one sitting, in a quiet room, with headphones."'],['What happens to Reading Part A after 15 minutes?'],['Students planning to pause the Listening.'],'Show the full mock in the Hub; set a deadline before Session 12.')],
+12:[GB('0:00–0:25 · Debrief the full mock',['"Look at your progress since the diagnostic first."','"Mock scores are estimates, not official results."'],['Which sub-test has improved most?','Which is furthest from your target?'],['Discouragement: show each student one improvement.'],'Open Students & Batches in the portal before class and replace the pattern slide with your class’s real data.'),
+GB('0:25–1:00 · Re-teach the weakest areas',['"Two areas, chosen from your results."'],['Where is the proof?','How could that request be more specific?'],['Students who answer correctly but cannot say why.'],'Swap in the two areas your class needs most; the deck offers one example per sub-test.'),
+GB('1:00–1:30 · Pacing and recovery',['"One hard question is worth one mark. Do not let it cost you five."'],['What do you do if you miss a Part A gap?','How can you restart a stalled role-play?'],['Students who freeze after one mistake.'],'Ask each student to choose one recovery plan to write down.'),
+GB('1:30–1:50 · Test-day logistics',['"Paper, computer or OET@Home. Read the official candidate information for your date."','"The computer test has no spellchecker."'],['What will you bring on test day?'],['Students relying on out-of-date forum advice.'],'Keep advice general; do not promise rules that may change.'),
+GB('1:50–2:00 · Final study plan',['"Write three actions for the final weeks."','"Thank you all."'],['What is your first action tomorrow?'],['Plans without dates.'],'Go back to slide 2 and tick the outcomes together before saying goodbye.')]};
 /* ---------- Writing: letter checks (shared by the Writer, the Live Letter Pad and the self-check) ---------- */
 const NOTE_ABBR=['pt','pts','hx','c/o','yo','y/o','yrs','bd','tds','qds','prn','mane','nocte','w/','w/o','b/c','approx','re:','dx','tx','rx','sx','abx','obs','meds','info','appt','wk','wks','pmh','sob','nkda','h/o'];
 const CASUAL_W=['a lot of','lots of','kids','guy','okay','ok','stuff','things like that','pretty','really bad','super','gonna','wanna','basically','anyway','sort of','kind of','got','get better'];
@@ -2931,6 +2995,28 @@ Object.assign(LIVE_WIDGETS,{
  LPAD:['Live Letter Pad','Write a letter in front of the class. Layout, purpose, word count, contractions, abbreviations and informal words are checked as you type.',LetterPad,bindLetterPad],
  PHRASES:['Phrase Banks','Opening, empathy, explaining, checking understanding and closing phrases.',PhraseBanks,bindPhrases],
  RPCARDS:['Role-Play Cards','Show a candidate card, reveal the interlocutor card, and run the 3-minute preparation and 5-minute role-play clock.',RPCards,bindRPCards]});
+/* ---------- projector timer and class poll (live widgets) ---------- */
+function ProjectorTimer(){return `<div class="ptimer" data-widget="ptimer"><div class="pt-big mono" aria-live="polite">15:00</div>
+ <div class="row" style="gap:6px;flex-wrap:wrap;justify-content:center">${[3,5,15,40,45].map(m=>`<button class="chip" data-pt-set="${m}">${m} min</button>`).join('')}</div>
+ <div class="row" style="gap:8px;justify-content:center"><button class="btn primary sm" data-pt-go>Start</button><button class="btn sm" data-pt-reset>Reset</button></div></div>`}
+function bindProjectorTimer(root){root.querySelectorAll('[data-widget="ptimer"]:not([data-bound])').forEach(w=>{w.dataset.bound='1';
+  let total=900,left=900,iv=null;const big=w.querySelector('.pt-big'),go=w.querySelector('[data-pt-go]');
+  const fmt=v=>String(Math.floor(v/60)).padStart(2,'0')+':'+String(v%60).padStart(2,'0');
+  const draw=()=>{big.textContent=fmt(left);big.classList.toggle('pt-end',left===0);go.textContent=iv?'Pause':'Start'};
+  const stop=()=>{clearInterval(iv);iv=null};
+  go.addEventListener('click',()=>{if(iv){stop();draw();return}if(left===0)left=total;
+    iv=setInterval(()=>{if(!document.body.contains(w)){stop();return}left=Math.max(0,left-1);if(!left)stop();draw()},1000);draw()});
+  w.querySelector('[data-pt-reset]').addEventListener('click',()=>{stop();left=total;draw()});
+  w.querySelectorAll('[data-pt-set]').forEach(b=>b.addEventListener('click',()=>{stop();total=left=+b.dataset.ptSet*60;draw()}));draw()})}
+function ClassPoll(){return `<div class="cpoll" data-widget="cpoll"><p class="muted" style="font-size:14px;margin:0">Tap a letter for each hand raised. Reveal the split, then the answer slide.</p>
+ <div class="cp-bars">${'ABCD'.split('').map(l=>`<button class="cp-row" data-cp="${l}"><b>${l}</b><span class="cp-bar"><i style="width:0%"></i></span><span class="cp-n mono">0</span></button>`).join('')}</div>
+ <div class="row" style="gap:8px"><button class="btn sm" data-cp-reset>Reset</button><span class="muted cp-total" style="font-size:13px">0 votes</span></div></div>`}
+function bindClassPoll(root){root.querySelectorAll('[data-widget="cpoll"]:not([data-bound])').forEach(w=>{w.dataset.bound='1';const v={A:0,B:0,C:0,D:0};
+  const draw=()=>{const t=Object.values(v).reduce((a,b)=>a+b,0);w.querySelectorAll('.cp-row').forEach(r=>{const n=v[r.dataset.cp];r.querySelector('i').style.width=(t?Math.round(n/t*100):0)+'%';r.querySelector('.cp-n').textContent=n});w.querySelector('.cp-total').textContent=t+(t===1?' vote':' votes')};
+  w.querySelectorAll('.cp-row').forEach(r=>r.addEventListener('click',()=>{v[r.dataset.cp]++;draw()}));
+  w.querySelector('[data-cp-reset]').addEventListener('click',()=>{Object.keys(v).forEach(k=>v[k]=0);draw()});draw()})}
+Object.assign(LIVE_WIDGETS,{TIMER:['Projector Timer','A large countdown for timed tasks: 3, 5, 15, 40 or 45 minutes.',ProjectorTimer,bindProjectorTimer],
+ POLL:['Class Poll','Count hands for A, B, C or D before you reveal an answer slide.',ClassPoll,bindClassPoll]});
 Object.assign(HUB_WIDGETS,{LPAD:'Draft here first: the checks update as you type. Then do the timed letters below.',PHRASES:'Learn two phrases from each bank before your role-plays.'});
 /* ---------- diagnostic summary ---------- */
 function band(v,k){if(v==null)return ['Not done yet',''];if(k==='L'||k==='R')return v>=75?['Strong','good']:v>=55?['Developing','mid']:['Building','low'];return v>=350?['Strong','good']:v>=300?['Developing','mid']:['Building','low']}
@@ -2986,7 +3072,7 @@ function bindDeck(s){const on=(id,fn)=>{const el=document.getElementById(id);if(
 
 /* ---------- session schedule per batch + slide-deck library ---------- */
 // PowerPoint decks built with tools/session-deck.js (session numbers listed here have a file in decks/)
-const DECKS_BUILT=[];
+const DECKS_BUILT=[1,2,3,4,5,6,7,8,9,10,11,12];
 const DECK_FILES=Object.fromEntries(DECKS_BUILT.map(n=>[n,'decks/session-'+String(n).padStart(2,'0')+'.pptx']));
 const todayISO=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 function batchSchedule(batchId){try{return JSON.parse((cloud.settings||{})['open:'+batchId]||'{}')||{}}catch(e){return {}}}
