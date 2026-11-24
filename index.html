@@ -892,6 +892,27 @@ nav.main a:not([aria-current="page"]):hover{background:color-mix(in srgb,var(--s
 }
 @media print{.rv{opacity:1!important;transform:none!important}.toast,.confetti{display:none}nav.main{display:none!important}}
 @media (prefers-reduced-motion:reduce){.page-in *,.rv,.grow *,.toast,.confetti i,.hero-art .scene,.hero2 .scene,.chip.good,.rchip.good,.tool .tool-body{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.ring{transition:none}}
+.qlist{display:flex;flex-direction:column;gap:12px}
+.qlist.notes{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;gap:8px}
+.qrow{display:flex;flex-direction:column;gap:6px}
+.nline{display:grid;grid-template-columns:28px minmax(0,1fr);gap:8px;align-items:baseline;line-height:2}
+.qn{display:inline-grid;place-items:center;min-width:24px;height:24px;border-radius:6px;background:var(--surface-2);font-size:12.5px;font-weight:700;color:var(--muted)}
+.qt .qn{margin-right:6px}
+.nhead{font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--skLi);margin-top:6px}
+.qsec{font-weight:700;font-size:14px;margin:8px 0 0;padding:8px 10px;background:var(--surface-2);border-radius:8px}
+input.gap{font:inherit;font-size:15px;padding:3px 8px;margin:0 4px;border:0;border-bottom:2px solid #9AA5B8;border-radius:4px 4px 0 0;background:var(--surface-2);color:var(--fg);width:min(220px,60vw);max-width:100%}
+input.gap:focus{outline:2px solid var(--hub);outline-offset:1px}
+input.gap.ok,.mk-sel.ok{border-color:var(--good);background:color-mix(in srgb,var(--good) 12%,transparent)}
+input.gap.no,.mk-sel.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,transparent)}
+.extract{display:flex;flex-direction:column;gap:10px;padding-top:14px;border-top:1px solid var(--line)}
+.extract:first-of-type{border-top:0;padding-top:0}
+.rtext{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:14.5px;display:flex;flex-direction:column;gap:8px}
+.rtext h4{margin:0;font-size:15.5px}.rtext p{margin:0}
+.rtext table{border-collapse:collapse;font-size:13.5px;width:100%}.rtext th,.rtext td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+.rlabel{font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--skRi)}
+.rpanes .mk-left{padding:14px;max-height:74vh;overflow:auto}.rpanes .mk-text{display:flex;flex-direction:column;gap:12px}
+@media (min-width:900px){.rpanes{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}}
+.transcript summary{cursor:pointer}
 </style>
 </head>
 <body>
@@ -1091,22 +1112,573 @@ const fmtDate=d=>{if(!d)return '';try{const x=new Date(d+'T12:00:00');return isN
 const PROF=(window.PROFESSIONS||{})[CONFIG.PROFESSION]||Object.values(window.PROFESSIONS||{})[0]||{id:'none',name:'Healthcare',letters:{},roleplays:{},samples:{}};
 const SKILL={O:'Orientation',L:'Listening',R:'Reading',W:'Writing',S:'Speaking',T:'Test Day'};
 const SESSIONS=[
-{n:1,k:'O',title:'Know the OET and Find Your Starting Point',obj:'Students understand the four sub-tests, the 0–500 scale and grade B, and record a diagnostic in every skill.'},
-{n:2,k:'L',title:'Listening Part A: Note-Taking in Consultations',obj:'Students predict, hear and accurately write the key details a health professional needs from a consultation.'},
-{n:3,k:'L',title:'Listening Parts B and C: Gist, Opinion and Purpose',obj:'Students identify the main point, purpose and opinions in short workplace extracts and longer talks.'},
-{n:4,k:'R',title:'Reading Part A: Speed Reading in 15 Minutes',obj:'Students scan four short texts quickly to match, complete and answer 20 questions within the time limit.'},
-{n:5,k:'R',title:'Reading Parts B and C: Workplace Texts and Long Articles',obj:'Students read for the gist of workplace notices and follow the argument, attitude and references in long articles.'},
-{n:6,k:'W',title:'Read Case Notes and Choose What Is Relevant',obj:'Students identify the reader and purpose and select only the case notes the reader needs.'},
-{n:7,k:'W',title:'Letter Layout and the Referral Letter',obj:'Students lay out an OET letter correctly and write a referral letter with a clear purpose.'},
-{n:8,k:'W',title:'Discharge, Transfer and Advice Letters, Written Concisely',obj:'Students adapt structure to discharge, transfer and advice letters and write clearly and concisely.'},
-{n:9,k:'S',title:'Speaking Criteria and Role-Play Structure',obj:'Students understand the nine Speaking criteria and plan a role-play in three minutes.'},
-{n:10,k:'S',title:'Clinical Communication: Empathy, Explaining and Checking',obj:'Students show empathy, explain in lay language and check understanding in a patient-centred way.'},
-{n:11,k:'S',title:'Difficult Role-Plays: Anger, Bad News and Persuasion',obj:'Students stay calm and structured with an angry patient, a worried carer and a reluctant patient.'},
-{n:12,k:'T',title:'Test-Day Strategy and Full Mock',obj:'Students turn mock results into a personal plan for the final weeks and for test day.'}
+{n:1,k:'O',title:'Know the OET and Find Your Starting Point',
+ obj:'Students understand the four sub-tests, the 0–500 scale and grade B, and record a diagnostic in every skill.',
+ live:[['0:00','0:20','Map the Test','Walk through the four sub-tests, the parts, question counts and timings, and the test-day order.'],
+  ['0:20','0:45','Explain Scores and Grades','The 0–500 scale, grades A to E, why B (350) matters, and how each sub-test is marked.'],
+  ['0:45','1:15','Tour the Criteria','The six Writing criteria and the nine Speaking criteria, with one example of each.'],
+  ['1:15','1:40','Teach the Error Causes','The five causes students log all course: distractor, vocabulary, timing, inference and spelling.'],
+  ['1:40','2:00','Set Targets and Preview the Hub','Each student sets a target grade per sub-test and starts the diagnostic.']],
+ liveTools:[['Test Map','Click a sub-test to see every part, question count and time.'],['Score Ladder','The 0–500 scale and grades, with what grade B means.'],['Criteria Cards','The six Writing and nine Speaking criteria, one card each.']],
+ tasks:[['Set your target grades','On your dashboard, choose the grade your board asks for in each sub-test.'],['Do the format drill','Eight questions on the test format.'],['Do the Listening and Reading checks','Audio plays once. The reading check is timed.'],['Write the diagnostic letter','5 minutes reading, 40 minutes writing.'],['Record the diagnostic role-play','3 minutes to prepare, 5 minutes to speak. Keep the recording.'],['Save your starting point','Save your diagnostic summary and check your Error Log.']],
+ tools:['D1','DL','DR','DIAG'],widgets:['TESTMAP']},
+{n:2,k:'L',title:'Listening Part A: Note-Taking in Consultations',
+ obj:'Students predict, hear and accurately write the key details a health professional needs from a consultation.',
+ live:[['0:00','0:15','Debrief the Diagnostic','Class patterns in Listening: which gaps were missed, and why.'],
+  ['0:15','0:40','Teach Prediction from Headings','Use the 30 seconds of reading time: predict a word type and topic for every gap.'],
+  ['0:40','1:10','Model Note-Taking Live','Think aloud through a consultation: hear it, write 1–3 words, keep up with the next gap.'],
+  ['1:10','1:35','Catch the Corrections','Patients change their answer: “once a month… no, twice a week”. Train students to wait for the final version.'],
+  ['1:35','2:00','Spelling and Medical Words','Patient words vs medical words; the spellings that cost marks.']],
+ liveTools:[['Gap Predictor','Shows a set of notes; students predict the type of word for each gap before listening.'],['Think-Aloud Player','Plays a consultation line by line so you can model note-taking.'],['Spelling Check','A quick spelling round with the words that cost marks.']],
+ tasks:[['Do Consultation 1','Read the notes first. Complete them while you listen.'],['Do Consultation 2','Listen for the patient’s final answer, not the first one.'],['Do Consultation 3','A carer gives the information this time.'],['Read every transcript','Find the words that prove each answer.'],['Do the two drills','Patient words and medical words, then spelling.'],['Check your Error Log','Look at the spelling and distractor misses first.']],
+ tools:['LA1','LA2','LA3','D2','D2S']},
+{n:3,k:'L',title:'Listening Parts B and C: Gist, Opinion and Purpose',
+ obj:'Students identify the main point, purpose and opinions in short workplace extracts and longer talks.',
+ live:[['0:00','0:15','Review Part A Results','The class’s most-missed gaps and the fixes.'],
+  ['0:15','0:45','Teach Part B: the Point of the Extract','Read the question stem: who is speaking, to whom, and what kind of answer (advice, purpose, next step)?'],
+  ['0:45','1:15','Model Part C: Following a Talk','Signposts in presentations: “The first point…”, “What surprised us…”, “If you remember one thing…”.'],
+  ['1:15','1:40','Decode Attitude and Opinion','Hedges and attitude words: “I’m not convinced”, “to be fair”, “frankly”.'],
+  ['1:40','2:00','Distractor Clinic','Why the option that repeats the speaker’s words is so often wrong.']],
+ liveTools:[['Prediction Poll','Students commit to an option; reveal the class split, then the reason.'],['Attitude Highlighter','Tags opinion, hedge and contrast words in a transcript.'],['Think-Aloud Player','Plays a talk section by section to model note-taking for Part C.']],
+ tasks:[['Do both Part B sets','Read each question before you press Play.'],['Do the Part C presentation','Six questions. Listen for opinions.'],['Do the Part C interview','Six questions. Listen for the interviewee’s view.'],['Do the attitude drill','Six phrases: what does the speaker mean?'],['Take the mock Listening test','Your teacher will tell you when.'],['Update your Error Log','Focus on inference misses.']],
+ tools:['LB1','LB2','LC1','LC2','D3']},
+{n:4,k:'R',title:'Reading Part A: Speed Reading in 15 Minutes',
+ obj:'Students scan four short texts quickly to match, complete and answer 20 questions within the time limit.',
+ live:[['0:00','0:15','Debrief Listening','Class trends from Parts B and C.'],
+  ['0:15','0:40','Teach Text Types','Tables, guidelines, leaflets and procedures: what each one is for, so matching takes seconds.'],
+  ['0:40','1:10','Model Scanning','Scan for numbers, units, drug names and key nouns. Never read every word.'],
+  ['1:10','1:40','Run a Timed Race','Teams race through Part A questions on the projector.'],
+  ['1:40','2:00','Spelling and Copying','Answers come from the texts. Copy them exactly.']],
+ liveTools:[['Text Type Sorter','Match a short text to its type and purpose.'],['Scan Race','A timed team race on Part A questions.'],['Projector Timer','A 15-minute countdown for class practice.']],
+ tasks:[['Do Part A: Pressure injuries','15 minutes. The timer stops you at 0:00.'],['Do Part A: Iron deficiency anaemia','15 minutes. Use your scanning plan.'],['Do the scanning drill','Decide what you are scanning for.'],['Find your slowest question','Write one sentence about why it took long.'],['Update your Error Log','Look for spelling and timing misses.']],
+ tools:['RA1','RA2','D4']},
+{n:5,k:'R',title:'Reading Parts B and C: Workplace Texts and Long Articles',
+ obj:'Students read for the gist of workplace notices and follow the argument, attitude and references in long articles.',
+ live:[['0:00','0:15','Review Part A Results','Timing and spelling trends.'],
+  ['0:15','0:45','Teach Part B','Find the purpose, the action or the main point of a short workplace text.'],
+  ['0:45','1:20','Map a Part C Article','One line per paragraph: the main point and the writer’s view.'],
+  ['1:20','1:45','Reference and Attitude','What do “this”, “it” and “such” refer to? Where does the writer stand?'],
+  ['1:45','2:00','Plan the 45 Minutes','About 15 minutes for Part B, 30 for Part C.']],
+ liveTools:[['Paragraph Mapper','Students write a summary line for each paragraph, then compare.'],['Attitude Highlighter','Tags the writer’s opinion and hedging words.'],['Projector Timer','A 45-minute countdown for Parts B and C.']],
+ tasks:[['Do both Part B sets','One question per text. Read the question first.'],['Do Part C: Nurse-led discharge','Map each paragraph in one line first.'],['Do Part C: Stopping medicines','Watch for the writer’s view.'],['Do the reference drill','What does “this” refer to?'],['Take the mock Reading test','Your teacher will tell you when.'],['Update your Error Log','Focus on inference and distractor misses.']],
+ tools:['RB1','RB2','RC1','RC2','D5']},
+{n:6,k:'W',title:'Read Case Notes and Choose What Is Relevant',
+ obj:'Students identify the reader and purpose and select only the case notes the reader needs.',
+ live:[['0:00','0:15','Debrief Reading','Class trends.'],
+  ['0:15','0:40','Teach the Six Criteria','Purpose, Content, Conciseness & Clarity, Genre & Style, Organisation & Layout, Language.'],
+  ['0:40','1:10','Two Questions for the Notes','Does the reader already know the patient? What will the reader do for the patient?'],
+  ['1:10','1:40','Select Notes Live','Tick what the reader needs, cross out what they do not, and summarise long histories.'],
+  ['1:40','2:00','Represent Notes Accurately','Same meaning, right tense: the mistakes that cost Content marks.']],
+ liveTools:[['Case-Notes Selector','Tick relevant notes and cross out irrelevant ones, then compare with the model selection.'],['Reader Lens','Change the reader and see which notes become relevant.'],['Accuracy Check','Note vs letter sentence: is the meaning still the same?']],
+ tasks:[['Do the “relevant or not” drill','Eight case notes, one reader.'],['Use the case-notes selector','Tick and cross out, then compare with the model.'],['Write one summary sentence','Turn three visits into one sentence.'],['Update your Error Log','Note any content you included by mistake.']],
+ tools:['D6']},
+{n:7,k:'W',title:'Letter Layout and the Referral Letter',
+ obj:'Students lay out an OET letter correctly and write a referral letter with a clear purpose.',
+ live:[['0:00','0:15','Review Selection Work','Common inclusion and omission errors.'],
+  ['0:15','0:40','Teach Layout','Date, recipient, address, Re: line, Dear…, paragraphs, Yours sincerely, role.'],
+  ['0:40','1:05','Teach Purpose','An immediately clear opening and a specific request at the end.'],
+  ['1:05','1:40','Write a Referral Live','From case notes to a finished letter, thinking aloud.'],
+  ['1:40','2:00','Analyse a Model','Colour-code a sample letter against the six criteria.']],
+ liveTools:[['Live Letter Pad','Write in front of the class; layout, purpose and style are checked as you type.'],['Sample Letters','Colour-coded model letters with “Why it scores well”.'],['Layout Builder','Put the parts of a letter in the right order.']],
+ tasks:[['Do the layout drill','Six layout choices.'],['Do the purpose drill','Choose the clearest opening.'],['Write the referral letter','5 + 40 minutes, about 180–200 words in the body.'],['Check it with the letter checklist','Before you submit.'],['Compare with the model letter','Colour-code your own letter the same way.']],
+ tools:['D7','D7P']},
+{n:8,k:'W',title:'Discharge, Transfer and Advice Letters, Written Concisely',
+ obj:'Students adapt structure to discharge, transfer and advice letters and write clearly and concisely.',
+ live:[['0:00','0:15','Review Referral Letters','Top issues from Hub submissions.'],
+  ['0:15','0:40','Compare Letter Types','Referral, discharge, transfer and advice: who reads it and what they must do.'],
+  ['0:40','1:05','Teach Conciseness','Summarise, group and cut. Chronological or by theme?'],
+  ['1:05','1:35','Teach Genre and Style','Facts, not judgements; no contractions; careful abbreviations.'],
+  ['1:35','2:00','Write a Discharge Letter Live','Model a discharge letter and a final reader’s check.']],
+ liveTools:[['Live Letter Pad','Write a discharge letter live with the checks on.'],['Sample Letters','Discharge and transfer models, colour-coded.'],['Before/After Editor','Rewrite wordy or judgemental sentences together.']],
+ tasks:[['Do the conciseness drill','Choose the clearest version.'],['Do the genre and style drill','Formal, polite, factual.'],['Write the discharge letter','5 + 40 minutes.'],['Write the transfer letter','5 + 40 minutes.'],['Take the mock Writing test','Your teacher rates it on the six criteria.']],
+ tools:['D8','D8G']},
+{n:9,k:'S',title:'Speaking Criteria and Role-Play Structure',
+ obj:'Students understand the nine Speaking criteria and plan a role-play in three minutes.',
+ live:[['0:00','0:15','Debrief Writing','Class trends.'],
+  ['0:15','0:40','Teach the Nine Criteria','Four linguistic (0–6) and five clinical communication (0–3) criteria.'],
+  ['0:40','1:05','Read a Role-Play Card','Setting, patient, tasks. Plan the five minutes in three.'],
+  ['1:05','1:35','Model a Role-Play','Open, gather, explain, check, close, with signposts between tasks.'],
+  ['1:35','2:00','Practise Questions','Open first, then closed. No compound or leading questions.']],
+ liveTools:[['Role-Play Cards','Candidate and interlocutor cards on screen.'],['Prep Timer','3-minute preparation, then a 5-minute role-play clock.'],['Phrase Banks','Opening, empathy, explaining, checking and closing phrases.']],
+ tasks:[['Do the criteria drill','Which criterion does each example show?'],['Do the questions drill','Open, closed and leading questions.'],['Do role-play 1','3 minutes to prepare, 5 to speak. Listen back.'],['Score yourself with the checklist','All nine criteria.'],['Learn ten phrases','Two from each phrase bank.']],
+ tools:['D9','D9S']},
+{n:10,k:'S',title:'Clinical Communication: Empathy, Explaining and Checking',
+ obj:'Students show empathy, explain in lay language and check understanding in a patient-centred way.',
+ live:[['0:00','0:15','Review Recordings','Patterns from Hub role-plays.'],
+  ['0:15','0:40','Teach Empathy in Words','Only audio is assessed: say what you notice and how you understand.'],
+  ['0:40','1:05','Explain in Lay Language','Chunk, pause, check. Replace jargon with everyday words.'],
+  ['1:05','1:35','Find Out What the Patient Knows','Ask first, then explain; link explanations to the patient’s views.'],
+  ['1:35','2:00','Pick Up Cues','Hear “Oh!”, “Mmm…” and “But…”, and respond.']],
+ liveTools:[['Jargon Buster','Turn medical terms into lay explanations together.'],['Cue Spotter','Play patient lines; students name the cue and respond.'],['Phrase Banks','Empathy, explaining and checking phrases.']],
+ tasks:[['Do the empathy and lay language drill','Six situations.'],['Do role-play 2','Explain a treatment in lay language.'],['Do role-play 3','Pick up the patient’s cues.'],['Score yourself with the checklist','Focus on the clinical criteria.'],['Re-record your weakest role-play','Compare it to the first try.']],
+ tools:['D10']},
+{n:11,k:'S',title:'Difficult Role-Plays: Anger, Bad News and Persuasion',
+ obj:'Students stay calm and structured with an angry patient, a worried carer and a reluctant patient.',
+ live:[['0:00','0:15','Review Recordings','Pacing and empathy trends.'],
+  ['0:15','0:45','The Angry Patient','Apologise for the experience, acknowledge, explain, offer a next step.'],
+  ['0:45','1:10','Giving Difficult News','A warning shot, permission, small chunks, silence, support.'],
+  ['1:10','1:40','Persuading Without Pressure','Explore the reason, respect the view, link benefits to the patient’s own goals.'],
+  ['1:40','2:00','Brief the Full Mock','Test-day conditions for the full mock.']],
+ liveTools:[['Role-Play Cards','Three difficult scenarios with interlocutor cards.'],['Phrase Banks','De-escalation and persuasion phrases.'],['Prep Timer','3 + 5 minute timing.']],
+ tasks:[['Do the difficult conversations drill','Five situations.'],['Do the angry relative role-play','Stay calm and structured.'],['Do the persuasion role-play','Explore the patient’s reasons first.'],['Take the full mock test','All four sub-tests before Session 12.'],['Score yourself with the checklist','All nine criteria.']],
+ tools:['D11']},
+{n:12,k:'T',title:'Test-Day Strategy and Full Mock',
+ obj:'Students turn mock results into a personal plan for the final weeks and for test day.',
+ live:[['0:00','0:25','Debrief the Full Mock','Compare mock scores to the diagnostic, sub-test by sub-test.'],
+  ['0:25','1:00','Re-Teach the Weakest Areas','Target the two lowest-scoring areas across the class.'],
+  ['1:00','1:30','Teach Pacing and Recovery','What to do after a missed gap, a hard text or a role-play that goes wrong.'],
+  ['1:30','1:50','Test-Day Logistics','Paper, computer and OET@Home; ID; the order of sub-tests; breaks.'],
+  ['1:50','2:00','Build the Final Study Plan','Each student leaves with a plan for the last weeks.']],
+ liveTools:[['Progress Comparison','Diagnostic vs mock by sub-test.'],['Test-Day Checklist','On screen and in the Study Hub.']],
+ tasks:[['Review your readiness report','Compare scores to your targets.'],['Do the test-day strategy drill','Six situations, best moves.'],['Clear your top error cause','Redo every logged miss with that tag.'],['Record a final role-play','Compare it to your Session 1 recording.']],
+ tools:['D12','READY']}
 ].map(s=>Object.assign({live:[],liveTools:[],tasks:[],tools:[],widgets:[]},s));
 /* ---------- practice content (original) ---------- */
 // QUIZ: listening / reading sets and drills · XTOOL: other Study Hub tools (case-notes selector, phrase drills …)
-const QUIZ={};
+const GP_F={Doctor:'f',Patient:'m'},GP_M={Doctor:'m',Patient:'f'};
+const QUIZ={
+/* ===== Session 1 · diagnostic ===== */
+DL:{kind:'listen',part:'A + B',title:'Diagnostic · Listening check',
+ extracts:[
+  {ctx:'Part A style. You will hear a nurse talking to a patient, Mr Ali Haddad, at a wound clinic. Complete the notes while you listen.',genders:{Nurse:'f',Patient:'m'},
+   audio:[['Nurse','Hello, Mr Haddad. I’m one of the nurses here at the wound clinic. Your GP has referred you about the sore on your leg. Can you tell me how it started?'],
+    ['Patient','Well, about six weeks ago I knocked my shin on the car door. Just a small scratch, I thought. But it never healed. Now it’s about the size of a coin.'],
+    ['Nurse','Which leg is it?'],
+    ['Patient','The right one. Just above the ankle, on the inside.'],
+    ['Nurse','Is it painful?'],
+    ['Patient','It aches, especially at the end of the day. And my ankles swell up by the evening. My wife says they look like balloons.'],
+    ['Nurse','Do you have any other health conditions?'],
+    ['Patient','I’ve got type 2 diabetes, for about eight years now. Oh, and high blood pressure. I take metformin for the diabetes and amlodipine for the pressure.'],
+    ['Nurse','Do you smoke?'],
+    ['Patient','I used to. I stopped three years ago, when I retired.'],
+    ['Nurse','And what did you do for work?'],
+    ['Patient','I was a bus driver for thirty years. Sitting all day.']],
+   qs:[{h:'Wound history',q:'injury: hit shin on a ___ six weeks ago',a:['car door','door of car','car-door'],why:'“I knocked my shin on the car door.”'},
+    {q:'location: right leg, above the ankle, ___ side',a:['inside','inner','medial','the inside'],why:'“Just above the ankle, on the inside.”'},
+    {q:'symptoms: aching, worse at the end of the day; ___ by the evening',a:['ankles swell','swollen ankles','ankle swelling','ankles swollen','swelling of ankles','ankle oedema','ankle edema'],why:'“My ankles swell up by the evening.”'},
+    {h:'Medical history',q:'type 2 diabetes for 8 years · takes ___',a:['metformin'],why:'“I take metformin for the diabetes.” Amlodipine is for his blood pressure.'},
+    {q:'ex-smoker: stopped ___ ago',a:['three years','3 years','3 yrs','three yrs'],why:'“I stopped three years ago, when I retired.”'},
+    {q:'previous job: ___ for 30 years (sitting all day)',a:['bus driver','driving a bus','bus-driver'],why:'“I was a bus driver for thirty years.”'}]},
+  {ctx:'Part B style. You will hear a ward manager talking to staff at the start of a shift.',genders:{Manager:'f'},
+   audio:[['Manager','Quick reminder before handover, everyone. From Monday, the hospital is moving to the new electronic fluid balance chart. The paper charts will still be on the trolleys this week, but please don’t start any new paper charts after Sunday night. If a patient already has a paper chart running, finish that twenty-four-hour period on paper, then switch.']],
+   qs:[{q:'What is the manager telling staff?',o:['Patients already on a paper chart should change at the end of their current 24 hours.','Paper fluid charts will be removed from the trolleys on Monday.','Staff should copy all paper charts into the new system on Sunday night.'],a:0,why:'“Finish that twenty-four-hour period on paper, then switch.” The charts stay on the trolleys this week, and nothing is copied over.'}]}]},
+DR:{kind:'read',part:'B',title:'Diagnostic · Reading check',minutes:6,
+ extracts:[
+  {title:'Hand hygiene audit · ward memo',html:'<p>Thank you to everyone who took part in last month’s hand hygiene audit. Overall compliance rose to 91%, up from 84%. However, compliance before patient contact remains lower than after contact. From next week, observers will focus only on the “before touching a patient” moment, so that we can see where the gaps are. Results will be shared at the monthly team meeting, not by individual name.</p>',
+   qs:[{q:'The memo tells staff that the next audit will',o:['concentrate on hand hygiene before patient contact.','report results for each member of staff.','check compliance after patient contact first.'],a:0,why:'“Observers will focus only on the ‘before touching a patient’ moment.” Results are not shared by name.'}]},
+  {title:'Insulin pens · guideline extract',html:'<p>Unopened insulin pens should be stored in a refrigerator at 2–8°C. Once a pen is in use, it may be kept at room temperature (below 25°C) for up to 28 days, after which it must be discarded even if insulin remains. Write the date of first use on the pen label. Never store a pen with the needle attached.</p>',
+   qs:[{q:'According to the guideline, a pen that is in use',o:['must go back in the refrigerator after each injection.','should be thrown away 28 days after it was first used.','can be kept with the needle on if it is labelled.'],a:1,why:'“Kept at room temperature … for up to 28 days, after which it must be discarded.”'}]},
+  {title:'Visiting hours · notice for families',html:'<p>To support patients’ rest, visiting on the Stroke Unit is from 2 pm to 8 pm. A maximum of two visitors may be at the bedside at one time. Children under 12 are welcome when accompanied by an adult. Outside these hours, the nurse in charge can arrange a visit for families of patients who are seriously unwell.</p>',
+   qs:[{q:'The notice is mainly intended to',o:['explain the rules for visiting the unit.','ask families to keep children away from the unit.','tell staff how to deal with unexpected visitors.'],a:0,why:'It gives the times, the number of visitors, the rule for children and how to arrange an exception: the visiting rules.'}]}]},
+
+/* ===== Session 2 · Listening Part A ===== */
+LA1:{kind:'listen',part:'A',title:'Part A · Consultation 1: Headaches',
+ extracts:[{ctx:'You will hear a GP talking to a patient called Ruth Morgan. For questions 1–12, complete the notes with a word or short phrase. You will hear the consultation once.',genders:GP_M,
+  audio:[['Doctor','Good morning, Ms Morgan. Come in and have a seat. I understand you’ve been having headaches.'],
+   ['Patient','Yes, that’s right. They started about four months ago, just after I changed jobs, and they’ve been getting worse.'],
+   ['Doctor','I’m sorry to hear that. Can you describe the pain for me?'],
+   ['Patient','It’s a throbbing pain, usually on the left side, just behind my eye. Sometimes it spreads down to my jaw.'],
+   ['Doctor','And how often do you get them?'],
+   ['Patient','At first it was once a month, maybe. Now it’s more like twice a week.'],
+   ['Doctor','How long does each one last?'],
+   ['Patient','If I take something early, a few hours. If I don’t, it can go on for a whole day. Up to twenty-four hours, I’d say.'],
+   ['Doctor','Do you notice anything before the headache starts?'],
+   ['Patient','Yes, actually. About half an hour before, I see flashing zigzag lines in my vision. It’s quite frightening the first time.'],
+   ['Doctor','That sounds like what we call an aura. And during the headache itself, any other symptoms?'],
+   ['Patient','I feel sick, and I can’t stand bright light. I have to lie down in a dark room. I’ve never actually been sick, though.'],
+   ['Doctor','Have you noticed anything that seems to bring them on?'],
+   ['Patient','Hmm. I’m on a computer most of the day in the new job, and I often skip lunch because there’s no time. Oh, and red wine. I’ve stopped drinking it, because a glass brought one on every single time.'],
+   ['Doctor','What have you been taking for the pain?'],
+   ['Patient','Paracetamol at first, but it didn’t really help. A friend suggested ibuprofen, so I’ve been taking four hundred milligrams, sometimes three times a day.'],
+   ['Doctor','And on how many days a week, roughly?'],
+   ['Patient','Probably four days, most weeks.'],
+   ['Doctor','Are you taking any other medicines? Including any contraception?'],
+   ['Patient','Just the pill. The combined pill. I’ve been on it for about ten years.'],
+   ['Doctor','Thank you, that’s important. Does anyone in your family get migraines?'],
+   ['Patient','My mother did, when she was younger. Not my sister, though.'],
+   ['Doctor','And how are you sleeping?'],
+   ['Patient','Not well. I’m managing a team of twelve now, and I’m getting about five hours a night. I’m drinking a lot of coffee to keep going, four or five cups a day.']]}]},
+LA2:{kind:'listen',part:'A',title:'Part A · Consultation 2: Breathlessness',
+ extracts:[{ctx:'You will hear a doctor talking to a patient called George Hall, who has come to the heart failure clinic. For questions 1–12, complete the notes with a word or short phrase.',genders:{Doctor:'f',Patient:'m'},
+  audio:[['Doctor','Hello, Mr Hall. I’m Dr Patel. Your GP asked us to see you because you’ve been more short of breath. When did you first notice it?'],
+   ['Patient','About three weeks ago. I used to walk to the shops, that’s about half a mile, no trouble at all. Now I have to stop at the post office to catch my breath, and that’s only halfway.'],
+   ['Doctor','Is it worse at any particular time?'],
+   ['Patient','At night. I’ve started sleeping on three pillows. If I lie flat, I feel like I’m drowning. Last week I woke up gasping, and I had to sit on the edge of the bed for twenty minutes.'],
+   ['Doctor','That must have been frightening. Have you noticed any swelling?'],
+   ['Patient','My ankles, yes. Both of them. My shoes are tight by lunchtime, and when I press my shin, it leaves a dent.'],
+   ['Doctor','Have you had any chest pain?'],
+   ['Patient','No, no pain. Just a tightness when I climb the stairs. And I’ve got this dry cough, mainly at night.'],
+   ['Doctor','Have you been weighing yourself?'],
+   ['Patient','My daughter bought me some scales. I’ve put on three kilos in about ten days, which is strange, because I’m not eating much at all.'],
+   ['Doctor','Now, I see from your letter that you had a heart attack.'],
+   ['Patient','Yes, two years ago. They put in a stent. Since then I’ve been on a few tablets. There’s the aspirin, a statin, and ramipril for my blood pressure. And they started me on a water tablet last month, furosemide, but only twenty milligrams.'],
+   ['Doctor','Are you taking them all every day?'],
+   ['Patient','Honestly, I’ve been skipping the water tablet when I go out, because I’m running to the toilet all morning.'],
+   ['Doctor','That’s really useful to know, thank you. What about salt and fluids?'],
+   ['Patient','I don’t add salt. But I like my soup. I have tinned soup most days for lunch.'],
+   ['Doctor','And alcohol?'],
+   ['Patient','A pint of beer on a Friday with my brother. That’s about it.'],
+   ['Doctor','Who’s at home with you?'],
+   ['Patient','I live on my own since my wife passed away. My daughter lives nearby and pops in twice a week.']]}]},
+LA3:{kind:'listen',part:'A',title:'Part A · Consultation 3: A child with a fever',
+ extracts:[{ctx:'You will hear a nurse practitioner talking to the father of a three-year-old girl called Mia. For questions 1–10, complete the notes with a word or short phrase.',genders:{Nurse:'f',Father:'m'},
+  audio:[['Nurse','Hello, I’m Joy, one of the nurse practitioners. So this is Mia? What’s been happening?'],
+   ['Father','She’s had a high temperature since yesterday afternoon. Last night it was thirty-nine point two. She keeps pulling at her right ear and crying.'],
+   ['Nurse','Poor thing. Has she had anything for the temperature?'],
+   ['Father','I gave her children’s paracetamol at about six this morning. The right dose for her age, I checked the bottle. Her temperature came down a bit, but she’s still very grumpy.'],
+   ['Nurse','Is she eating and drinking?'],
+   ['Father','She won’t eat anything. She’s drinking, but only small amounts, mostly apple juice. Her nappies, well, she’s potty trained now, but she’s only been to the toilet twice today.'],
+   ['Nurse','Any rash at all? Any vomiting or diarrhoea?'],
+   ['Father','No rash. I checked her all over. She was sick once in the car on the way here, but I think that was the car.'],
+   ['Nurse','Has she had a cough or a cold recently?'],
+   ['Father','Yes, a runny nose for about a week. Her brother brought it home from nursery.'],
+   ['Nurse','Has she had ear infections before?'],
+   ['Father','Once, when she was about eighteen months old. She had antibiotics then. Amoxicillin, I think. No problems with it.'],
+   ['Nurse','Any allergies that you know of?'],
+   ['Father','Not to medicines. She’s allergic to eggs, though. She gets hives.'],
+   ['Nurse','And her vaccinations, are they up to date?'],
+   ['Father','Yes, all of them. Her last ones were just after her third birthday.']]}]}
+};
+QUIZ.LA1.qs=[
+ {h:'Presenting complaint',q:'headaches began about 4 months ago, after a change of ___',a:['job','jobs','job role','employment','work'],why:'“They started about four months ago, just after I changed jobs.”'},
+ {q:'type of pain: ___',a:['throbbing','throbbing pain','pulsating','pounding'],why:'“It’s a throbbing pain.”'},
+ {q:'site: usually left side, behind the ___ (sometimes spreads to jaw)',a:['eye','left eye'],why:'“On the left side, just behind my eye.”'},
+ {q:'frequency now: ___',a:['twice a week','2 times a week','twice weekly','2x a week','2 per week','twice per week','two times a week','2x/week','2/week'],why:'It was once a month at first, but now it is “more like twice a week”. The first figure is a distractor.'},
+ {q:'duration: up to ___ without treatment',a:['24 hours','twenty-four hours','twenty four hours','a day','one day','a whole day','1 day','24 hrs','24h'],why:'“It can go on for a whole day. Up to twenty-four hours.”'},
+ {q:'aura: sees flashing ___ about 30 minutes before',a:['zigzag lines','zig-zag lines','zigzags','zig zag lines','zigzag lights','lines'],why:'“I see flashing zigzag lines in my vision.”'},
+ {q:'during attack: nausea (no vomiting); cannot tolerate bright ___',a:['light','lights'],why:'“I can’t stand bright light.” She feels sick but has never vomited.'},
+ {h:'Possible triggers',q:'long hours at a computer; frequently skips ___',a:['lunch','lunches','meals','her lunch'],why:'“I often skip lunch because there’s no time.”'},
+ {q:'___ (now avoids it)',a:['red wine','wine'],why:'“Red wine … a glass brought one on every single time.”'},
+ {h:'Medication',q:'paracetamol not effective; now takes ___ 400 mg, up to three times a day, about 4 days a week',a:['ibuprofen'],why:'Paracetamol “didn’t really help”, so she switched to ibuprofen.'},
+ {q:'has taken the ___ for about 10 years',a:['combined pill','combined contraceptive pill','combined oral contraceptive','combined oral contraceptive pill','combined contraceptive','COCP','COC','combined OCP'],why:'“The combined pill. I’ve been on it for about ten years.” This matters: the combined pill is usually avoided in migraine with aura.'},
+ {h:'Social and family history',q:'mother had migraines · sleeps about ___ a night · 4–5 cups of coffee a day',a:['5 hours','five hours','5 hrs','five hrs','5h','5 hours a night'],why:'“I’m getting about five hours a night.”'}];
+QUIZ.LA2.qs=[
+ {h:'Presenting complaint',q:'increasing breathlessness for ___',a:['3 weeks','three weeks','3 wks','three wks'],why:'“About three weeks ago.”'},
+ {q:'exercise tolerance: previously walked half a mile; now stops after about ___ of that distance',a:['half','a half','1/2','halfway','half the distance','half way'],why:'He stops at the post office, which is “only halfway”.'},
+ {q:'sleeps on ___ pillows',a:['three','3'],why:'“I’ve started sleeping on three pillows.”'},
+ {q:'one episode of waking up ___ last week (sat up for 20 minutes)',a:['gasping','breathless','short of breath','gasping for breath','gasping for air'],why:'“Last week I woke up gasping.” This is paroxysmal nocturnal dyspnoea.'},
+ {h:'Other symptoms',q:'bilateral ankle swelling, ___ oedema',a:['pitting'],why:'“When I press my shin, it leaves a dent.” A dent that stays is pitting oedema.'},
+ {q:'no chest pain; tightness on ___',a:['stairs','climbing stairs','climbing the stairs','the stairs','exertion','stair climbing'],why:'“Just a tightness when I climb the stairs.”'},
+ {q:'___ cough, mainly at night',a:['dry','a dry','non-productive','nonproductive'],why:'“I’ve got this dry cough, mainly at night.”'},
+ {q:'weight gain of ___ in about 10 days (poor appetite)',a:['3 kg','three kilos','3 kilos','3kg','three kg','3 kilograms','three kilograms'],why:'“I’ve put on three kilos in about ten days.”'},
+ {h:'History and medication',q:'MI 2 years ago, treated with a ___',a:['stent','coronary stent','stent inserted'],why:'“They put in a stent.”'},
+ {q:'furosemide 20 mg: often ___ when going out',a:['skips it','skips dose','skipped','omits it','missed','misses it','skips','not taken','skips doses','omits'],why:'“I’ve been skipping the water tablet when I go out.” This is poor adherence, not a side effect.'},
+ {h:'Diet and social',q:'no added salt, but eats ___ most days',a:['tinned soup','canned soup','soup'],why:'“I have tinned soup most days for lunch.” Tinned soup is high in salt.'},
+ {q:'lives alone (widower); ___ visits twice a week',a:['daughter','his daughter'],why:'“My daughter lives nearby and pops in twice a week.” He has a drink with his brother, but the daughter is the one who visits.'}];
+QUIZ.LA3.qs=[
+ {h:'Presenting complaint',q:'fever since yesterday afternoon, max ___ °C last night',a:['39.2','39,2','thirty-nine point two'],why:'“Last night it was thirty-nine point two.”'},
+ {q:'pulling at ___ and crying',a:['right ear','her right ear','the right ear','R ear','rt ear'],why:'“She keeps pulling at her right ear.”'},
+ {q:'paracetamol given at ___ this morning, age-appropriate dose',a:['6 am','6am','six','6','6:00','six am','6.00','6 o’clock','six o’clock'],why:'“At about six this morning.”'},
+ {h:'Intake and output',q:'not eating; drinking small amounts, mainly ___',a:['apple juice','juice'],why:'“Mostly apple juice.”'},
+ {q:'passed urine only ___ today',a:['twice','2 times','two times','2x'],why:'“She’s only been to the toilet twice today.”'},
+ {q:'no rash; vomited once, probably due to ___',a:['travel sickness','car sickness','the car','car','motion sickness','the car journey','car journey'],why:'“She was sick once in the car … I think that was the car.”'},
+ {h:'Recent history',q:'runny nose for 1 week; caught from ___ (from nursery)',a:['brother','her brother','sibling','older brother'],why:'“Her brother brought it home from nursery.”'},
+ {q:'one previous ear infection at ___, treated with amoxicillin',a:['18 months','eighteen months','18 months old','1.5 years','18 mths','18 mo'],why:'“Once, when she was about eighteen months old.”'},
+ {h:'Allergies and immunisation',q:'no drug allergies; allergic to ___ (causes hives)',a:['eggs','egg'],why:'“She’s allergic to eggs, though. She gets hives.”'},
+ {q:'immunisations up to date; last given after her ___',a:['third birthday','3rd birthday','3 year birthday','third birthday party'],why:'“Her last ones were just after her third birthday.”'}];
+Object.values(QUIZ).forEach(q=>{if(q.qs&&q.extracts&&q.extracts.length===1&&!q.extracts[0].qs)q.extracts[0].qs=q.qs});
+Object.assign(QUIZ,{
+/* ===== Session 3 · Listening Parts B and C ===== */
+LB1:{kind:'listen',part:'B',title:'Part B · Workplace extracts (set 1)',
+ extracts:[
+  {ctx:'You hear a pharmacist talking to a nurse on a medical ward.',genders:{Pharmacist:'m',Nurse:'f'},
+   audio:[['Nurse','Hi, it’s about Mrs Lowe in bed six. Her potassium came back at five point nine this morning.'],
+    ['Pharmacist','Right. She’s on spironolactone and ramipril, isn’t she? Both can push potassium up. I’d hold the spironolactone today. The ramipril is less urgent, but flag it for the team.'],
+    ['Nurse','The doctor’s in clinic until two.'],
+    ['Pharmacist','Then bleep the registrar now rather than waiting. A level like that needs a medical review and a repeat sample this morning, not this afternoon.']],
+   qs:[{q:'The pharmacist advises the nurse to',o:['contact a doctor now about the patient’s potassium.','stop both of the patient’s medicines until two o’clock.','wait for the doctor to finish clinic before taking a new sample.'],a:0,why:'“Bleep the registrar now rather than waiting.” Only the spironolactone is held.'}]},
+  {ctx:'You hear a nurse giving a handover about a patient after surgery.',genders:{Nurse:'f'},
+   audio:[['Nurse','Mr Briggs in bay two, day one after his hip replacement. Observations are stable overnight. He’s had two doses of oral morphine for pain, last one at four a.m., and he says the pain is now three out of ten. The physio wants him sitting out in the chair this morning before they try walking this afternoon. His drain is still in, very little in it, so the team may take it out on the ward round.']],
+   qs:[{q:'What is planned for the patient this morning?',o:['He will walk with the physiotherapist.','He will sit out of bed.','He will have his drain removed by the physiotherapist.'],a:1,why:'“The physio wants him sitting out in the chair this morning before they try walking this afternoon.” The drain “may” come out on the ward round.'}]},
+  {ctx:'You hear a ward manager talking to staff about a change to the falls policy.',genders:{Manager:'f'},
+   audio:[['Manager','So, we had three falls on the unit last month, and two happened at night when patients got up to the toilet. We’re not going to start using bed rails more, because they can cause injuries of their own. What we will do is put a commode by the bed for anyone who’s been assessed as high risk, and the night staff will offer toileting on every two-hourly check. Let’s try that for a month and see.']],
+   qs:[{q:'The manager says the unit will try to reduce falls by',o:['using bed rails for high-risk patients at night.','checking all patients every hour during the night.','helping high-risk patients to reach a toilet more safely.'],a:2,why:'A commode by the bed and offering toileting on checks help patients reach a toilet safely. Bed rails are rejected, and the checks are two-hourly.'}]}]},
+LB2:{kind:'listen',part:'B',title:'Part B · Workplace extracts (set 2)',
+ extracts:[
+  {ctx:'You hear two nurses talking about a patient’s blood glucose.',genders:{'Nurse 1':'f','Nurse 2':'m'},
+   audio:[['Nurse 1','Mrs Adeyemi’s sugar is three point one. She’s alert and talking, and she can swallow fine.'],
+    ['Nurse 2','OK, so she can have something by mouth. Give her the glucose gel or some fruit juice now, then recheck in fifteen minutes. If it’s still under four, repeat it. Once she’s above four, she’ll need a sandwich or a biscuit, because the juice won’t last.'],
+    ['Nurse 1','Should I call the doctor?'],
+    ['Nurse 2','Let them know, yes, but treat her first. Don’t wait.']],
+   qs:[{q:'The second nurse says the first priority is to',o:['give the patient a fast-acting sugar.','give the patient a sandwich.','ask a doctor to review the patient.'],a:0,why:'“Treat her first. Don’t wait.” Glucose gel or juice comes first; the sandwich comes once she is above four.'}]},
+  {ctx:'You hear an infection control nurse briefing ward staff.',genders:{Nurse:'m'},
+   audio:[['Nurse','Just to update you on bay four. Two patients have had diarrhoea and vomiting since yesterday evening, so we’re treating it as possible norovirus. The bay is closed to new admissions. Please wear an apron and gloves for all contact, and wash your hands with soap and water, not alcohol gel, because the gel doesn’t work well against this virus. Visitors should be kept to a minimum.']],
+   qs:[{q:'Staff are told to wash their hands with soap and water because',o:['alcohol gel is not available in bay four.','alcohol gel is less effective against the suspected infection.','the patients have asked staff not to use gel.'],a:1,why:'“The gel doesn’t work well against this virus.”'}]},
+  {ctx:'You hear a nurse educator talking to new staff about documentation.',genders:{Educator:'f'},
+   audio:[['Educator','One thing that comes up again and again in complaints is the phrase “patient comfortable”. On its own, it tells the next nurse almost nothing. What I’d like you to write is what you actually observed: the pain score, whether they ate, what they told you. If something happened at two a.m., record it at the time if you can, and if you write it later, say so and put the real time of the event.']],
+   qs:[{q:'What is the educator’s main point about documentation?',o:['Notes should always be written at the end of the shift.','Notes should describe specific observations.','Nurses should avoid writing about pain.'],a:1,why:'“Write what you actually observed: the pain score, whether they ate, what they told you.”'}]}]},
+LC1:{kind:'listen',part:'C',title:'Part C · Presentation: Sepsis and the first hour',
+ extracts:[{ctx:'You will hear a presentation by an emergency nurse, Claire Duncan, about recognising sepsis on general wards. For questions 1–6, choose the answer that best fits what you hear.',genders:{Presenter:'f'},
+  audio:[['Presenter','Good afternoon. I’m Claire Duncan, and I’ve worked in emergency nursing for fifteen years. I want to talk today about sepsis on general wards, because, frankly, I think we in the emergency department sometimes get the credit for catching it, while the real challenge is on the wards, often at three in the morning.'],
+   ['Presenter','Most of you will know the basic idea: sepsis is the body’s extreme response to an infection, and it can damage organs very quickly. What people underestimate is how ordinary it looks at the start. A patient who is a bit more confused than yesterday. A patient who says they “just feel wrong”. When we reviewed our own cases last year, the most common early sign recorded in the notes wasn’t a high temperature. It was a raised breathing rate, and in about a third of cases, nobody had acted on it.'],
+   ['Presenter','Now, I’m not going to stand here and blame individual nurses for that. When we looked more closely, the respiratory rate was often recorded as exactly eighteen, or exactly twenty, on every observation round. That tells me people weren’t really counting. They were estimating. So our first change was a simple one: count for a full minute. It sounds obvious, but it changed what we saw.'],
+   ['Presenter','The second change was about escalation. We already had an early warning score, and staff knew the numbers. But junior nurses told us they felt uncomfortable calling a doctor at night when the score was only slightly raised. They worried about being seen as overcautious. So we changed the wording of the policy from “consider escalating” to “you must escalate”, and we made it clear that the nurse in charge would support anyone who did. Calls went up, which we expected. What surprised us was that the number of unnecessary calls hardly changed.'],
+   ['Presenter','People often ask me about the so-called sepsis six, the bundle of actions in the first hour: oxygen, cultures, antibiotics, fluids, lactate and urine output. I’m a supporter, but with a caution. The bundle is not a checklist to tick so the patient can be forgotten. One of our worst cases last year had every box ticked within the hour, and then nobody reviewed the patient again for six hours.'],
+   ['Presenter','So, if you take one thing away from today, it’s this: sepsis care is not a single event. It’s a period of close watching. The first hour matters enormously, but so do the next twelve.']]}]},
+LC2:{kind:'listen',part:'C',title:'Part C · Interview: Telehealth in community nursing',
+ extracts:[{ctx:'You will hear an interview with a community nurse, David Mensah, about using video consultations. For questions 1–6, choose the answer that best fits what you hear.',genders:{Interviewer:'f',David:'m'},
+  audio:[['Interviewer','David, your team started offering video visits two years ago. Why?'],
+   ['David','Honestly, it began as a necessity. We had a winter where three of our nurses were off sick and the waiting list for home visits was growing every day. Video wasn’t a plan we’d dreamed up. It was a way of keeping in touch with people we simply couldn’t reach.'],
+   ['Interviewer','And now? Is it still a stop-gap?'],
+   ['David','No, it’s become part of how we work, but for particular patients. Wound reviews are a good example. If a patient or a carer can hold the tablet steady and the lighting is decent, I can see whether a dressing needs changing and save a forty-minute drive. But for a first assessment, I still go in person. You learn so much from the home itself: the stairs, the fridge, whether the medication is piled up unopened.'],
+   ['Interviewer','Some people say older patients won’t use the technology.'],
+   ['David','That’s what we expected, and we were wrong, mostly. Age wasn’t really the issue. The patients who struggled were the ones living alone with poor eyesight or arthritis in their hands, whatever their age. Where there was a family member or a neighbour to help set it up, people in their nineties managed perfectly well.'],
+   ['Interviewer','What about safety? Can you miss things on a screen?'],
+   ['David','You can, and that worried me at first. So we built in some rules. Any patient whose condition is getting worse gets a home visit within twenty-four hours, no matter what. And we never do two video reviews in a row for someone with a new wound. Those rules have mattered more than any piece of software.'],
+   ['Interviewer','Has it changed how patients feel about the service?'],
+   ['David','Mostly, they like the flexibility. They’re not waiting in all morning for a nurse who might be delayed. But I’ll be honest: a few told us they felt more alone, as if they were being managed from a distance. That’s not something you see on a satisfaction score, and we’ve had to work at it. Now, if someone lives alone, we alternate video with a visit, even when the wound alone wouldn’t require it.'],
+   ['Interviewer','Would you recommend it to other teams?'],
+   ['David','I would, with a warning. Don’t start with the technology. Start with the question: which patients would genuinely be better served? If you can’t answer that, the camera won’t help you.']]}]}
+});
+QUIZ.LC1.extracts[0].qs=[
+ {q:'Why does Claire Duncan mention “three in the morning”?',o:['to suggest that sepsis is most often missed on wards rather than in emergency departments','to explain that sepsis usually develops at night','to criticise night staff for not calling doctors'],a:0,why:'She says the emergency department gets “the credit”, while “the real challenge is on the wards, often at three in the morning”.'},
+ {q:'According to the review of cases, the most common early sign of sepsis was',o:['a high temperature.','a raised breathing rate.','increasing confusion.'],a:1,why:'“The most common early sign … wasn’t a high temperature. It was a raised breathing rate.”'},
+ {q:'What does she conclude from the respiratory rates recorded as exactly 18 or 20?',o:['The early warning score used the wrong numbers.','Patients’ breathing was normal on most rounds.','Staff were guessing instead of counting.'],a:2,why:'“That tells me people weren’t really counting. They were estimating.”'},
+ {q:'Why did junior nurses hesitate to escalate at night?',o:['They did not understand the early warning score.','They were concerned about appearing overcautious.','The nurse in charge discouraged calls.'],a:1,why:'“They worried about being seen as overcautious.” Staff “knew the numbers”.'},
+ {q:'What surprised the team after the policy wording changed?',o:['There were fewer calls to doctors than before.','Unnecessary calls rose sharply.','Unnecessary calls stayed at about the same level.'],a:2,why:'“Calls went up, which we expected. What surprised us was that the number of unnecessary calls hardly changed.”'},
+ {q:'What is her attitude towards the “sepsis six” bundle?',o:['She supports it but warns against treating it as the end of care.','She believes it should be replaced by closer observation.','She thinks it is too complicated for ward staff.'],a:0,why:'“I’m a supporter, but with a caution. The bundle is not a checklist to tick so the patient can be forgotten.”'}];
+QUIZ.LC2.extracts[0].qs=[
+ {q:'Why did David’s team start offering video visits?',o:['to respond to a staffing shortage','to follow a new national plan','because patients had asked for them'],a:0,why:'“Three of our nurses were off sick … Video wasn’t a plan we’d dreamed up.”'},
+ {q:'Why does David still make first assessments in person?',o:['Video calls are too short for a full assessment.','The patient’s home gives him important information.','Patients prefer to meet the nurse the first time.'],a:1,why:'“You learn so much from the home itself: the stairs, the fridge, whether the medication is piled up unopened.”'},
+ {q:'What did the team find about older patients?',o:['Most patients over 90 refused video visits.','Practical difficulties mattered more than age.','Family members often took over the consultation.'],a:1,why:'“Age wasn’t really the issue. The patients who struggled were the ones living alone with poor eyesight or arthritis.”'},
+ {q:'Which rule does David describe for patients with a new wound?',o:['They never have two video reviews one after the other.','They are always seen at home within 24 hours.','They must use the team’s approved software.'],a:0,why:'“We never do two video reviews in a row for someone with a new wound.” The 24-hour rule is for patients who are getting worse.'},
+ {q:'What does David say about some patients’ feelings?',o:['Satisfaction scores showed that they disliked the service.','Some felt isolated, which surveys did not reveal.','They were annoyed by nurses arriving late.'],a:1,why:'“A few told us they felt more alone … That’s not something you see on a satisfaction score.”'},
+ {q:'What advice does David give to other teams?',o:['Choose good technology before choosing patients.','Use video for all patients with stable wounds.','Decide first which patients would benefit.'],a:2,why:'“Don’t start with the technology. Start with the question: which patients would genuinely be better served?”'}];
+const RA_INSTR='Questions 1–7: decide which text (A, B, C or D) has the information. Questions 8–14: answer with a word, short phrase or number from the texts. Questions 15–20: complete each sentence with a word, short phrase or number from the texts. Spelling counts.';
+const SEC_M='Questions 1–7 · Which text (A, B, C or D) has the information?',SEC_S='Questions 8–14 · Answer with a word, short phrase or number from the texts.',SEC_C='Questions 15–20 · Complete each sentence with a word, short phrase or number from the texts.';
+const ABCD=['A','B','C','D'];
+Object.assign(QUIZ,{
+/* ===== Session 4 · Reading Part A ===== */
+RA1:{kind:'read',part:'A',title:'Part A · Pressure injuries',minutes:15,instr:RA_INSTR,noBalance:true,
+ texts:[
+  {label:'Text A',title:'Assessing risk: the Braden Scale',html:'<p>The Braden Scale scores six factors. Five are scored from 1 (worst) to 4 (best): sensory perception, moisture, activity, mobility and nutrition. Friction and shear is scored from 1 to 3. The total ranges from 6 to 23. A lower score means a higher risk.</p><table><tr><th>Total</th><th>Risk</th></tr><tr><td>≤ 12</td><td>High</td></tr><tr><td>13–14</td><td>Moderate</td></tr><tr><td>15–18</td><td>Mild</td></tr><tr><td>19–23</td><td>No identified risk</td></tr></table><p>Reassess on admission, every 72 hours, and after any change in condition or surgery.</p>'},
+  {label:'Text B',title:'Repositioning',html:'<p>Patients at high risk should be repositioned at least every 2 hours, day and night; patients at moderate risk every 3–4 hours. Use a 30-degree tilt to the side rather than lying the patient directly on the hip. Do not position a patient on an area of skin that is already red. Offload the heels by placing a pillow under the calves so that the heels do not touch the mattress. High-risk patients should sit in a chair for no more than 2 hours at a time. Record every position change on the repositioning chart.</p>'},
+  {label:'Text C',title:'Staging and dressings',html:'<p><b>Stage 1:</b> intact skin with redness that does not fade under light finger pressure (non-blanchable erythema). Protect with a barrier film; no dressing needed.<br><b>Stage 2:</b> partial-thickness skin loss; a shallow open wound. Use a hydrocolloid or a thin foam dressing.<br><b>Stage 3:</b> full-thickness loss; fat may be visible. Use a foam dressing; for heavy exudate use an alginate.<br><b>Stage 4:</b> bone, tendon or muscle visible. Refer to the tissue viability team the same day.<br><b>Unstageable:</b> the base is covered. Stable, dry eschar on the heel acts as a natural cover and should not be debrided.</p>'},
+  {label:'Text D',title:'Nutrition and documentation',html:'<p>Screen all patients with a pressure injury using the nutrition screening tool. Refer to the dietitian if the score is 2 or more, or if the patient is eating less than half of their meals. Unless contraindicated, aim for 1.25–1.5 g of protein per kg of body weight per day and 30 ml of fluid per kg per day. Photograph the wound on identification and then weekly, with the patient’s consent, using the approved hospital camera only. Update the care plan after every reassessment.</p>'}],
+ qs:[
+  {sec:SEC_M,q:'how often to change a patient’s position',o:ABCD,a:1,why:'Text B: “at least every 2 hours … every 3–4 hours”.'},
+  {q:'what to do about a hard, dry covering on the heel',o:ABCD,a:2,why:'Text C: “stable, dry eschar on the heel … should not be debrided”.'},
+  {q:'the score range that shows the highest risk',o:ABCD,a:0,why:'Text A: “≤ 12: High”.'},
+  {q:'how much fluid a patient should have each day',o:ABCD,a:3,why:'Text D: “30 ml of fluid per kg per day”.'},
+  {q:'which dressing to use for a shallow open wound',o:ABCD,a:2,why:'Text C, Stage 2: “a shallow open wound. Use a hydrocolloid or a thin foam dressing.”'},
+  {q:'the longest time a high-risk patient should sit in a chair',o:ABCD,a:1,why:'Text B: “no more than 2 hours at a time”.'},
+  {q:'when wound photographs should be taken',o:ABCD,a:3,why:'Text D: “on identification and then weekly”.'},
+  {sec:SEC_S,q:'What is the lowest possible total Braden score?',a:['6','six'],why:'Text A: “The total ranges from 6 to 23.”'},
+  {q:'Which Braden factor is scored from 1 to 3?',a:['friction and shear','friction & shear','friction/shear','shear and friction'],why:'Text A: “Friction and shear is scored from 1 to 3.”'},
+  {q:'At what angle should a patient be tilted to the side?',a:['30 degrees','30°','30 degree','thirty degrees','30-degree','30 deg'],why:'Text B: “Use a 30-degree tilt”.'},
+  {q:'What should be placed under the calves?',a:['a pillow','pillow','pillows'],why:'Text B: “placing a pillow under the calves”.'},
+  {q:'What is the medical term for redness that does not fade under light pressure?',a:['non-blanchable erythema','nonblanchable erythema','non blanchable erythema'],why:'Text C, Stage 1: “(non-blanchable erythema)”.'},
+  {q:'Which team should see a patient with a stage 4 injury?',a:['tissue viability team','the tissue viability team','tissue viability'],why:'Text C: “Refer to the tissue viability team the same day.”'},
+  {q:'What nutrition screening score means the patient should be referred to the dietitian?',a:['2 or more','two or more','2 or above','≥2','≥ 2','2+','2 or higher','at least 2'],why:'Text D: “if the score is 2 or more”.'},
+  {sec:SEC_C,q:'A patient with a Braden score of 14 is at ___ risk.',a:['moderate'],why:'Text A: “13–14: Moderate”.'},
+  {q:'Risk should be reassessed every ___, and after surgery.',a:['72 hours','seventy-two hours','72 hrs','72h','three days','3 days'],why:'Text A: “every 72 hours, and after any change in condition or surgery”.'},
+  {q:'For a stage 3 injury with heavy exudate, use an ___ dressing.',a:['alginate'],why:'Text C: “for heavy exudate use an alginate”.'},
+  {q:'A stage 1 injury should be protected with a ___.',a:['barrier film','barrier-film'],why:'Text C: “Protect with a barrier film; no dressing needed.”'},
+  {q:'Patients should receive ___ g of protein per kg of body weight a day.',a:['1.25–1.5','1.25-1.5','1.25 – 1.5','1.25 to 1.5','1.25 - 1.5'],why:'Text D: “1.25–1.5 g of protein per kg of body weight per day”.'},
+  {q:'Wound photographs must be taken with the approved ___.',a:['hospital camera','camera','approved hospital camera'],why:'Text D: “using the approved hospital camera only”.'}]},
+RA2:{kind:'read',part:'A',title:'Part A · Iron deficiency anaemia',minutes:15,instr:RA_INSTR,noBalance:true,
+ texts:[
+  {label:'Text A',title:'Oral iron: prescribing guidance',html:'<p>First-line treatment is oral ferrous sulfate 200 mg (65 mg elemental iron). Recent evidence suggests that a single dose on alternate days is absorbed as well as, or better than, daily doses, with fewer gastrointestinal side effects. Advise patients to take iron one hour before food, with water or orange juice, and to avoid tea, coffee and antacids for at least one hour. Check haemoglobin after 2–4 weeks: a rise of about 20 g/L is expected. Continue for 3 months after haemoglobin returns to normal to replenish stores.</p>'},
+  {label:'Text B',title:'Intravenous iron preparations',html:'<table><tr><th></th><th>Ferric carboxymaltose</th><th>Iron sucrose</th></tr><tr><td>Maximum single dose</td><td>1000 mg</td><td>200 mg</td></tr><tr><td>Minimum infusion time</td><td>15 minutes (doses over 500 mg)</td><td>30 minutes</td></tr><tr><td>Usual number of visits</td><td>1–2</td><td>5 or more</td></tr><tr><td>Notes</td><td>May cause low phosphate; check if repeated doses</td><td>Diluted in sodium chloride 0.9% only</td></tr></table><p>IV iron is considered when oral iron is not tolerated, not absorbed, or a rapid rise is needed (e.g. before surgery).</p>'},
+  {label:'Text C',title:'Giving an IV iron infusion',html:'<p>Facilities for resuscitation must be available. Record baseline pulse, blood pressure, respiratory rate and temperature. Stay with the patient for the first 10 minutes. Observe the patient for at least 30 minutes after the infusion ends for signs of hypersensitivity. If the patient reports burning or swelling at the cannula site, stop the infusion immediately: leakage of iron into the tissues can cause brown staining of the skin that may be permanent. IV iron is not given in the first trimester of pregnancy.</p>'},
+  {label:'Text D',title:'Patient leaflet: what to expect',html:'<p><b>Tablets:</b> your stools may turn dark or black. This is harmless. Some people get stomach pain, constipation or diarrhoea; tell your nurse if this happens, as the dose can often be changed.<br><b>Infusion:</b> you may have a metallic taste, a mild headache or a flushed face. These usually pass within a day. Tell staff at once if you feel itchy, breathless or dizzy during the infusion. You can drive home afterwards unless you feel unwell. Your blood will be checked about 4 weeks after your last infusion.</p>'}],
+ qs:[
+  {sec:SEC_M,q:'how long a patient should be watched after an infusion',o:ABCD,a:2,why:'Text C: “Observe the patient for at least 30 minutes after the infusion ends”.'},
+  {q:'drinks to avoid when taking iron tablets',o:ABCD,a:0,why:'Text A: “avoid tea, coffee and antacids”.'},
+  {q:'whether a patient can drive after treatment',o:ABCD,a:3,why:'Text D: “You can drive home afterwards unless you feel unwell.”'},
+  {q:'which product needs the fewest hospital visits',o:ABCD,a:1,why:'Text B: ferric carboxymaltose, “1–2” visits.'},
+  {q:'what may happen to the colour of the stools',o:ABCD,a:3,why:'Text D: “your stools may turn dark or black”.'},
+  {q:'what to do if the cannula site becomes painful',o:ABCD,a:2,why:'Text C: “stop the infusion immediately”.'},
+  {q:'how long to continue treatment after haemoglobin is normal',o:ABCD,a:0,why:'Text A: “Continue for 3 months after haemoglobin returns to normal”.'},
+  {sec:SEC_S,q:'How much elemental iron is in one 200 mg ferrous sulfate tablet?',a:['65 mg','65mg','65','65 milligrams'],why:'Text A: “200 mg (65 mg elemental iron)”.'},
+  {q:'What rise in haemoglobin is expected after 2–4 weeks of oral iron?',a:['20 g/L','20g/L','about 20 g/L','20 g/l','20'],why:'Text A: “a rise of about 20 g/L is expected”.'},
+  {q:'What is the maximum single dose of iron sucrose?',a:['200 mg','200mg','200'],why:'Text B: iron sucrose, maximum single dose 200 mg.'},
+  {q:'Which blood level may fall after ferric carboxymaltose?',a:['phosphate','phosphate level','serum phosphate'],why:'Text B: “May cause low phosphate”.'},
+  {q:'Which fluid must iron sucrose be diluted in?',a:['sodium chloride 0.9%','0.9% sodium chloride','sodium chloride','normal saline','saline','0.9% saline','sodium chloride 0.9 %'],why:'Text B: “Diluted in sodium chloride 0.9% only”.'},
+  {q:'For how long must a nurse stay with the patient at the start of an infusion?',a:['10 minutes','ten minutes','the first 10 minutes','10 mins','10 min'],why:'Text C: “Stay with the patient for the first 10 minutes.”'},
+  {q:'In which part of pregnancy is IV iron not given?',a:['first trimester','the first trimester','1st trimester'],why:'Text C: “not given in the first trimester of pregnancy”.'},
+  {sec:SEC_C,q:'Taking oral iron on ___ may cause fewer side effects than daily doses.',a:['alternate days','every other day','alternate-days'],why:'Text A: “a single dose on alternate days … with fewer gastrointestinal side effects”.'},
+  {q:'Oral iron should be taken one hour before food with water or ___.',a:['orange juice','juice'],why:'Text A: “with water or orange juice”.'},
+  {q:'IV iron may be used when a rapid rise is needed, for example before ___.',a:['surgery','an operation','operation'],why:'Text B: “a rapid rise is needed (e.g. before surgery)”.'},
+  {q:'Before the infusion, record the patient’s pulse, blood pressure, respiratory rate and ___.',a:['temperature'],why:'Text C: “Record baseline pulse, blood pressure, respiratory rate and temperature.”'},
+  {q:'Iron leaking into the tissues can cause ___ of the skin.',a:['brown staining','staining','brown stains','permanent brown staining'],why:'Text C: “can cause brown staining of the skin that may be permanent”.'},
+  {q:'A metallic taste after an infusion usually passes within ___.',a:['a day','one day','1 day','24 hours'],why:'Text D: “These usually pass within a day.”'}]},
+
+/* ===== Session 5 · Reading Parts B and C ===== */
+RB1:{kind:'read',part:'B',title:'Part B · Workplace texts (set 1)',minutes:8,
+ extracts:[
+  {title:'Policy extract · Patient identification',html:'<p>Before giving any medication, taking a blood sample or starting a procedure, staff must confirm the patient’s identity using at least two identifiers: full name and date of birth, checked against the wristband. Asking “Are you Mr Smith?” is not acceptable, as confused or hard-of-hearing patients may agree. Ask the patient to state their name and date of birth. If the patient cannot respond, check the wristband against the prescription chart with a second member of staff.</p>',
+   qs:[{q:'This extract tells staff that',o:['patients should be asked to say their own details.','a second member of staff must always check the wristband.','the patient’s name alone is enough for blood tests.'],a:0,why:'“Ask the patient to state their name and date of birth.” A second person is needed only if the patient cannot respond.'}]},
+  {title:'Email · Change to the venepuncture service',html:'<p>From 1 March, the phlebotomy team will no longer take routine morning bloods on Ward 9 at weekends. Ward nurses who have completed the venepuncture course should take Saturday and Sunday samples, which must be in the laboratory by 10 am. Nurses who have not yet completed the course can book the next session through the education portal. Urgent samples at any time should still be requested through the on-call phlebotomist.</p>',
+   qs:[{q:'The purpose of the email is to',o:['invite all ward nurses to a venepuncture course.','tell trained ward nurses that they will take routine weekend samples.','ask nurses to send urgent samples to the laboratory by 10 am.'],a:1,why:'Trained ward nurses “should take Saturday and Sunday samples”. The course is mentioned only for nurses who are not yet trained.'}]},
+  {title:'Guideline · Oxygen prescription',html:'<p>Oxygen is a drug and must be prescribed with a target saturation range. For most acutely ill patients, the target is 94–98%. For patients at risk of hypercapnic respiratory failure, such as some people with COPD, the target is 88–92% unless blood gases show otherwise. If a patient’s saturation is above the target range, the oxygen should be reduced, not simply left running.</p>',
+   qs:[{q:'According to the guideline, a nurse should',o:['give oxygen to all patients with COPD at 88–92%.','reduce oxygen when saturation rises above the prescribed range.','keep oxygen running at the same rate until the next review.'],a:1,why:'“If a patient’s saturation is above the target range, the oxygen should be reduced.” The 88–92% target is for patients at risk, not all COPD patients.'}]}]},
+RB2:{kind:'read',part:'B',title:'Part B · Workplace texts (set 2)',minutes:8,
+ extracts:[
+  {title:'Memo · Sharps bins',html:'<p>An audit found several sharps bins filled above the marked line, and two bins left open overnight. Bins must be closed temporarily between uses and permanently sealed when the contents reach the fill line. Never press waste down to make more room. Full bins should be labelled with the ward name and the date before collection.</p>',
+   qs:[{q:'The memo is mainly about',o:['how to use sharps bins safely.','the results of a ward cleaning audit.','how to arrange collection of clinical waste.'],a:0,why:'Closing, sealing, not pressing waste down and labelling are all safe use of sharps bins.'}]},
+  {title:'Procedure · Nasogastric tube position',html:'<p>Confirm the position of a nasogastric tube before every feed or medication, and after vomiting or coughing fits. Aspirate a small sample and test it with pH paper: a pH of 5.5 or below confirms gastric placement. Do not use the “whoosh” test of listening for air with a stethoscope, as it is unreliable. If no aspirate can be obtained or the pH is above 5.5, do not use the tube and request a chest X-ray.</p>',
+   qs:[{q:'If the aspirate has a pH of 6, the nurse should',o:['flush the tube with air and listen with a stethoscope.','start the feed slowly and recheck the pH.','not use the tube until its position is confirmed.'],a:2,why:'“If … the pH is above 5.5, do not use the tube and request a chest X-ray.”'}]},
+  {title:'Notice · Medication fridge',html:'<p>The temperature of the medication fridge must be checked and recorded twice a day. The acceptable range is 2–8°C. If a reading is outside this range, do not discard the medicines. Label them “do not use”, move them to a working fridge and contact pharmacy, who will advise whether they are still safe.</p>',
+   qs:[{q:'If the fridge temperature is too high, staff should',o:['throw away the medicines immediately.','keep the medicines aside and ask pharmacy for advice.','continue using the medicines until pharmacy replies.'],a:1,why:'“Do not discard the medicines. Label them ‘do not use’ … and contact pharmacy.”'}]}]},
+RC1:{kind:'read',part:'C',title:'Part C · Article: Nurse-led discharge',minutes:15,
+ texts:[{title:'Who should send patients home?',html:`<p><b>1</b> On most hospital wards, the decision to discharge a patient is still made by a doctor, usually on a morning ward round. Yet by the time that decision is made, much of the work has already been done by nurses: they know whether the patient can climb the stairs at home, whether a carer has been arranged and whether the medicines are ready. Advocates of nurse-led discharge argue that the formal decision should simply follow the people who hold this knowledge.</p>
+<p><b>2</b> The idea is not new. Day-surgery units have used nurse-led discharge for decades, with nurses applying agreed criteria such as stable observations, adequate pain control and the ability to eat and pass urine. What has changed is its spread to general medical and surgical wards, where patients are older and their needs more complex. Here, the model usually works through “criteria-led discharge”: the doctor writes the criteria on the ward round, and any trained nurse may discharge the patient once they are met, even late in the evening or at the weekend.</p>
+<p><b>3</b> The most commonly reported benefit is time. A hospital in the north of England found that patients on wards using criteria-led discharge left, on average, four hours earlier in the day, freeing beds for patients waiting in the emergency department. Less often reported, but perhaps more important to patients, was the effect at weekends. Before the change, a patient who was ready on Saturday morning often waited until Monday for a doctor to sign the form. Afterwards, weekend discharges nearly doubled.</p>
+<p><b>4</b> Critics do not dispute these figures, but they question what lies behind them. One concern is that the criteria themselves may be written hastily, on a busy ward round, and then applied mechanically. “A list can tell you the patient’s oxygen saturation is above 94 per cent,” says one consultant physician. “It can’t tell you that his daughter looks frightened about taking him home.” Others point out that nurses are already stretched; adding discharge responsibilities without extra time may simply move the delay from the doctor’s desk to the nurse’s.</p>
+<p><b>5</b> The research so far offers some reassurance on safety. Studies comparing nurse-led and doctor-led discharge have generally found no difference in readmission rates within 30 days. However, most of these studies were small and took place in units that had chosen to adopt the model, so their staff may have been unusually enthusiastic. Whether the results would hold on a reluctant ward is, as one researcher puts it, “the question nobody has really answered”.</p>
+<p><b>6</b> Nurses themselves are divided. Many welcome the recognition of their clinical judgement. In a survey of ward nurses, more than two-thirds said criteria-led discharge made their work more satisfying. Yet a significant minority, particularly newly qualified nurses, said they felt anxious about being held responsible if a patient they discharged became unwell at home. Training, they argued, had focused on the forms rather than on the decision.</p>
+<p><b>7</b> Perhaps the most persuasive argument for the model is not about speed at all. When nurses discharge patients, the conversation about going home tends to start earlier, because everyone knows the criteria from the first day. Patients and families are less likely to be surprised. In that sense, nurse-led discharge may be less a transfer of power than a change in when, and how openly, the decision is discussed.</p>`}],
+ qs:[
+  {q:'In paragraph 1, the writer suggests that nurses',o:['should replace doctors on ward rounds.','often have the information needed to decide on discharge.','make most discharge decisions without telling doctors.','are responsible for delays in discharge.'],a:1,why:'Nurses “know whether the patient can climb the stairs … whether a carer has been arranged”: they hold the knowledge.'},
+  {q:'What does paragraph 2 say about criteria-led discharge on general wards?',o:['It was developed before it was used in day surgery.','It allows a nurse to discharge a patient once conditions set by a doctor are met.','It is used only for patients with simple needs.','It requires a doctor to be present in the evening.'],a:1,why:'“The doctor writes the criteria … and any trained nurse may discharge the patient once they are met.”'},
+  {q:'The writer considers the effect at weekends to be',o:['less significant than the earlier discharge time.','possibly more meaningful for patients.','the only benefit reported in the study.','difficult to measure accurately.'],a:1,why:'“Less often reported, but perhaps more important to patients, was the effect at weekends.”'},
+  {q:'The consultant physician quoted in paragraph 4 is concerned that',o:['oxygen saturation targets are set too high.','families are rarely involved in discharge.','written criteria cannot capture every relevant concern.','nurses do not have enough clinical knowledge.'],a:2,why:'A list “can’t tell you that his daughter looks frightened”: criteria miss some important information.'},
+  {q:'The phrase “move the delay from the doctor’s desk to the nurse’s” suggests that',o:['nurses might become the new cause of slow discharges.','doctors will have more time for ward rounds.','nurses will need their own offices.','discharge forms will become longer.'],a:0,why:'If nurses have no extra time, the waiting would simply happen with them instead of the doctor.'},
+  {q:'What limitation of the safety research does the writer mention?',o:['It measured readmission over too short a period.','It was carried out on wards that were keen on the model.','It found higher readmission rates for nurse-led discharge.','It included only doctor-led discharges.'],a:1,why:'“Units that had chosen to adopt the model, so their staff may have been unusually enthusiastic.”'},
+  {q:'According to paragraph 6, some newly qualified nurses felt that',o:['criteria-led discharge was less satisfying than before.','they had received too much training.','their training had not prepared them for the decision itself.','they should not be allowed to discharge patients.'],a:2,why:'“Training, they argued, had focused on the forms rather than on the decision.”'},
+  {q:'In the final paragraph, the writer’s main point is that nurse-led discharge',o:['is mainly a way of saving time.','gives nurses power that doctors should keep.','encourages earlier and more open discussion of discharge.','should replace all doctor-led discharges.'],a:2,why:'“The conversation about going home tends to start earlier … a change in when, and how openly, the decision is discussed.”'}]},
+RC2:{kind:'read',part:'C',title:'Part C · Article: Stopping medicines in older people',minutes:15,
+ texts:[{title:'The art of stopping',html:`<p><b>1</b> Medicine has become very good at starting treatments. Every new diagnosis tends to bring a new prescription, supported by guidelines written for that single condition. The result, for many older people, is a daily routine of ten or more tablets, some of which were started years ago for reasons nobody can now remember. Deprescribing, the planned and supervised reduction or stopping of medicines, is an attempt to correct this imbalance.</p>
+<p><b>2</b> The case for it rests on a simple observation: the risk of harm from medicines rises with their number. Taking many medicines increases the chance of interactions, falls, confusion and hospital admission. In older people, whose kidneys and liver clear drugs more slowly, a dose that was appropriate at sixty may be excessive at eighty-five. A sleeping tablet that once helped may now be the reason for a hip fracture.</p>
+<p><b>3</b> It would be easy to conclude that fewer medicines are always better. Most experts are careful not to say so. Some older patients are undertreated, for example people with heart failure who are not taking medicines that would extend their lives. The goal, as one geriatrician puts it, “is not a shorter list but a list that makes sense for this person now”. That may mean stopping one medicine and starting another in the same appointment.</p>
+<p><b>4</b> In practice, the barriers are often less clinical than human. Doctors may be reluctant to stop a medicine that a colleague started, especially a specialist. Patients may interpret the suggestion as a sign that they are being given up on. Interestingly, surveys suggest that most older people say they would be willing to stop a medicine if their doctor recommended it; it is more often the conversation itself that never takes place.</p>
+<p><b>5</b> Nurses and pharmacists are increasingly involved in that conversation. Community nurses who visit patients at home are well placed to notice unopened boxes, confusion about doses, or side effects that a patient has not mentioned to the doctor. Pharmacist-led reviews have been shown to reduce the number of medicines without increasing hospital admissions, although the effect on quality of life has been harder to demonstrate.</p>
+<p><b>6</b> Stopping a medicine safely is rarely a matter of simply crossing it off a list. Some, such as certain antidepressants, blood pressure tablets and sleeping tablets, need to be reduced gradually to avoid withdrawal effects or a rebound in symptoms. Changes should usually be made one at a time, so that any problem can be traced to its cause, and the patient should know what to watch for and whom to contact.</p>
+<p><b>7</b> Deprescribing is sometimes presented as a way of saving money, and it may do so. But its strongest justification is respect for the patient’s own priorities. A woman of ninety may care less about her cholesterol level in ten years than about staying steady on her feet next month. Asking her what matters is not a softer form of medicine; it is, arguably, the most precise one.</p>`}],
+ qs:[
+  {q:'According to paragraph 1, why do many older people take a large number of medicines?',o:['Guidelines recommend at least ten medicines for older patients.','Treatments are added for each condition, but rarely reviewed.','Older people ask their doctors for more prescriptions.','Doctors are not aware of the guidelines.'],a:1,why:'“Every new diagnosis tends to bring a new prescription … some of which were started years ago for reasons nobody can now remember.”'},
+  {q:'The example of the sleeping tablet in paragraph 2 shows that',o:['sleeping tablets should never be prescribed to older people.','a medicine’s risks may increase as the patient ages.','hip fractures are a common side effect of all medicines.','sleeping tablets interact with kidney medicines.'],a:1,why:'“A dose that was appropriate at sixty may be excessive at eighty-five. A sleeping tablet that once helped may now be the reason for a hip fracture.”'},
+  {q:'What point does the writer make in paragraph 3?',o:['The number of medicines is the main measure of good prescribing.','Deprescribing can also involve starting a needed medicine.','Patients with heart failure take too many medicines.','Geriatricians disagree about deprescribing.'],a:1,why:'“That may mean stopping one medicine and starting another in the same appointment.”'},
+  {q:'What does the writer find interesting in paragraph 4?',o:['Older people often refuse to stop their medicines.','Specialists usually support deprescribing.','Patients are generally open to stopping, yet the discussion often does not happen.','Doctors frequently stop medicines without telling patients.'],a:2,why:'“Most older people say they would be willing … it is more often the conversation itself that never takes place.”'},
+  {q:'Community nurses are described as useful because they',o:['can prescribe and stop medicines at home.','can observe how medicines are actually being used.','have more time than pharmacists.','check blood levels of medicines.'],a:1,why:'They “notice unopened boxes, confusion about doses, or side effects”.'},
+  {q:'What does the writer say about pharmacist-led reviews?',o:['They reduced medicines but increased admissions.','Their benefit for quality of life is less clear.','They are less effective than nurse-led reviews.','They have not been studied.'],a:1,why:'“The effect on quality of life has been harder to demonstrate.”'},
+  {q:'Why should changes usually be made one at a time?',o:['to make it possible to identify the cause of any problem','because patients cannot remember several changes','to reduce the cost of each review','because most medicines must be stopped immediately'],a:0,why:'“So that any problem can be traced to its cause.”'},
+  {q:'In the final paragraph, the writer suggests that asking about the patient’s priorities',o:['is less scientific than following guidelines.','is mainly a way to save money.','may be the most accurate way to decide on treatment.','should be left to family members.'],a:2,why:'“It is, arguably, the most precise one.”'}]}
+});
+Object.assign(QUIZ,{
+/* ===== drills (no timer, self-marking, every answer explained) ===== */
+D1:{kind:'mc',k:'O',title:'Drill · Know the OET',context:'Check what you know about the test format and scoring.',
+ qs:[{q:'How many questions are there in the Listening sub-test?',o:['42','38','48'],a:0,fixed:true,why:'24 in Part A, 6 in Part B and 12 in Part C: 42 in total.'},
+  {q:'What happens at the end of the 15 minutes for Reading Part A?',o:['Part A is collected, and you cannot return to it.','You can go back to Part A after finishing Part C.','The timer pauses while you check your spelling.'],a:0,why:'Part A is strictly timed and is collected after 15 minutes.'},
+  {q:'In the Writing sub-test, what can you do in the first 5 minutes?',o:['Read the case notes and the task, but not write.','Start writing the opening paragraph.','Ask the invigilator questions about the patient.'],a:0,why:'The first 5 minutes are reading time only.'},
+  {q:'Which Writing criterion is scored out of 3?',o:['Purpose','Content','Language'],a:0,why:'Purpose is 0–3; the other five criteria are 0–7.'},
+  {q:'Who plays the patient in the Speaking role-plays?',o:['The interlocutor','Another candidate','A recorded voice'],a:0,why:'The interlocutor plays the patient or a relative or carer, using their own card.'},
+  {q:'What score do most registration boards ask for in each sub-test?',o:['350 (grade B)','300 (grade C+)','450 (grade A)'],a:0,why:'Grade B, 350 out of 500, is the usual requirement. Some boards make exceptions, so always check yours.'},
+  {q:'Which statement about the warm-up before the role-plays is true?',o:['It is not assessed.','It counts as a third role-play.','It is scored only for intelligibility.'],a:0,why:'The short warm-up conversation about your work is not assessed.'},
+  {q:'Do wrong answers in Listening and Reading lose marks?',o:['No, so you should never leave a blank.','Yes, half a mark for each wrong answer.','Only in Part A.'],a:0,why:'There is no penalty for a wrong answer. A guess can be right; a blank never is.'}]},
+D2:{kind:'mc',k:'L',skill:'Listening',title:'Drill · Patient words and medical words',context:'In Part A, patients use everyday words. The notes may use medical words, or the patient’s words. Choose the medical term that matches what the patient says.',
+ qs:[{q:'“I get out of breath when I climb the stairs.”',o:['dyspnoea on exertion','orthopnoea','haemoptysis'],a:0,why:'Breathlessness when active is dyspnoea on exertion. Orthopnoea is breathlessness lying flat.'},
+  {q:'“I have to sleep propped up on pillows or I can’t breathe.”',o:['orthopnoea','tachycardia','dysphagia'],a:0,why:'Breathlessness when lying flat is orthopnoea.'},
+  {q:'“The food seems to stick when I swallow.”',o:['dysphagia','dyspepsia','dysuria'],a:0,why:'Difficulty swallowing is dysphagia. Dysuria is pain when passing urine.'},
+  {q:'“It burns when I pass water.”',o:['dysuria','haematuria','nocturia'],a:0,why:'Pain or burning on passing urine is dysuria.'},
+  {q:'“I’m getting up three times a night to go to the toilet.”',o:['nocturia','incontinence','polydipsia'],a:0,why:'Passing urine at night is nocturia.'},
+  {q:'“I’ve been coughing up a bit of blood.”',o:['haemoptysis','haematemesis','epistaxis'],a:0,why:'Coughing up blood is haemoptysis. Haematemesis is vomiting blood; epistaxis is a nosebleed.'},
+  {q:'“My heart sometimes races and thumps.”',o:['palpitations','angina','syncope'],a:0,why:'An awareness of a fast or forceful heartbeat is palpitations. Syncope is fainting.'},
+  {q:'“I take my water tablet every morning.”',o:['a diuretic','an anticoagulant','an antihistamine'],a:0,why:'“Water tablet” is the everyday name for a diuretic, such as furosemide.'}]},
+D2S:{kind:'mc',k:'L',skill:'Listening',title:'Drill · Spell it right',context:'In Listening Part A, a misspelled answer gets no mark. Choose the correct spelling. (British and American spellings are both accepted in the test.)',
+ qs:[{q:'A common painkiller',o:['paracetamol','paracetemol','parasetamol'],a:0,why:'p-a-r-a-c-e-t-a-m-o-l.'},
+  {q:'Swelling caused by fluid',o:['oedema','odema','oedeama'],a:0,why:'British spelling oedema; American edema. Both are correct; the others are not.'},
+  {q:'Loose, watery stools',o:['diarrhoea','diarhoea','diarrohea'],a:0,why:'d-i-a-r-r-h-o-e-a (British) or diarrhea (American). It needs a double r, then h.'},
+  {q:'A medicine that reduces inflammation and pain',o:['ibuprofen','ibuprophen','ibuprofin'],a:0,why:'i-b-u-p-r-o-f-e-n.'},
+  {q:'Treatment with exercise and movement',o:['physiotherapy','phisiotherapy','physiotheraphy'],a:0,why:'ph-y-s-i-o-therapy.'},
+  {q:'Feeling sick',o:['nausea','nausia','nauseau'],a:0,why:'n-a-u-s-e-a.'},
+  {q:'A thinning of the bones',o:['osteoporosis','osteoperosis','osteoporosys'],a:0,why:'osteo-por-osis.'},
+  {q:'A machine that measures heart rhythm (abbreviation allowed)',o:['electrocardiogram','electrocardiagram','electrocadiogram'],a:0,why:'electro-cardio-gram. ECG is also accepted in notes.'}]},
+D3:{kind:'mc',k:'L',skill:'Listening',title:'Drill · Opinion, attitude and purpose',context:'Parts B and C often ask what a speaker thinks or why they say something. Choose the best meaning.',
+ qs:[{q:'“I wouldn’t go so far as to say it’s useless, but I’m not convinced.”',o:['The speaker has doubts.','The speaker strongly supports it.','The speaker thinks it is useless.'],a:0,why:'“Not convinced” shows doubt; “wouldn’t go so far as to say it’s useless” rules out strong rejection.'},
+  {q:'“What really took us by surprise was how quickly families accepted it.”',o:['Families accepted it faster than expected.','Families refused to accept it.','The team expected quick acceptance.'],a:0,why:'“Took us by surprise” means they did not expect it.'},
+  {q:'“The jury’s still out on whether it reduces readmissions.”',o:['It is not yet clear.','It definitely reduces readmissions.','It has been proven not to work.'],a:0,why:'“The jury’s still out” is an idiom for “not decided yet”.'},
+  {q:'“I mention this not to criticise the night staff, but because the system made it hard for them.”',o:['to explain a problem with the system','to blame the night staff','to praise the night staff'],a:0,why:'The speaker rejects criticism of the staff and points to the system.'},
+  {q:'“To be fair, the old policy did work for most patients.”',o:['The speaker admits a strength of the old policy.','The speaker wants to return to the old policy.','The speaker thinks the old policy was unfair.'],a:0,why:'“To be fair” introduces a concession: something positive about the other side.'},
+  {q:'“Frankly, the paperwork has become an end in itself.”',o:['The speaker is critical of the paperwork.','The speaker thinks the paperwork is essential.','The speaker is unsure about the paperwork.'],a:0,why:'“An end in itself” means done for its own sake, not for patients: a criticism.'}]},
+D4:{kind:'mc',k:'R',skill:'Reading',title:'Drill · Scan for it',context:'Reading Part A rewards fast scanning. For each question, decide what kind of information you will scan for.',
+ qs:[{q:'What is the maximum daily dose of the medicine?',o:['a number with a unit (mg, g)','a person’s name','a reason'],a:0,why:'Scan for numbers followed by mg or g.'},
+  {q:'Which team should the nurse contact?',o:['a capitalised name or “team”','a percentage','a time of day'],a:0,why:'Scan for “team”, “service” or capitalised names.'},
+  {q:'How long after the dose should the patient be observed?',o:['a length of time (minutes, hours)','a body part','a drug name'],a:0,why:'Scan for minutes or hours.'},
+  {q:'Which text gives information for patients rather than staff?',o:['the style: “you”, simple words','the longest text','the text with a table'],a:0,why:'Patient leaflets speak to the reader as “you” and use everyday words.'},
+  {q:'Short-answer and sentence-completion answers must be',o:['copied exactly from the texts, correctly spelled','written in your own words','a full sentence'],a:0,why:'In Part A, answers come from the texts, and spelling counts.'},
+  {q:'You have 15 minutes for 20 questions. After 8 minutes you have answered 7. You should',o:['keep going and guess any you cannot find','start again from question 1','stop and check your spelling'],a:0,why:'Time is tight. Keep moving; never leave a blank.'}]},
+D5:{kind:'mc',k:'R',skill:'Reading',title:'Drill · What does “this” refer to?',context:'Part C often asks what a word such as “this”, “it” or “they” refers to. Choose the best answer.',
+ qs:[{q:'“Several wards trialled the new chart. This led to fewer missed observations.” What led to fewer missed observations?',o:['trialling the new chart','the wards','missed observations'],a:0,why:'“This” refers to the whole previous action: trialling the chart.'},
+  {q:'“Patients often stop their inhalers when they feel better. Nurses can help prevent it.” What can nurses prevent?',o:['patients stopping their inhalers','patients feeling better','inhalers'],a:0,why:'“It” refers to the problem: stopping the inhalers.'},
+  {q:'“Critics argue that the targets distort priorities. Supporters reject this view.” Which view do supporters reject?',o:['that targets distort priorities','that critics are right to have targets','that priorities should change'],a:0,why:'“This view” is the critics’ argument.'},
+  {q:'“Despite the cost, the scheme was extended to every ward. Its success, however, was uneven.” What was uneven?',o:['the success of the scheme','the cost','the wards'],a:0,why:'“Its” refers to the scheme.'},
+  {q:'“Junior doctors and nurses were surveyed. The former reported more stress.” Who reported more stress?',o:['junior doctors','nurses','both groups'],a:0,why:'“The former” means the first group mentioned.'},
+  {q:'“The study was small and short. Such limitations mean the findings should be treated with caution.” What are “such limitations”?',o:['the small size and short length of the study','the findings','the caution'],a:0,why:'“Such limitations” sums up the previous sentence.'}]}
+});
+Object.assign(QUIZ,{
+D6:{kind:'mc',k:'W',skill:'Writing',title:'Drill · Relevant or not?',context:'A nurse is writing to the community nurse team to arrange daily insulin injections for Mrs Lina Farouk, 78, who is going home after a hip fracture. Decide what to do with each case note.',
+ qs:[{q:'Type 2 diabetes, insulin glargine 18 units each evening',o:['Include: the reader will give this medicine.','Leave out: the GP already knows.','Include it only if there is space.'],a:0,why:'The community nurses will give the insulin, so the drug, dose and time are essential.'},
+  {q:'Retired primary school teacher',o:['Leave out: it does not affect her care.','Include: it shows she can understand instructions.','Include in the opening paragraph.'],a:0,why:'Her former job does not change the care the reader will give.'},
+  {q:'Blood glucose 4.1–11.2 mmol/L in the last 3 days; one hypo (3.6) on day 2, treated with juice',o:['Include, summarised: recent control and one mild hypo.','Copy every reading into the letter.','Leave out: hospital results are not needed.'],a:0,why:'The reader needs a summary of control and the hypo, not every number.'},
+  {q:'Appendicectomy aged 19',o:['Leave out: old and not relevant.','Include: all surgery must be listed.','Include it under social history.'],a:0,why:'An operation 60 years ago does not affect her insulin care now.'},
+  {q:'Walks with a frame; cannot stand for long at the kitchen worktop',o:['Include: it affects meals and the risk of hypos and falls.','Leave out: the physiotherapist will deal with it.','Include only the walking frame.'],a:0,why:'Difficulty preparing meals affects her food intake and glucose levels, which matters to the reader.'},
+  {q:'Daughter lives 200 km away; phones daily',o:['Include briefly: she lives alone with limited family support.','Leave out: family details are never relevant.','Include the daughter’s full phone number and job.'],a:0,why:'Social support affects how much help she has at home. One short sentence is enough.'},
+  {q:'Hospital menu: preferred the vegetarian option',o:['Leave out: not relevant to the reader.','Include: diet is always relevant in diabetes.','Include in the closing paragraph.'],a:0,why:'Her hospital menu choice does not change the community nurses’ care.'},
+  {q:'Discharge medication list includes paracetamol 1 g four times a day as needed',o:['Include with her other current medication.','Leave out: it is only a painkiller.','Include only if she asks.'],a:0,why:'Current medicines, including pain relief after the fracture, are part of safe handover.'}]},
+D7:{kind:'mc',k:'W',skill:'Writing',title:'Drill · Letter layout',context:'Choose the correct layout choice for an OET letter.',
+ qs:[{q:'Where does the recipient’s name and address go?',o:['At the top left, before the date or after it, followed by the Re: line','At the bottom, after your signature','Inside the first paragraph'],a:0,why:'The recipient’s details go at the top, before the Re: line and the greeting.'},
+  {q:'Which Re: line is best?',o:['Re: Mr Tom Walsh, DOB 14/03/1951','Re: Patient referral letter','Re: My patient'],a:0,why:'The Re: line names the patient and gives the date of birth, so the reader can identify them.'},
+  {q:'You know the doctor’s name (Dr Amina Khan). Which opening and closing match?',o:['Dear Dr Khan, … Yours sincerely,','Dear Sir/Madam, … Yours sincerely,','Dear Amina, … Best wishes,'],a:0,why:'A named reader: Dear Dr Khan with Yours sincerely. Use Dear Sir/Madam with Yours faithfully when there is no name.'},
+  {q:'The task says “Address the letter to the Charge Nurse, Ward 4”. Which greeting fits?',o:['Dear Charge Nurse,','Dear Ward 4,','Hi team,'],a:0,why:'Use the role given in the task: Dear Charge Nurse. Close with Yours sincerely or Yours faithfully.'},
+  {q:'How should you sign off?',o:['Yours sincerely, then your title, e.g. “Charge Nurse”','Your full real name and registration number','Thanks!'],a:0,why:'Use the role from the task (e.g. Registered Nurse). Do not invent personal details.'},
+  {q:'How should paragraphs be shown?',o:['A blank line between paragraphs','No breaks; one long block','A new line after every sentence'],a:0,why:'Clear paragraphs with a line between them help the reader and score for Organisation & Layout.'}]},
+D7P:{kind:'mc',k:'W',skill:'Writing',title:'Drill · Make the purpose clear',context:'Choose the best opening sentence for each letter.',
+ qs:[{q:'Referral to a diabetes nurse specialist for insulin education',o:['I am writing to refer Mrs Hana Said, a 54-year-old woman with type 2 diabetes, who requires education on starting insulin.','I am writing about Mrs Hana Said, who was born in 1972 and has many health problems.','Mrs Hana Said has been my patient for five years and has always been very pleasant.'],a:0,why:'It names the patient, the condition and the request at once: the purpose is immediately clear.'},
+  {q:'Discharge to a nursing home after a stroke',o:['Mr Leo Grant, 81, is being discharged to your care today following a stroke, and requires assistance with mobility and feeding.','I am writing to tell you everything about Mr Leo Grant’s stay in hospital.','Thank you for your letter about Mr Leo Grant.'],a:0,why:'It states the discharge, the timing and the main care needs.'},
+  {q:'Transfer to a community nurse for wound care',o:['Thank you for accepting Mr Sami Odeh into your care for daily dressing of a venous leg ulcer.','I hope this letter finds you well.','Please find below Mr Sami Odeh’s full medical history from birth.'],a:0,why:'It names the patient and the exact care requested.'},
+  {q:'Which word fits a transfer letter best? “I am writing to ___ Ms Ruby Chen to your rehabilitation unit.”',o:['transfer','refer','report'],a:0,why:'The OET Writing guide reminds candidates that not every letter is a referral: use transfer, discharge, update or request when they fit.'},
+  {q:'Where should you expand the purpose with specific requests?',o:['Near the end, e.g. “I would be grateful if you could check her blood glucose twice daily.”','Only in the Re: line','Nowhere; the first sentence is enough.'],a:0,why:'Purpose has two parts: clear at the start, and expanded with specific requests near the end.'}]},
+D8:{kind:'mc',k:'W',skill:'Writing',title:'Drill · Concise and clear',context:'Choose the clearest, most concise version for the reader.',
+ qs:[{q:'Case notes: 3/1 BP 150/95; 10/1 BP 148/92; 17/1 BP 151/94',o:['His blood pressure has remained around 150/94 over the past three weeks.','On 3 January his BP was 150/95, then on 10 January it was 148/92, and on 17 January 151/94.','His blood pressure is a bit high.'],a:0,why:'Summarise a pattern; do not copy every reading. The third option is vague.'},
+  {q:'Several separate notes about poor diet compliance over 6 months',o:['She has not followed her diabetic diet consistently over the past six months.','In March she ate cake. In April she ate biscuits. In May she said she ate sweets.','She is very naughty about her diet.'],a:0,why:'Group similar information. The third option is judgemental and informal.'},
+  {q:'Which is clearer for a reader who does not know the patient?',o:['He lives alone in a first-floor flat with no lift.','He lives in a flat, alone, and it is on the first floor, and there is no lift, which is difficult.','First floor, no lift, alone.'],a:0,why:'One complete, well-ordered sentence. The last option is note form, which is not allowed.'},
+  {q:'Which history detail is most likely to be left out of a letter to a physiotherapist about knee rehabilitation?',o:['tonsillectomy aged 6','total knee replacement 2 weeks ago','uses a walking stick'],a:0,why:'A childhood tonsillectomy does not affect knee rehabilitation.'},
+  {q:'Which sentence repeats information unnecessarily?',o:['Mrs Ali, who has asthma, has asthma that is well controlled.','Mrs Ali’s asthma is well controlled with a preventer inhaler.','Her asthma is well controlled.'],a:0,why:'“Who has asthma” and “has asthma” say the same thing twice.'}]},
+D8G:{kind:'mc',k:'W',skill:'Writing',title:'Drill · Genre and style',context:'Choose the version that is formal, polite and factual.',
+ qs:[{q:'',o:['He smokes 20 cigarettes a day.','He is a heavy smoker.','He smokes way too much.'],a:0,why:'Use facts, not judgements. The OET guide gives this exact type of example.'},
+  {q:'',o:['She did not attend her last two appointments.','She didn’t bother coming to her appointments.','She is unreliable.'],a:0,why:'Factual, no contractions, no judgement.'},
+  {q:'',o:['I would be grateful if you could review her medication.','Can you have a look at her meds?','Please sort out her meds ASAP.'],a:0,why:'A polite, formal request with no informal abbreviations.'},
+  {q:'Writing to a GP: which abbreviation is safest to use without explanation?',o:['ECG','PRN QDS TTO','pt c/o SOB'],a:0,why:'Common abbreviations like ECG, MRI and BMI are fine. Avoid note-style and local abbreviations.'},
+  {q:'',o:['Mrs Jones was admitted following a fall at home.','Poor old Mrs Jones had a nasty fall.','Mrs Jones, bless her, fell at home.'],a:0,why:'Respectful and factual.'},
+  {q:'Which closing sentence is appropriate?',o:['Should you require any further information, please do not hesitate to contact me.','Give me a call if you need anything!','That’s all for now.'],a:0,why:'Formal closing that offers further contact.'}]},
+D9:{kind:'mc',k:'S',skill:'Speaking',title:'Drill · Which criterion?',context:'Each example shows one Speaking criterion. Choose the criterion it shows best.',
+ qs:[{q:'“So, can I just check: you’ve been taking the tablets with food, is that right?”',o:['Information-gathering (summarising and clarifying)','Intelligibility','Relationship-building'],a:0,why:'Summarising to check facts is an information-gathering skill.'},
+  {q:'“I can see this has been a really worrying week for you.”',o:['Relationship-building (empathy)','Fluency','Providing structure'],a:0,why:'Acknowledging feelings shows empathy, part of relationship-building.'},
+  {q:'“Now, I’d like to talk about your medication, if that’s OK.”',o:['Providing structure (signposting)','Resources of grammar','Information-giving'],a:0,why:'Signposting a change of topic is providing structure.'},
+  {q:'“What do you already know about how insulin works?”',o:['Information-giving (finding out what the patient knows)','Appropriateness of language','Relationship-building'],a:0,why:'Establishing what the patient knows comes before giving information.'},
+  {q:'“What worries you most about going home?”',o:['Understanding and incorporating the patient’s perspective','Intelligibility','Fluency'],a:0,why:'Eliciting the patient’s concerns shows the patient’s perspective.'},
+  {q:'Saying “hypertension” to an engineer and then explaining “that means high blood pressure”',o:['Appropriateness of language (lay explanation)','Information-gathering','Providing structure'],a:0,why:'Explaining technical terms in lay language is part of appropriateness of language.'},
+  {q:'Speaking at a steady speed with few “ums”, restarts or long pauses',o:['Fluency','Relationship-building','Resources of grammar and expression'],a:0,why:'Speed and smoothness are fluency.'}]},
+D9S:{kind:'mc',k:'S',skill:'Speaking',title:'Drill · Open, closed and leading questions',context:'Choose the best question for the moment.',
+ qs:[{q:'At the start, to hear the patient’s story',o:['Can you tell me what’s been happening?','Is the pain in your chest?','The pain is bad, isn’t it?'],a:0,why:'Begin with an open question. The others are closed or leading.'},
+  {q:'To check a detail after the patient’s story',o:['Is the pain worse when you lie down?','What’s been going on, and how are you, and is it bad?','You haven’t taken anything for it, have you?'],a:0,why:'A single closed question checks one detail. The second is compound, the third leading.'},
+  {q:'Which question is a compound question to avoid?',o:['Do you smoke, and how much do you drink, and do you exercise?','Do you smoke?','How much do you exercise in a week?'],a:0,why:'Asking several questions at once confuses the patient.'},
+  {q:'Which is the non-leading version of “The wound’s much better now, isn’t it?”',o:['How does the wound look to you now?','The wound’s fine, right?','You’re happy with the wound, aren’t you?'],a:0,why:'An open, neutral question lets the patient give their own view.'},
+  {q:'The patient says “I drink a bit at weekends.” The best next step is to',o:['clarify: “Roughly how many drinks would that be on a Saturday?”','move on to medication','tell them to stop drinking'],a:0,why:'Clarify vague statements before you advise.'}]},
+D10:{kind:'mc',k:'S',skill:'Speaking',title:'Drill · Empathy and lay language',context:'Choose the best response.',
+ qs:[{q:'Patient: “I’m really scared of injecting myself.”',o:['“That’s a very common feeling at first. Can I ask what worries you most about it?”','“Don’t worry, it’s easy.”','“Everyone has to do it, so you’ll be fine.”'],a:0,why:'Acknowledge, normalise, then explore the concern. “Don’t worry” dismisses it.'},
+  {q:'Explaining “hypertension”',o:['“Your blood pressure is higher than it should be, which puts extra strain on your heart.”','“You have hypertension with elevated systolic readings.”','“Your BP is up.”'],a:0,why:'Lay words and a short reason why it matters.'},
+  {q:'Explaining a “subcutaneous injection”',o:['“It goes just under the skin, into the fatty layer, not into the muscle.”','“It’s a subcut into the adipose tissue.”','“It’s a normal injection.”'],a:0,why:'Simple words that explain where the needle goes.'},
+  {q:'Checking understanding',o:['“Just so I know I’ve explained it clearly, could you tell me how you’ll take it?”','“Do you understand?”','“That’s clear, isn’t it?”'],a:0,why:'Asking the patient to say it back is the most reliable check, and it puts the responsibility on your explanation.'},
+  {q:'The patient sighs and says “Mmm… OK” in a doubtful voice.',o:['“You don’t sound completely sure. What are you thinking?”','“Great, let’s move on.”','“Any questions?”'],a:0,why:'Pick up the cue: the tone does not match the word “OK”.'},
+  {q:'Offering more information at the end',o:['“Is there anything else you’d like to know about the operation?”','“OK, that’s everything.”','“Bye now.”'],a:0,why:'Discover what further information the patient needs.'}]},
+D11:{kind:'mc',k:'S',skill:'Speaking',title:'Drill · Difficult conversations',context:'Choose the most professional and patient-centred response.',
+ qs:[{q:'An angry relative: “We’ve been waiting four hours and nobody has told us anything!”',o:['“I’m sorry you’ve been waiting so long without an update. That must be very frustrating. Let me tell you what’s happening now.”','“Please calm down. We are very busy today.”','“That’s not my fault.”'],a:0,why:'Apologise for the experience, acknowledge the feeling, then give information. Do not argue or blame.'},
+  {q:'Before giving bad news',o:['“I’m afraid the results aren’t what we hoped. Would you like me to go through them now?”','“Your scan shows a mass, so you need surgery.”','“It’s bad news, sorry.”'],a:0,why:'A warning shot, then permission, lets the patient prepare.'},
+  {q:'A patient refuses to stop smoking: “My grandfather smoked until he was 90.”',o:['“It sounds like you’ve heard of people who smoked without problems. Can I tell you what we know about smoking and your wound healing?”','“That’s just luck. You must stop.”','“OK, it’s your choice.” (and move on)'],a:0,why:'Acknowledge their view without judgement, ask permission, then give information linked to their situation.'},
+  {q:'A patient wants antibiotics for a viral cold.',o:['“I can hear you really want to feel better quickly. Antibiotics don’t work on viruses, but there are things that can help with the symptoms. Shall I go through them?”','“No. Antibiotics are not for colds.”','“Fine, I’ll ask the doctor for some.”'],a:0,why:'Empathise, explain in lay language, then offer an alternative. Do not just refuse, and do not give in unsafely.'},
+  {q:'A worried mother cries during the conversation.',o:['Pause, then say: “I can see how upsetting this is. Take your time.”','Continue quickly to finish the tasks.','“There’s no need to cry.”'],a:0,why:'Pausing and acknowledging emotion builds the relationship. The tasks can wait a moment.'}]},
+D12:{kind:'mc',k:'O',title:'Drill · Test-day strategy',context:'Choose the best action on test day.',
+ qs:[{q:'In Listening Part A, you miss gap 5 and the speaker is already talking about gap 6.',o:['Leave gap 5, follow the speaker, and guess gap 5 at the end.','Keep thinking about gap 5 until you remember.','Stop writing until the next extract.'],a:0,why:'Never let one gap cost you the next three.'},
+  {q:'With 2 minutes left in Reading Part A, you have 4 blanks.',o:['Write your best guess in each blank.','Leave them blank to avoid mistakes.','Check the spelling of earlier answers instead.'],a:0,why:'A guess can be right; there is no penalty.'},
+  {q:'In Writing, you have finished with 4 minutes left.',o:['Reread as the reader: check facts, purpose, layout and errors.','Add more history from the case notes to reach 250 words.','Stop and wait.'],a:0,why:'A final check protects Content, Purpose and Language.'},
+  {q:'In a role-play, you forget a medical word.',o:['Explain the idea in simple words and keep going.','Stop and apologise several times.','Switch topic.'],a:0,why:'Lay explanation is what the assessors want anyway.'},
+  {q:'The interlocutor raises an issue that is not on your card.',o:['Respond to it briefly and kindly, then return to your tasks.','Ignore it.','Say “That’s not on my card.”'],a:0,why:'Respond to the patient’s cue, then keep the conversation structured.'},
+  {q:'The night before the test',o:['Check your ID, venue or computer set-up, and sleep.','Do a full mock test until midnight.','Learn 100 new words.'],a:0,why:'Arrive rested and prepared.'}]}
+});
+QUIZ.D8G.qs.forEach(x=>{if(!x.q)x.q='Which sentence is best?'});
 const XTOOL={};
 // Writing letters and Speaking role-plays come from the profession file
 const WRITE=Object.assign({},PROF.letters);
@@ -1261,7 +1833,7 @@ let intervals=[];const every=(fn,ms)=>{const id=setInterval(fn,ms);intervals.pus
 function clearAll(){intervals.forEach(clearInterval);intervals=[];TTS.stopAll();if(typeof stopMic==='function')stopMic()}
 /* ---------- listening audio engine (browser voices) ---------- */
 const TTS=(()=>{
-  const OK='speechSynthesis' in window;
+  const OK=!!(window.speechSynthesis&&window.SpeechSynthesisUtterance);
   // macOS novelty / effect voices that sound robotic or silly
   const NOVELTY=/^(Albert|Bad News|Bahh|Bells|Boing|Bubbles|Cellos|Deranged|Good News|Hysterical|Jester|Junior|Organ|Superstar|Trinoids|Whisper|Wobble|Zarvox|Fred|Ralph|Kathy|Princess|Grandma|Grandpa|Eddy|Flo|Reed|Rocko|Sandy|Shelley)\b/i;
   const FEM=/female|google us english|samantha|karen|moira|tessa|victoria|allison|ava\b|susan|zira|aria|jenny|clara|libby|sonia|serena|fiona|catherine|nicky|emma|michelle|natasha|hazel|kate\b|zoe|linda|heather|nora|olivia|sara|amy|joanna|kendra|kimberly|salli|ivy|ruth|nancy|sonia|maisie|isla|sienna/i;
@@ -1626,9 +2198,86 @@ function TestGuide(){const sec=(k,h,body)=>`<section class="panel stack gd" styl
     ul(['Grade B usually means mostly <b>5/6 on the linguistic criteria and 2/3 on the clinical communication criteria</b>.','Only the audio is assessed. Show empathy and listening in words: “I can see why that worries you.”','You are not assessed on medical knowledge, but what you say must be safe and sensible.','Use the two role-plays to show range: open and check understanding in different words each time.']))}
   ${sec('T','About this guide',`<p>We wrote this guide in our own words from the official OET study guides (the OET Ready Study Guide, the Writing guide and the two Speaking guides). Format details can change, so check the official OET website before you book your test.</p><p class="muted" style="font-size:12.5px;margin:0">This course is independent and is not affiliated with or endorsed by OET or Cambridge Boxhill Language Assessment.</p>`)}`}
 /* ---------- Study Hub tools (filled in the next stages) ---------- */
-function Quiz(host){host.innerHTML='<div class="tool"><div class="tool-head"><h3>Practice set</h3></div><div class="tool-body"><p class="muted">Coming soon.</p></div></div>'}
-function Writer(host){Quiz(host)}
-function Speaker(host){Quiz(host)}
+function Writer(host){host.innerHTML='<div class="tool"><div class="tool-head"><h3>Letter</h3></div><div class="tool-body"><p class="muted">Coming soon.</p></div></div>'}
+function Speaker(host){Writer(host)}
+/* ---------- Quiz tool (OET listening / reading sets and drills) ----------
+   A set has kind 'listen' | 'read' | 'mc' and a list of questions (qs). A question is either
+   multiple choice {q, o:[…], a:index, why} or typed {q, a:['accepted', …], why} (note completion, short answer).
+   listen: extracts:[{ctx, audio:[[speaker,text]…], genders, qs}] · each extract has its own Play button and plays once.
+   read:   texts:[{label,title,html}] shown beside the questions; a question can carry sec (an instruction heading).
+           Part B sets put one text and its question together: extracts:[{title,html,qs}]. */
+// spread correct answers evenly across the options (deterministic, so reviews always match)
+function balanceQs(list,seed){let n=seed||0;list.forEach(x=>{if(!x.o||x.fixed||x.o.length<3||x.o.every(o=>/^[A-H]$/.test(o))||x.o.every(o=>/^\$?\d[\d:,.\s%a-z]*$/i.test(o)))return;
+  const len=x.o.length,target=(n++*(len===3?2:3)+1)%len,shift=(x.a-target+len)%len;x.o=x.o.slice(shift).concat(x.o.slice(0,shift));x.a=target});return n}
+const setQs=q=>q.extracts?q.extracts.flatMap(e=>e.qs):q.qs;
+{let n=0;Object.values(QUIZ).forEach(q=>{if(q.extracts)q.qs=setQs(q);if(!q.noBalance)n=balanceQs(q.qs,n)})}
+function qField(x,i,name,typedSize){
+  if(!x.o)return `<input class="gap" type="text" name="${esc(name)}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Answer ${i+1}" ${typedSize?`size="${typedSize}"`:''}>`;
+  if(x.o.every(o=>/^[A-H]$/.test(o)))return `<select class="mk-sel" name="${esc(name)}" aria-label="Answer ${i+1}"><option value=""></option>${x.o.map((o,j)=>`<option value="${j}">${o}</option>`).join('')}</select>`;
+  return x.o.map((o,j)=>`<label class="opt" data-opt="${esc(name)}-${j}"><input type="radio" name="${esc(name)}" value="${j}"><span>${esc(o)}</span></label>`).join('')}
+// one question in a list: note-completion lines put the gap inside the sentence (___)
+function qRow(x,i,name,num){const n=num==null?i+1:num;
+  if(!x.o&&/___/.test(x.q)){const [a,b]=x.q.split('___');return `<div class="qrow note">${x.h?`<div class="nhead">${esc(x.h)}</div>`:''}<label class="nline"><span class="qn">${n}</span><span>${esc(a)}${qField(x,i,name)}${esc(b||'')}</span></label><div class="why" data-why="${esc(name)}" hidden></div></div>`}
+  if(!x.o||x.o.every(o=>/^[A-H]$/.test(o)))return `<div class="qrow">${x.sec?`<p class="qsec">${esc(x.sec)}</p>`:''}<label class="nline"><span class="qn">${n}</span><span>${esc(x.q)} ${qField(x,i,name,x.o?0:24)}</span></label><div class="why" data-why="${esc(name)}" hidden></div></div>`;
+  return `<fieldset class="q qrow" style="border:0;margin:0;padding-inline:0">${x.sec?`<p class="qsec">${esc(x.sec)}</p>`:''}<legend class="qt"><span class="qn">${n}</span> ${esc(x.q)}</legend>${qField(x,i,name)}<div class="why" data-why="${esc(name)}" hidden></div></fieldset>`}
+function readAns(root,x,name){if(!x.o){const el=root.querySelector(`input[name="${CSS.escape(name)}"]`);return el?el.value.trim():''}
+  const sel=root.querySelector(`select[name="${CSS.escape(name)}"]`);if(sel)return sel.value===''?-1:+sel.value;
+  const r=root.querySelector(`input[name="${CSS.escape(name)}"]:checked`);return r?+r.value:-1}
+const isRight=(x,v)=>x.o?v===x.a:typedOk(x,v);
+const ansShown=(x,v)=>x.o?(v>=0?x.o[v]:'(no answer)'):(v||'(no answer)');
+// mark one answered question on screen
+function markQ(root,x,name,v,ok){
+  if(!x.o){const el=root.querySelector(`input[name="${CSS.escape(name)}"]`);if(el){el.readOnly=true;el.classList.add(ok?'ok':'no')}}
+  else{const sel=root.querySelector(`select[name="${CSS.escape(name)}"]`);if(sel){sel.disabled=true;sel.classList.add(ok?'ok':'no')}
+    root.querySelectorAll(`input[name="${CSS.escape(name)}"]`).forEach(r=>r.disabled=true);
+    const R=root.querySelector(`[data-opt="${CSS.escape(name)}-${x.a}"]`);if(R)R.classList.add('right');if(!ok&&v>=0){const W=root.querySelector(`[data-opt="${CSS.escape(name)}-${v}"]`);if(W)W.classList.add('wrong')}}
+  const w=root.querySelector(`[data-why="${CSS.escape(name)}"]`);if(w){w.innerHTML=`${ok?'✓ Correct.':`✗ Answer: <b>${esc(x.o?x.o[x.a]:x.a.slice(0,2).join(' / '))}</b>.${!x.o&&nearMiss(x,v)?' Check your spelling.':''}`} ${esc(x.why||'')}`;w.hidden=false}}
+function textPane(t){return `<article class="rtext">${t.label?`<div class="rlabel">${esc(t.label)}</div>`:''}${t.title?`<h4>${esc(t.title)}</h4>`:''}${t.html}</article>`}
+function Quiz(host,s,key){
+  const q=QUIZ[key];const rk=s.n+':'+key;const prior=results()[rk];
+  let remaining=(q.minutes||0)*60,timerId=null,submitted=false;
+  const kindLabel={listen:'Listening · plays once',read:'Timed reading',mc:'Self-marking drill'}[q.kind]+(q.part?' · Part '+q.part:'');
+  const nm=i=>rk+'-q'+i;let qi=0;
+  const listBlock=(qs,base)=>qs.map((x,j)=>qRow(x,base+j,nm(base+j))).join('');
+  let body='';
+  if(q.kind==='listen'){let base=0;
+    body=q.extracts.map((e,ei)=>{const h=`<section class="extract" data-ex="${ei}">${q.extracts.length>1?`<div class="eyebrow">Extract ${ei+1}</div>`:''}<p class="mk-info sp-prompt"><span class="i" aria-hidden="true">i</span><span>${esc(e.ctx)}</span></p>
+      <div class="player" data-player="${ei}"><button class="btn hub" data-play="${ei}">▶ Play extract${q.extracts.length>1?' '+(ei+1):''} (plays once)</button><div class="wave">${'<i></i>'.repeat(14)}</div><span class="muted" data-pstatus="${ei}" style="font-size:13px">${q.part==='A'?'Read the notes first. Complete them while you listen.':'Read the question'+(e.qs.length>1?'s':'')+' first, then play.'}</span></div>
+      <div class="qlist ${q.part==='A'?'notes':''}">${listBlock(e.qs,base)}</div></section>`;base+=e.qs.length;return h}).join('')}
+  else if(q.kind==='read'&&q.extracts){let base=0;
+    body=q.extracts.map((e,ei)=>{const h=`<section class="extract"><div class="eyebrow">Text ${ei+1}</div>${textPane(e)}<div class="qlist">${listBlock(e.qs,base)}</div></section>`;base+=e.qs.length;return h}).join('')}
+  else if(q.kind==='read'){body=`<div class="mk-panes rpanes"><div class="mk-left"><div class="mk-text">${(q.texts||[]).map(textPane).join('')}</div></div>
+    <div class="mk-right"><p class="mk-info"><span class="i" aria-hidden="true">i</span><span>${esc(q.instr||'Answer the questions. Use the texts on the left.')}</span></p><div class="qlist">${listBlock(q.qs,0)}</div></div></div>`}
+  else body=`${q.context?`<p class="muted">${esc(q.context)}</p>`:''}<div class="qlist">${listBlock(q.qs,0)}</div>`;
+  host.innerHTML=`<div class="tool sp-tool"><div class="mock-bar test"><div class="mb-t"><b>${esc(q.title)}</b><span>${kindLabel}${prior?` · Last score ${prior.score}/${prior.total}`:''}</span></div><span class="spacer"></span>${q.minutes?`<span class="mb-time">Time remaining: <span class="timer" data-timer>${fmt(remaining)}</span></span>`:''}</div>
+   <div class="tool-body">${q.intro?`<p class="notice">${q.intro}</p>`:''}${body}
+   <div class="row"><button class="btn primary" data-submit>Submit answers</button><span class="muted" data-hint style="font-size:13px">${q.kind==='listen'?'You can submit after the audio ends.':''}</span><span class="spacer"></span><button class="btn" data-retake hidden>Retake</button></div>
+   <div data-out></div></div></div>`;
+  const timerEl=host.querySelector('[data-timer]');
+  const startTimer=()=>{if(!q.minutes||timerId)return;timerId=every(()=>{remaining--;if(timerEl){timerEl.textContent=fmt(Math.max(0,remaining));timerEl.classList.toggle('low',remaining<=60)}if(remaining<=0){clearInterval(timerId);grade(true)}},1000)};
+  if(q.kind==='read'){if(host.querySelector('.step-head')||host.dataset.retake)startTimer();else host.addEventListener('stepstart',startTimer,{once:true})}
+  const played=new Set();const sub=host.querySelector('[data-submit]');if(q.kind==='listen')sub.disabled=true;
+  host.querySelectorAll('[data-play]').forEach(btn=>btn.addEventListener('click',()=>{const ei=+btn.dataset.play;if(played.has(ei))return;played.add(ei);btn.disabled=true;
+    const e=q.extracts[ei],st=host.querySelector(`[data-pstatus="${ei}"]`),pl=host.querySelector(`[data-player="${ei}"]`);
+    host.querySelectorAll('[data-play]').forEach(b=>{if(!played.has(+b.dataset.play))b.disabled=true});
+    const done=()=>{pl.classList.remove('playing');host.querySelectorAll('[data-play]').forEach(b=>{if(!played.has(+b.dataset.play))b.disabled=false});
+      if(played.size===q.extracts.length){sub.disabled=false;host.querySelector('[data-hint]').textContent='Check your answers, then submit.'}};
+    if(!TTS.OK){st.textContent='Audio is not available in this browser. Read the transcript once instead.';showTranscript(ei);done();return}
+    pl.classList.add('playing');st.textContent='Playing… listen carefully.';
+    TTS.play(e.audio,{genders:e.genders,onEnd:ok=>{st.textContent=ok?'Audio finished.':'Audio is not available. Read the transcript once instead.';if(!ok)showTranscript(ei);done()}})}));
+  function showTranscript(ei){const sec=host.querySelector(`[data-ex="${ei}"]`);if(!sec||sec.querySelector('[data-transcript]'))return;const d=document.createElement('details');d.className='transcript';d.dataset.transcript='';d.open=!submitted;
+    d.innerHTML='<summary class="eyebrow">Transcript</summary>'+q.extracts[ei].audio.map(([w,t])=>`<p><b>${esc(w)}:</b> ${esc(t)}</p>`).join('');sec.querySelector('.player').after(d)}
+  sub.addEventListener('click',()=>grade(false));
+  function grade(auto){if(submitted)return;submitted=true;if(timerId)clearInterval(timerId);TTS.stopAll();let score=0;
+    q.qs.forEach((x,i)=>{const v=readAns(host,x,nm(i));const ok=isRight(x,v);markQ(host,x,nm(i),v,ok);
+      if(ok)score++;else addLog({session:s.n,skill:q.kind==='read'?'Reading':q.kind==='listen'?'Listening':(q.skill||'Drill'),item:`${q.title}: Q${i+1} ${x.q}`,yours:ansShown(x,v),correct:ansText(x)})});
+    const pct=Math.round(score/q.qs.length*100);const r=results();r[rk]={score,total:q.qs.length,pct,at:Date.now()};store.set('res',r);
+    if(q.kind==='listen')q.extracts.forEach((_,ei)=>showTranscript(ei));
+    sub.hidden=true;host.querySelector('[data-retake]').hidden=false;
+    host.querySelector('[data-out]').innerHTML=`<div class="result"><span class="big mono">${score}/${q.qs.length}</span><div>${auto?'Time is up. Your answers were submitted automatically. ':''}${score===q.qs.length?'Perfect set.':`${q.qs.length-score} miss${q.qs.length-score>1?'es':''} added to your <a href="#log">Error Log</a>, each with a cause you can change.`}${q.kind==='listen'?' Now read the transcript and find the words that prove each answer.':''}</div></div>`}
+  host.querySelector('[data-retake]').addEventListener('click',()=>{host.dataset.retake='1';Quiz(host,s,key)});
+}
+
 function AIFeedback(){return ''}
 function bindAIFeedback(){}
 function SampleLetters(){return ''}
