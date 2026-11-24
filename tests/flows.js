@@ -154,6 +154,15 @@ async function main() {
   await page.waitForTimeout(2600);
   const row2 = gas.sheets.Progress.find(r => r[0] === 'OET-TEST1'); const saved2 = JSON.parse(row2.slice(2).join(''));
   ok('removed mock attempt stays removed after the student syncs again', !saved2.res['mock:M1L'] && saved2.res['2:LA1']);
+  // Teacher's In class tab: teacher guide, projector timer, class poll and the PowerPoint download
+  await tp.evaluate(() => store.set('ttab', 'live')); await tp.goto(base + '#session-4'); await tp.waitForTimeout(500);
+  ok('teacher guide shows five blocks', (await tp.$$('.guide .gblock')).length === 5);
+  await tp.click('[data-widget="ptimer"] [data-pt-set="3"]'); await tp.click('[data-widget="ptimer"] [data-pt-go]'); await tp.waitForTimeout(2200);
+  const tt = await tp.textContent('[data-widget="ptimer"] .pt-big'); ok(`projector timer counts down (${tt})`, /^02:5\d$/.test(tt));
+  await tp.click('[data-widget="cpoll"] [data-cp="B"]'); await tp.click('[data-widget="cpoll"] [data-cp="B"]'); await tp.click('[data-widget="cpoll"] [data-cp="D"]');
+  ok('class poll counts votes', /3 votes/.test(await tp.textContent('[data-widget="cpoll"] .cp-total')) && (await tp.textContent('[data-widget="cpoll"] [data-cp="B"] .cp-n')) === '2');
+  const deckOk = await tp.evaluate(async () => { const r = []; for (let n = 1; n <= 12; n++) { if (!DECK_FILES[n]) return false; r.push((await fetch(DECK_FILES[n])).ok) } return r.every(Boolean) });
+  ok('all 12 PowerPoint decks are listed and download', deckOk);
   ok('no page errors', !errs.length); if (errs.length) console.log(errs.join('\n'));
   await browser.close(); srv.close(); console.log(steps.join('\n'));
 }
